@@ -6,6 +6,10 @@
 <title>Grill Istanbul — Mangal & kebab · Amiens</title>
 <meta name="description" content="Grill Istanbul, grillades turques au charbon à Amiens, 1 boulevard de Bapaume. Sur place, à emporter, en livraison. Salle privée, options vegan, menu enfant.">
 <meta name="theme-color" content="#f2eadc">
+<meta property="og:title" content="Grill Istanbul — Mangal & kebab à Amiens">
+<meta property="og:description" content="Grillades turques au charbon, 1 boulevard de Bapaume. Sur place, à emporter, en livraison.">
+<meta property="og:image" content="images/hero.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23a8281c%27/%3E%3Ctext x=%2732%27 y=%2746%27 font-family=%27Georgia%27 font-style=%27italic%27 font-size=%2738%27 fill=%27%23f2eadc%27 text-anchor=%27middle%27%3EI%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,7 +34,10 @@ img{display:block;max-width:100%}
 .ph{position:relative;overflow:hidden;background:#2a211b}
 .ph::after{content:attr(data-label);position:absolute;left:14px;bottom:12px;font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#f2eadc99}
 .ph:has(img)::after{display:none}
-.ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,#ffffff06 0 2px,transparent 2px 14px)}
+.ph{background:radial-gradient(120% 90% at 30% 100%,#5a2a1a,#241a15 60%)}
+.ph::before{content:"";position:absolute;inset:0;opacity:.09;background-size:56px 56px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 56'%3E%3Cpath d='M28 4l6 14 14-6-6 14 14 6-14 6 6 14-14-6-6 14-6-14-14 6 6-14L0 28l14-6-6-14 14 6z' fill='none' stroke='%23f2eadc' stroke-width='1.2'/%3E%3C/svg%3E")}
+.ph:has(img)::before{display:none}
+.ph img{filter:saturate(1.08) contrast(1.04)}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* nav */
@@ -121,7 +128,7 @@ img{display:block;max-width:100%}
 .tabs button{font:500 14px var(--sans);padding:10px 18px;border-radius:999px;border:1px solid var(--rule);background:none;color:var(--ink);cursor:pointer;transition:.35s var(--ease)}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .list{list-style:none;border-top:1px solid var(--ink)}
-.list li{display:grid;grid-template-columns:70px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--rule);position:relative;cursor:default}
+.list li{isolation:isolate;display:grid;grid-template-columns:70px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--rule);position:relative;cursor:default}
 .list li::before{content:"";position:absolute;inset:0;background:var(--paper2);transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease);z-index:-1}
 .list li:hover::before{transform:scaleY(1)}
 .list .n{font:italic 400 22px var(--serif);color:var(--ink2)}
