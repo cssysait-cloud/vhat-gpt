@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Star Burger — Burgers, tacos, kebab · Amiens</title>
+<meta name="description" content="Star Burger Amiens, 20 Rue d'Abbeville. Burgers, tacos, kebab, paninis. Ouvert jusqu'à 23h. Sur place, à emporter, livraison Uber Eats. 03 22 44 58 78.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0c;--ink:#fff;--mut:#a3a3a3;--y:#ffc21a;--r:#e8261c;--line:#ffffff1f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{overflow-x:clip;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Space Grotesk",system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.d{font-family:Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.01em;font-weight:400}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:15px 28px;font-weight:700;border-radius:14px;transition:transform .25s,box-shadow .25s}
+.btn-y{background:var(--y);color:#111;box-shadow:6px 6px 0 var(--r)}
+.btn-y:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--r)}
+.btn-o{border:2px solid var(--ink)}
+.btn-o:hover{background:var(--ink);color:#111}
+nav{position:fixed;inset:0 0 auto;z-index:50;padding:18px 0;transition:background .3s,padding .3s}
+nav.s{background:#0c0c0ce6;backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.6rem;display:flex;align-items:center;gap:8px}
+.logo i{color:var(--y);font-style:normal;display:inline-block;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* hero */
+.hero{min-height:100svh;display:grid;align-items:center;position:relative;overflow:hidden;padding:120px 0 60px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 50%,#e8261c55,transparent 45%),radial-gradient(circle at 20% 80%,#ffc21a22,transparent 40%);z-index:-1}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);padding:8px 14px;border-radius:99px;font-size:.85rem;margin-bottom:22px}
+.badge b{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 #22c55e;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px #22c55e00}}
+h1{font-size:clamp(3.6rem,12vw,9.5rem);line-height:.86}
+h1 span{display:block;overflow:hidden}
+h1 span i{display:block;font-style:normal;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.9,.2,1) forwards}
+h1 span:nth-child(2) i{animation-delay:.1s;color:var(--y)}
+h1 span:nth-child(3) i{animation-delay:.2s;-webkit-text-stroke:2px var(--ink);color:transparent}
+@keyframes up{to{transform:none}}
+.hero p{color:var(--mut);max-width:440px;margin:24px 0 32px;font-size:1.08rem}
+.pop{opacity:0;animation:pop .8s .6s forwards}
+@keyframes pop{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.ctas{display:flex;gap:14px;flex-wrap:wrap}
+.stage{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.ring{position:absolute;inset:4%;border-radius:50%;border:2px dashed #ffc21a55;animation:spin 30s linear infinite}
+.ring.b{inset:16%;border:2px solid #e8261c44;animation-direction:reverse;animation-duration:22s}
+.burger{position:relative;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffc21a,#e8261c 70%);display:grid;place-items:center;font-size:clamp(6rem,20vw,13rem);animation:float 5s ease-in-out infinite;box-shadow:0 40px 80px -20px #e8261c88;overflow:hidden}
+.burger img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@keyframes float{50%{transform:translateY(-18px) rotate(-3deg)}}
+.chip{position:absolute;background:#111;border:1px solid var(--line);padding:10px 14px;border-radius:14px;font-weight:700;font-size:.9rem;box-shadow:0 10px 30px #0008;animation:float 6s ease-in-out infinite}
+.chip.a{top:8%;left:0}.chip.b{bottom:12%;right:0;animation-delay:-2s}.chip.c{bottom:2%;left:8%;animation-delay:-4s}
+.chip em{color:var(--y);font-style:normal}
+/* tape */
+.tape{background:var(--y);color:#111;transform:rotate(-2deg);margin:0 -20px;padding:16px 0;overflow:hidden;border-block:3px solid #111}
+.tape.r{background:var(--r);color:#fff;transform:rotate(1.5deg);margin-top:-14px}
+.tape div{display:flex;gap:40px;width:max-content;font-size:clamp(1.5rem,4vw,2.6rem);animation:mq 18s linear infinite}
+.tape.r div{animation-direction:reverse}
+.tape span::after{content:"★";margin-left:40px}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{padding:clamp(80px,11vw,130px) 0}
+h2{font-size:clamp(2.6rem,7vw,5.5rem);line-height:.92;margin-bottom:16px}
+h2 em{font-style:normal;color:var(--y)}
+.lead{color:var(--mut);max-width:520px}
+.rv{opacity:0;transform:translateY(50px) scale(.97);transition:opacity .8s,transform .8s cubic-bezier(.2,.9,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* menu */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:40px 0 28px}
+.tabs button{font:700 1rem "Space Grotesk";padding:10px 20px;border-radius:99px;border:2px solid var(--line);background:none;color:var(--ink);cursor:pointer;transition:.25s}
+.tabs button.on,.tabs button:hover{background:var(--y);color:#111;border-color:var(--y)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.item{background:#161616;border:1px solid var(--line);border-radius:22px;padding:18px;transition:transform .35s cubic-bezier(.2,.9,.2,1),border-color .35s,opacity .35s}
+.item:hover{transform:translateY(-8px) rotate(-1deg);border-color:var(--y)}
+.item.hide{display:none}
+.item .im{aspect-ratio:1;border-radius:16px;background:radial-gradient(circle at 40% 35%,#2a2a2a,#151515);display:grid;place-items:center;font-size:4.5rem;margin-bottom:14px;overflow:hidden;position:relative}
+.item .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.item h3{font-size:1.5rem;line-height:1}
+.item p{color:var(--mut);font-size:.88rem;margin-top:6px}
+/* reviews */
+.score{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
+.big{font-size:clamp(7rem,22vw,15rem);line-height:.8;color:var(--y)}
+.stars{font-size:1.8rem;color:var(--y);letter-spacing:4px}
+/* contact */
+.contact{background:var(--r);position:relative;overflow:hidden}
+.contact::after{content:"★";position:absolute;right:-60px;top:-80px;font-size:30rem;line-height:1;color:#ffffff14;animation:spin 40s linear infinite}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0;position:relative;z-index:1}
+.cgrid div{background:#0003;border-radius:18px;padding:22px}
+.cgrid small{opacity:.8;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
+.cgrid p{font-size:1.15rem;font-weight:700}
+.contact .ctas{position:relative;z-index:1}
+.contact .btn-y{box-shadow:6px 6px 0 #111}
+footer{padding:28px 0;color:var(--mut);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fab{display:none}
+@media (max-width:900px){
+ .hero .wrap,.score{grid-template-columns:1fr}
+ .stage{max-width:420px;margin:20px auto 0;width:100%}
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .cgrid{grid-template-columns:1fr}
+ nav .btn{display:none}
+ .fab{display:flex;position:fixed;bottom:16px;left:16px;right:16px;z-index:60}
+ .fab a{flex:1}
+ footer{padding-bottom:100px}
+}
+@media (max-width:480px){.grid{grid-template-columns:1fr 1fr;gap:12px}.item{padding:12px}.item h3{font-size:1.2rem}.ctas .btn{flex:1}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}h1 span i{transform:none}.rv,.pop{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+ <a href="#" class="logo d"><i>★</i>Star Burger</a>
+ <a href="tel:+33322445878" class="btn btn-y" style="padding:10px 18px">📞 03 22 44 58 78</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+ <div>
+  <span class="badge pop" style="animation-delay:.1s"><b></b>Ouvert · ferme à 23h</span>
+  <h1 class="d"><span><i>Burgers.</i></span><span><i>Tacos.</i></span><span><i>Kebab.</i></span></h1>
+  <p class="pop">Le spot street-food d'Amiens. Pains toastés, viande juteuse, frites croustillantes — sur place, à emporter ou livré chez toi.</p>
+  <div class="ctas pop" style="animation-delay:.8s">
+   <a href="tel:+33322445878" class="btn btn-y">Commander par tél →</a>
+   <a href="#menu" class="btn btn-o">Le menu</a>
+  </div>
+ </div>
+ <div class="stage pop" style="animation-delay:.4s" id="stage">
+  <span class="ring"></span><span class="ring b"></span>
+  <div class="burger" id="bg">🍔<img src="images/hero-burger.jpg" alt="Burger Star Burger" onerror="this.remove()"></div>
+  <span class="chip a">⭐ <em>4,2</em> / 5 · 104 avis</span>
+  <span class="chip b">🛵 Livraison <em>Uber Eats</em></span>
+  <span class="chip c">💶 <em>10–20 €</em></span>
+ </div>
+</div></header>
+
+<div class="tape d" aria-hidden="true"><div><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Frites maison</span><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Frites maison</span></div></div>
+<div class="tape r d" aria-hidden="true"><div><span>Ouvert jusqu'à 23h</span><span>20 rue d'Abbeville</span><span>Amiens</span><span>Ouvert jusqu'à 23h</span><span>20 rue d'Abbeville</span><span>Amiens</span></div></div>
+
+<section id="menu"><div class="wrap">
+ <div class="rv"><h2 class="d">Choisis ton <em>camp</em></h2><p class="lead">Quatre familles, zéro compromis. Carte complète en boutique et sur Uber Eats.</p></div>
+ <div class="tabs rv" role="tablist">
+  <button class="on" data-f="all">Tout</button><button data-f="burger">Burgers</button><button data-f="tacos">Tacos</button><button data-f="kebab">Kebab</button><button data-f="panini">Paninis</button>
+ </div>
+ <div class="grid">
+  <div class="item rv" data-c="burger"><div class="im">🍔<img src="images/burger.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Star Burger</h3><p>Double steak, cheddar fondu, sauce maison.</p></div>
+  <div class="item rv" data-c="tacos"><div class="im">🌯<img src="images/tacos.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Tacos XL</h3><p>Viande au choix, frites, sauce fromagère.</p></div>
+  <div class="item rv" data-c="kebab"><div class="im">🥙<img src="images/kebab.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Kebab</h3><p>Pain maison, crudités, sauce blanche ou samouraï.</p></div>
+  <div class="item rv" data-c="panini"><div class="im">🥪<img src="images/panini.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Panini</h3><p>Pressé minute, fromage filant.</p></div>
+  <div class="item rv" data-c="burger"><div class="im">🧀<img src="images/cheese.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Cheese Bacon</h3><p>Bacon croustillant, double cheddar.</p></div>
+  <div class="item rv" data-c="tacos"><div class="im">🔥<img src="images/tacos2.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Tacos Mixte</h3><p>Deux viandes, gratiné au four.</p></div>
+  <div class="item rv" data-c="kebab"><div class="im">🍽️<img src="images/assiette.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Assiette Kebab</h3><p>Viande, frites, salade, sauce.</p></div>
+  <div class="item rv" data-c="panini"><div class="im">🍟<img src="images/frites.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Menu Panini</h3><p>Panini + frites + boisson.</p></div>
+ </div>
+</div></section>
+
+<section style="border-top:1px solid var(--line)"><div class="wrap score">
+ <div class="big d rv" id="sc">0,0</div>
+ <div class="rv"><div class="stars">★★★★☆</div><h2 class="d" style="margin-top:10px">Validé par <em>104</em> clients</h2><p class="lead">Note moyenne Google. Prix moyen de 10 à 20 € par personne, d'après 13 clients.</p></div>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+ <h2 class="d rv">On t'attend.</h2>
+ <div class="cgrid rv">
+  <div><small>Adresse</small><p>20 Rue d'Abbeville<br>80000 Amiens</p></div>
+  <div><small>Téléphone</small><p><a href="tel:+33322445878">03 22 44 58 78</a></p></div>
+  <div><small>Horaires</small><p>Ouvert · ferme à 23h</p></div>
+ </div>
+ <div class="ctas rv">
+  <a class="btn btn-y" href="https://www.google.com/maps/search/?api=1&query=Star+Burger+20+Rue+d'Abbeville+Amiens" target="_blank" rel="noopener">Itinéraire →</a>
+  <a class="btn btn-o" href="https://www.ubereats.com/fr" target="_blank" rel="noopener">Uber Eats</a>
+ </div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Star Burger · Amiens</span><span>Maquette réalisée par Obsidyan Agency</span></div></footer>
+<div class="fab"><a href="tel:+33322445878" class="btn btn-y">📞 Appeler & commander</a></div>
+
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>40),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);
+ if(e.target.id==='sc'){const t0=performance.now();(function f(t){const p=Math.min((t-t0)/1400,1);e.target.textContent=(4.2*(1-Math.pow(1-p,3))).toFixed(1).replace('.',',');p<1&&requestAnimationFrame(f)})(t0)}
+}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.08+'s';io.observe(el)});
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+ document.querySelectorAll('.item').forEach(it=>it.classList.toggle('hide',b.dataset.f!=='all'&&it.dataset.c!==b.dataset.f))});
+// parallax burger
+const st=document.getElementById('stage'),bg=document.getElementById('bg');
+if(matchMedia('(hover:hover)').matches)st.addEventListener('mousemove',e=>{const r=st.getBoundingClientRect();bg.style.translate=`${((e.clientX-r.left)/r.width-.5)*30}px ${((e.clientY-r.top)/r.height-.5)*30}px`});
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grill Istanbul — Grillades au feu de bois · Amiens</title>
+<meta name="description" content="Grill Istanbul, kebab et grillades turques à Amiens, 1 Bd de Bapaume. Sur place, à emporter, livraison. Salle privée, options végétariennes, menu enfant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0b09;--bg2:#1a1210;--ink:#f6ece2;--mut:#b9a798;--gold:#e8b04a;--ember:#e2552b;--line:#ffffff1a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.serif{font-family:Fraunces,Georgia,serif}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:14px 26px;border-radius:999px;font-weight:700;transition:transform .3s,box-shadow .3s,background .3s}
+.btn-p{background:linear-gradient(135deg,var(--gold),var(--ember));color:#1a0d06;box-shadow:0 10px 30px -10px var(--ember)}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 18px 40px -10px var(--ember)}
+.btn-g{border:1px solid var(--line);backdrop-filter:blur(8px)}
+.btn-g:hover{background:#ffffff14}
+/* nav */
+nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .4s,padding .4s;padding:22px 0}
+nav.s{background:#0f0b09d9;backdrop-filter:blur(14px);padding:12px 0;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font:800 1.4rem Fraunces,serif;letter-spacing:.02em}.logo b{color:var(--gold)}
+nav ul{display:flex;gap:28px;list-style:none;font-size:.92rem;color:var(--mut)}
+nav ul a:hover{color:var(--ink)}
+/* hero */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 110%,#e2552b55,transparent 60%),radial-gradient(ellipse at 50% 120%,#e8b04a40,transparent 45%),var(--bg)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.38;transform:scale(1.15);animation:kb 18s ease-out forwards}
+@keyframes kb{to{transform:scale(1)}}
+#embers{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,var(--bg));z-index:-1}
+.eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+h1{font:800 clamp(3rem,11vw,8.5rem)/.92 Fraunces,serif;letter-spacing:-.02em}
+h1 .l{display:block;overflow:hidden}
+h1 .l span{display:inline-block;transform:translateY(110%);animation:up 1.1s cubic-bezier(.2,.8,.2,1) forwards}
+h1 .l:nth-child(2) span{animation-delay:.15s;font-style:italic;font-weight:500;background:linear-gradient(90deg,var(--gold),var(--ember),var(--gold));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:up 1.1s .15s cubic-bezier(.2,.8,.2,1) forwards,sh 6s linear infinite}
+@keyframes up{to{transform:none}}
+@keyframes sh{to{background-position:200%}}
+.hero p{max-width:540px;margin:26px auto 36px;color:var(--mut);font-size:1.1rem}
+.fade{opacity:0;animation:fi 1s .7s forwards}
+@keyframes fi{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.scroll{position:absolute;bottom:28px;left:50%;width:24px;height:40px;border:1.5px solid var(--mut);border-radius:20px;transform:translateX(-50%)}
+.scroll::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;background:var(--gold);border-radius:2px;transform:translateX(-50%);animation:sc 1.8s infinite}
+@keyframes sc{to{transform:translate(-50%,14px);opacity:0}}
+/* marquee */
+.mq{border-block:1px solid var(--line);padding:22px 0;overflow:hidden;background:var(--bg2)}
+.mq div{display:flex;gap:48px;width:max-content;animation:mq 28s linear infinite;font:500 italic clamp(1.4rem,3vw,2.2rem) Fraunces,serif;color:var(--mut)}
+.mq span::after{content:"✦";margin-left:48px;color:var(--ember);font-style:normal}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* sections */
+section{padding:clamp(80px,12vw,140px) 0}
+h2{font:800 clamp(2.2rem,5.5vw,4rem)/1.02 Fraunces,serif;letter-spacing:-.01em;margin-bottom:18px}
+h2 em{color:var(--gold);font-weight:500}
+.lead{color:var(--mut);max-width:560px}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.ph{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(160deg,#3a1d12,#120b08);border:1px solid var(--line)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s}
+.ph:hover img{transform:scale(1.06)}
+.ph .tag{position:absolute;left:18px;bottom:18px;background:#0f0b09cc;backdrop-filter:blur(8px);padding:10px 16px;border-radius:12px;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:22px}
+.stat b{display:block;font:800 2.2rem Fraunces,serif;color:var(--gold)}
+.stat small{color:var(--mut)}
+/* menu */
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.card{position:relative;border-radius:22px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .5s;transform-style:preserve-3d}
+.card:hover{border-color:#e8b04a66}
+.card .ph{aspect-ratio:4/3;border-radius:0;border:0}
+.card div.t{padding:22px 24px 26px}
+.card h3{font:800 1.45rem Fraunces,serif;margin-bottom:6px;display:flex;justify-content:space-between;gap:12px}
+.card h3 span{color:var(--gold);font:700 1rem Inter}
+.card p{color:var(--mut);font-size:.94rem}
+/* features */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.feat{padding:32px;border-radius:22px;background:linear-gradient(160deg,#ffffff0a,transparent);border:1px solid var(--line)}
+.feat i{font-style:normal;font-size:2rem;display:block;margin-bottom:14px}
+.feat h3{font:800 1.3rem Fraunces,serif;margin-bottom:6px}
+.feat p{color:var(--mut);font-size:.94rem}
+/* cta */
+.final{text-align:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,#e2552b40,transparent 65%)}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:48px 0 40px;text-align:left}
+.info div{border:1px solid var(--line);border-radius:18px;padding:22px}
+.info small{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sticky{display:none}
+@media (max-width:900px){
+ nav ul{display:none}
+ .split{grid-template-columns:1fr;gap:40px}
+ .menu,.feats,.info{grid-template-columns:1fr}
+ .ph{aspect-ratio:4/3}
+ .sticky{display:flex;position:fixed;left:16px;right:16px;bottom:16px;z-index:60;justify-content:center;transform:translateY(120px);transition:transform .5s}
+ .sticky.on{transform:none}
+ footer{padding-bottom:96px}
+}
+@media (max-width:480px){.stats{grid-template-columns:1fr}.btn{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}h1 .l span{transform:none}.rv,.fade{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav id="nav"><div class="wrap">
+ <a href="#" class="logo">Grill <b>Istanbul</b></a>
+ <ul><li><a href="#maison">La maison</a></li><li><a href="#carte">La carte</a></li><li><a href="#infos">Infos</a></li></ul>
+ <a href="#infos" class="btn btn-p" style="padding:10px 20px;font-size:.9rem">Commander</a>
+</div></nav>
+
+<header class="hero">
+ <div class="hero-bg"><img src="images/hero.jpg" alt="" onerror="this.remove()"></div>
+ <canvas id="embers"></canvas>
+ <div class="wrap">
+  <span class="eyebrow fade" style="animation-delay:.2s">Amiens · Grillades turques</span>
+  <h1><span class="l"><span>Le feu,</span></span><span class="l"><span>la tradition.</span></span></h1>
+  <p class="fade">Brochettes marinées, kebab tranché minute et pains chauds. Une cuisine d'Istanbul servie au cœur d'Amiens, sur place, à emporter ou livrée.</p>
+  <div class="ctas fade" style="animation-delay:.9s">
+   <a href="#infos" class="btn btn-p">Commander à emporter →</a>
+   <a href="#carte" class="btn btn-g">Voir la carte</a>
+  </div>
+ </div>
+ <span class="scroll" aria-hidden="true"></span>
+</header>
+
+<div class="mq" aria-hidden="true"><div>
+ <span>Adana kebab</span><span>Brochettes au charbon</span><span>Döner tranché minute</span><span>Lahmacun</span><span>Pain maison</span>
+ <span>Adana kebab</span><span>Brochettes au charbon</span><span>Döner tranché minute</span><span>Lahmacun</span><span>Pain maison</span>
+</div></div>
+
+<section id="maison"><div class="wrap split">
+ <div class="rv">
+  <span class="eyebrow">La maison</span>
+  <h2>Une vitrine qui <em>donne faim</em>.</h2>
+  <p class="lead">Chez Grill Istanbul, tout se voit : les brochettes alignées en vitrine, la broche qui tourne, la braise qui crépite. Des viandes marinées sur place, grillées à la commande, dans une salle chaleureuse pensée pour les familles comme pour les groupes.</p>
+  <div class="stats">
+   <div class="stat"><b data-c="486">0</b><small>avis Google</small></div>
+   <div class="stat"><b>10–20€</b><small>par personne</small></div>
+   <div class="stat"><b>3</b><small>sur place · emporter · livraison</small></div>
+  </div>
+ </div>
+ <div class="ph rv"><img src="images/vitrine.jpg" alt="Vitrine de brochettes marinées" onerror="this.remove()"><span class="tag">🔥 Grillé à la commande</span></div>
+</div></section>
+
+<section id="carte" style="background:var(--bg2)"><div class="wrap">
+ <div class="rv"><span class="eyebrow">La carte</span><h2>Nos <em>incontournables</em></h2><p class="lead">Une sélection de nos spécialités. Carte complète disponible sur place et sur les plateformes de livraison.</p></div>
+ <div class="menu">
+  <article class="card rv"><div class="ph"><img src="images/brochettes.jpg" alt="Assiette de brochettes" onerror="this.remove()"></div><div class="t"><h3>Assiette brochettes<span>dès 13€</span></h3><p>Poulet, agneau ou mixte, riz pilaf, salade, sauce maison.</p></div></article>
+  <article class="card rv"><div class="ph"><img src="images/doner.jpg" alt="Döner kebab" onerror="this.remove()"></div><div class="t"><h3>Döner Istanbul<span>dès 8€</span></h3><p>Viande tranchée à la broche, pain maison croustillant, crudités.</p></div></article>
+  <article class="card rv"><div class="ph"><img src="images/durum.jpg" alt="Dürüm roulé" onerror="this.remove()"></div><div class="t"><h3>Dürüm grillé<span>dès 9€</span></h3><p>Galette roulée et grillée, garniture généreuse, frites.</p></div></article>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <div class="rv"><span class="eyebrow">Pour tous</span><h2>Une table pour <em>chaque occasion</em></h2></div>
+ <div class="feats">
+  <div class="feat rv"><i>🥂</i><h3>Salle privée</h3><p>Anniversaires, repas d'équipe, fêtes de famille : réservez notre salle privative.</p></div>
+  <div class="feat rv"><i>🌿</i><h3>Options vegan</h3><p>Des plats 100% végétaux à la carte : de quoi régaler tout le monde.</p></div>
+  <div class="feat rv"><i>🧒</i><h3>Menu enfant</h3><p>Des portions adaptées aux plus petits, avec boisson et dessert.</p></div>
+ </div>
+</div></section>
+
+<section id="infos" class="final"><div class="wrap">
+ <div class="rv"><span class="eyebrow">Venez nous voir</span><h2>À table, <em>Amiens.</em></h2></div>
+ <div class="info rv">
+  <div><small>Adresse</small><p>1 Bd de Bapaume<br>80000 Amiens</p></div>
+  <div><small>Ouverture</small><p>Horaires : à compléter<br>Sur place · Emporter · Livraison</p></div>
+  <div><small>Budget</small><p>10 – 20 € par personne<br>Groupes bienvenus</p></div>
+ </div>
+ <div class="ctas rv">
+  <a class="btn btn-p" href="https://www.google.com/maps/search/?api=1&query=Grill+Istanbul+1+Bd+de+Bapaume+Amiens" target="_blank" rel="noopener">Itinéraire →</a>
+  <a class="btn btn-g" href="#">Commander en livraison</a>
+ </div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Grill Istanbul · Amiens</span><span>Maquette réalisée par Obsidyan Agency</span></div></footer>
+<a href="#infos" class="btn btn-p sticky" id="sticky">Commander maintenant →</a>
+
+<script>
+const nav=document.getElementById('nav'),st=document.getElementById('sticky');
+addEventListener('scroll',()=>{const y=scrollY;nav.classList.toggle('s',y>40);st.classList.toggle('on',y>innerHeight*.7)},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);
+ const c=e.target.querySelector('[data-c]');if(c){const n=+c.dataset.c,t0=performance.now();(function f(t){const p=Math.min((t-t0)/1600,1);c.textContent=Math.round(n*(1-Math.pow(1-p,3)));p<1&&requestAnimationFrame(f)})(t0)}
+}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.12+'s';io.observe(el)});
+// tilt cards (desktop)
+if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.card').forEach(c=>{
+ c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-6px)`});
+ c.addEventListener('mouseleave',()=>c.style.transform='')});
+// embers
+const cv=document.getElementById('embers'),ctx=cv.getContext('2d');let W,H,P=[];
+function rs(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio}rs();addEventListener('resize',rs);
+const N=innerWidth<700?35:80,mk=()=>({x:Math.random()*W,y:H+Math.random()*H*.5,r:(Math.random()*2+.6)*devicePixelRatio,v:(Math.random()*.8+.3)*devicePixelRatio,w:Math.random()*6.28,l:Math.random()*.6+.4});
+for(let i=0;i<N;i++)P.push(mk());
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)(function loop(){ctx.clearRect(0,0,W,H);
+ for(const p of P){p.y-=p.v;p.w+=.02;p.x+=Math.sin(p.w)*.5;if(p.y<-10)Object.assign(p,mk());
+  const a=Math.max(0,p.y/H)*p.l;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle=`rgba(${232},${120+p.r*20|0},50,${a})`;ctx.shadowBlur=12;ctx.shadowColor='#e2552b';ctx.fill()}
+ requestAnimationFrame(loop)})();
+</script>
+</body>
+</html>
