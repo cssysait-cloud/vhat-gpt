@@ -4,189 +4,308 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Star Burger — Burgers, tacos, kebab · Amiens</title>
-<meta name="description" content="Star Burger Amiens, 20 Rue d'Abbeville. Burgers, tacos, kebab, paninis. Ouvert jusqu'à 23h. Sur place, à emporter, livraison Uber Eats. 03 22 44 58 78.">
+<meta name="description" content="Star Burger, 20 rue d'Abbeville à Amiens. Burgers, tacos, kebab et paninis jusqu'à 23h. Sur place, à emporter, livraison Uber Eats. 03 22 44 58 78.">
+<meta name="theme-color" content="#111010">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0c0c0c;--ink:#fff;--mut:#a3a3a3;--y:#ffc21a;--r:#e8261c;--line:#ffffff1f}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:clip}
-body{overflow-x:clip;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Space Grotesk",system-ui,sans-serif;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
-.d{font-family:Anton,Impact,sans-serif;text-transform:uppercase;letter-spacing:.01em;font-weight:400}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:15px 28px;font-weight:700;border-radius:14px;transition:transform .25s,box-shadow .25s}
-.btn-y{background:var(--y);color:#111;box-shadow:6px 6px 0 var(--r)}
-.btn-y:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--r)}
-.btn-o{border:2px solid var(--ink)}
-.btn-o:hover{background:var(--ink);color:#111}
-nav{position:fixed;inset:0 0 auto;z-index:50;padding:18px 0;transition:background .3s,padding .3s}
-nav.s{background:#0c0c0ce6;backdrop-filter:blur(12px);padding:10px 0;border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:1.6rem;display:flex;align-items:center;gap:8px}
-.logo i{color:var(--y);font-style:normal;display:inline-block;animation:spin 8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* hero */
-.hero{min-height:100svh;display:grid;align-items:center;position:relative;overflow:hidden;padding:120px 0 60px}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 50%,#e8261c55,transparent 45%),radial-gradient(circle at 20% 80%,#ffc21a22,transparent 40%);z-index:-1}
-.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
-.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);padding:8px 14px;border-radius:99px;font-size:.85rem;margin-bottom:22px}
-.badge b{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 #22c55e;animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 10px #22c55e00}}
-h1{font-size:clamp(3.6rem,12vw,9.5rem);line-height:.86}
-h1 span{display:block;overflow:hidden}
-h1 span i{display:block;font-style:normal;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.9,.2,1) forwards}
-h1 span:nth-child(2) i{animation-delay:.1s;color:var(--y)}
-h1 span:nth-child(3) i{animation-delay:.2s;-webkit-text-stroke:2px var(--ink);color:transparent}
-@keyframes up{to{transform:none}}
-.hero p{color:var(--mut);max-width:440px;margin:24px 0 32px;font-size:1.08rem}
-.pop{opacity:0;animation:pop .8s .6s forwards}
-@keyframes pop{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.ctas{display:flex;gap:14px;flex-wrap:wrap}
-.stage{position:relative;aspect-ratio:1;display:grid;place-items:center}
-.ring{position:absolute;inset:4%;border-radius:50%;border:2px dashed #ffc21a55;animation:spin 30s linear infinite}
-.ring.b{inset:16%;border:2px solid #e8261c44;animation-direction:reverse;animation-duration:22s}
-.burger{position:relative;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffc21a,#e8261c 70%);display:grid;place-items:center;font-size:clamp(6rem,20vw,13rem);animation:float 5s ease-in-out infinite;box-shadow:0 40px 80px -20px #e8261c88;overflow:hidden}
-.burger img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-@keyframes float{50%{transform:translateY(-18px) rotate(-3deg)}}
-.chip{position:absolute;background:#111;border:1px solid var(--line);padding:10px 14px;border-radius:14px;font-weight:700;font-size:.9rem;box-shadow:0 10px 30px #0008;animation:float 6s ease-in-out infinite}
-.chip.a{top:8%;left:0}.chip.b{bottom:12%;right:0;animation-delay:-2s}.chip.c{bottom:2%;left:8%;animation-delay:-4s}
-.chip em{color:var(--y);font-style:normal}
-/* tape */
-.tape{background:var(--y);color:#111;transform:rotate(-2deg);margin:0 -20px;padding:16px 0;overflow:hidden;border-block:3px solid #111}
-.tape.r{background:var(--r);color:#fff;transform:rotate(1.5deg);margin-top:-14px}
-.tape div{display:flex;gap:40px;width:max-content;font-size:clamp(1.5rem,4vw,2.6rem);animation:mq 18s linear infinite}
-.tape.r div{animation-direction:reverse}
-.tape span::after{content:"★";margin-left:40px}
-@keyframes mq{to{transform:translateX(-50%)}}
-section{padding:clamp(80px,11vw,130px) 0}
-h2{font-size:clamp(2.6rem,7vw,5.5rem);line-height:.92;margin-bottom:16px}
-h2 em{font-style:normal;color:var(--y)}
-.lead{color:var(--mut);max-width:520px}
-.rv{opacity:0;transform:translateY(50px) scale(.97);transition:opacity .8s,transform .8s cubic-bezier(.2,.9,.2,1)}
-.rv.in{opacity:1;transform:none}
-/* menu */
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:40px 0 28px}
-.tabs button{font:700 1rem "Space Grotesk";padding:10px 20px;border-radius:99px;border:2px solid var(--line);background:none;color:var(--ink);cursor:pointer;transition:.25s}
-.tabs button.on,.tabs button:hover{background:var(--y);color:#111;border-color:var(--y)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.item{background:#161616;border:1px solid var(--line);border-radius:22px;padding:18px;transition:transform .35s cubic-bezier(.2,.9,.2,1),border-color .35s,opacity .35s}
-.item:hover{transform:translateY(-8px) rotate(-1deg);border-color:var(--y)}
-.item.hide{display:none}
-.item .im{aspect-ratio:1;border-radius:16px;background:radial-gradient(circle at 40% 35%,#2a2a2a,#151515);display:grid;place-items:center;font-size:4.5rem;margin-bottom:14px;overflow:hidden;position:relative}
-.item .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.item h3{font-size:1.5rem;line-height:1}
-.item p{color:var(--mut);font-size:.88rem;margin-top:6px}
-/* reviews */
-.score{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
-.big{font-size:clamp(7rem,22vw,15rem);line-height:.8;color:var(--y)}
-.stars{font-size:1.8rem;color:var(--y);letter-spacing:4px}
-/* contact */
-.contact{background:var(--r);position:relative;overflow:hidden}
-.contact::after{content:"★";position:absolute;right:-60px;top:-80px;font-size:30rem;line-height:1;color:#ffffff14;animation:spin 40s linear infinite}
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0;position:relative;z-index:1}
-.cgrid div{background:#0003;border-radius:18px;padding:22px}
-.cgrid small{opacity:.8;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
-.cgrid p{font-size:1.15rem;font-weight:700}
-.contact .ctas{position:relative;z-index:1}
-.contact .btn-y{box-shadow:6px 6px 0 #111}
-footer{padding:28px 0;color:var(--mut);font-size:.85rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.fab{display:none}
-@media (max-width:900px){
- .hero .wrap,.score{grid-template-columns:1fr}
- .stage{max-width:420px;margin:20px auto 0;width:100%}
- .grid{grid-template-columns:repeat(2,1fr)}
- .cgrid{grid-template-columns:1fr}
- nav .btn{display:none}
- .fab{display:flex;position:fixed;bottom:16px;left:16px;right:16px;z-index:60}
- .fab a{flex:1}
- footer{padding-bottom:100px}
+:root{
+ --blk:#111010;--cream:#f3ecdf;--red:#d42a1f;--mus:#f2b01e;--grey:#8b857c;--rule:#f3ecdf26;
+ --d:"Anton",Impact,sans-serif;--b:"Archivo",system-ui,sans-serif;
+ --ease:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.56,.64,1);--g:clamp(16px,4vw,48px)
 }
-@media (max-width:480px){.grid{grid-template-columns:1fr 1fr;gap:12px}.item{padding:12px}.item h3{font-size:1.2rem}.ctas .btn{flex:1}}
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}h1 span i{transform:none}.rv,.pop{opacity:1;transform:none}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip}
+body{background:var(--blk);color:var(--cream);font:400 17px/1.5 var(--b);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.d{font-family:var(--d);font-weight:400;text-transform:uppercase;letter-spacing:.005em}
+.eb{font:700 12px/1 var(--b);letter-spacing:.16em;text-transform:uppercase}
+
+.ph{position:relative;overflow:hidden;background:#27231f}
+.ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,#ffffff07 0 2px,transparent 2px 12px)}
+.ph::after{content:attr(data-label);position:absolute;left:14px;bottom:12px;font:700 11px/1 var(--b);letter-spacing:.14em;text-transform:uppercase;color:#f3ecdf88}
+.ph:has(img)::after{display:none}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 26px;font:700 15px/1 var(--b);border-radius:999px;transition:transform .4s var(--spring),background .3s,color .3s}
+.btn:hover{transform:scale(1.04) rotate(-1deg)}
+.btn.y{background:var(--mus);color:var(--blk)}
+.btn.r{background:var(--red);color:var(--cream)}
+.btn.o{box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.o:hover{background:var(--cream);color:var(--blk)}
+
+/* top */
+.top{position:fixed;inset:0 0 auto;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px var(--g);transition:background .3s,padding .3s}
+.top.solid{background:#111010f0;backdrop-filter:blur(10px);padding:10px var(--g);border-bottom:1px solid var(--rule)}
+.logo{display:flex;align-items:center;gap:10px;font:400 22px/1 var(--d);text-transform:uppercase}
+.logo svg{width:28px;height:28px;color:var(--red)}
+.top nav{display:flex;gap:28px;font-size:14px;font-weight:500}
+.top nav a:hover{color:var(--mus)}
+.open{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--grey)}
+.open i{width:8px;height:8px;border-radius:50%;background:#3fbf5f;animation:blink 1.6s steps(2) infinite}
+@keyframes blink{50%{opacity:.3}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:110px var(--g) 28px;overflow:hidden}
+.word{font:400 clamp(110px,24.5vw,420px)/.8 var(--d);text-transform:uppercase;letter-spacing:-.01em;display:flex;justify-content:space-between;position:relative;z-index:1;pointer-events:none;text-shadow:0 10px 40px #0006}
+.word span{display:inline-block;transform:translateY(110%);clip-path:inset(0 0 0 0)}
+.word.l2{color:transparent;-webkit-text-stroke:2px var(--cream)}
+.go .word span{transform:none;transition:transform 1.1s var(--ease)}
+.word span:nth-child(2){transition-delay:.04s!important}.word span:nth-child(3){transition-delay:.08s!important}.word span:nth-child(4){transition-delay:.12s!important}.word span:nth-child(5){transition-delay:.16s!important}.word span:nth-child(6){transition-delay:.2s!important}
+.wrap-l{overflow:hidden}
+.hero-img{position:absolute;left:50%;top:50%;width:min(32vw,430px);aspect-ratio:4/5;transform:translate(-50%,-50%) rotate(-4deg) scale(.6);opacity:0;z-index:0;transition:transform 1.3s var(--spring) .45s,opacity .6s .45s;box-shadow:0 30px 80px -20px #000}
+.go .hero-img{transform:translate(-50%,-50%) rotate(-4deg);opacity:1}
+.hero-img .ph{position:absolute;inset:0}
+.sticker{position:absolute;z-index:3;display:grid;place-items:center;text-align:center;border-radius:50%;font:400 22px/1 var(--d);text-transform:uppercase;transform:scale(0) rotate(-30deg);transition:transform .9s var(--spring)}
+.go .sticker{transform:scale(1) rotate(var(--r,0deg))}
+.s1{width:132px;height:132px;background:var(--mus);color:var(--blk);right:calc(50% - min(16vw,215px) - 60px);top:22%;--r:12deg;transition-delay:1s}
+.s1 b{display:block;font-size:44px}
+.s2{width:116px;height:116px;background:var(--red);left:calc(50% - min(16vw,215px) - 52px);top:58%;--r:-10deg;transition-delay:1.15s;font-size:18px}
+.star{position:absolute;inset:-6px;color:inherit}
+.hero-foot{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:28px;flex-wrap:wrap;opacity:0;transition:opacity 1s 1.2s}
+.go .hero-foot{opacity:1}
+.hero-foot p{max-width:380px;color:#f3ecdfb3}
+
+/* tapes */
+.tapes{position:relative;height:200px;overflow:hidden;display:grid;place-items:center}
+.tape{position:absolute;left:-5%;width:110%;padding:16px 0;display:flex;overflow:hidden;font:400 clamp(28px,4vw,48px)/1 var(--d);text-transform:uppercase;border-block:2px solid var(--blk)}
+.tape div{display:flex;flex-shrink:0;animation:tk 22s linear infinite}
+.tape span{display:flex;align-items:center;gap:28px;padding-right:28px}
+.tape span::after{content:"";width:26px;height:26px;background:currentColor;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.tape.a{background:var(--mus);color:var(--blk);transform:rotate(-4deg)}
+.tape.b{background:var(--red);color:var(--cream);transform:rotate(3deg)}
+.tape.b div{animation-direction:reverse}
+@keyframes tk{to{transform:translateX(-100%)}}
+
+/* exploded burger */
+.xp{height:320vh;background:var(--cream);color:var(--blk);position:relative}
+.xp-pin{position:sticky;top:0;height:100svh;display:grid;grid-template-columns:1fr 1.2fr 1fr;align-items:center;padding:0 var(--g);overflow:hidden}
+.xp h2{font:400 clamp(54px,7vw,116px)/.98 var(--d);text-transform:uppercase}
+.xp h2 em{font-style:normal;color:var(--red)}
+.xp .intro p{margin-top:22px;max-width:320px;color:#4a443d}
+.stack{position:relative;height:min(78svh,640px)}
+.layer{position:absolute;left:50%;top:50%;width:min(100%,440px);transform:translate(-50%,-50%);will-change:transform}
+.layer svg{width:100%;height:auto;display:block;overflow:visible}
+.labels{list-style:none;display:grid;gap:4px;justify-self:end;text-align:right}
+.labels li{font:400 clamp(24px,2.4vw,36px)/1.15 var(--d);text-transform:uppercase;opacity:.18;transform:translateX(16px);transition:opacity .5s,transform .6s var(--ease)}
+.labels li.on{opacity:1;transform:none}
+.labels li small{display:block;font:500 13px/1.3 var(--b);text-transform:none;color:#6a6258;letter-spacing:0;margin-bottom:12px}
+
+/* menu */
+.menu{padding:clamp(110px,14vw,190px) 0}
+.menu-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 var(--g);margin-bottom:48px;flex-wrap:wrap}
+.menu-head h2{font:400 clamp(64px,10vw,170px)/.9 var(--d);text-transform:uppercase}
+.menu-head h2 em{font-style:normal;color:var(--mus)}
+.menu-head p{max-width:360px;color:#f3ecdfa6}
+.rows{list-style:none;border-top:1px solid var(--rule)}
+.row{position:relative;display:grid;grid-template-columns:90px 1fr auto;align-items:center;gap:24px;padding:22px var(--g);border-bottom:1px solid var(--rule);overflow:hidden;cursor:default;isolation:isolate}
+.row::before{content:"";position:absolute;inset:0;background:var(--mus);transform:translateY(101%);transition:transform .55s var(--ease);z-index:-1}
+.row:hover::before{transform:none}
+.row:hover{color:var(--blk)}
+.row .n{font:700 14px var(--b);color:var(--grey);transition:color .3s}
+.row:hover .n{color:var(--blk)}
+.row h3{font:400 clamp(64px,10vw,160px)/.9 var(--d);text-transform:uppercase;transition:transform .6s var(--ease)}
+.row:hover h3{transform:translateX(24px)}
+.row p{max-width:280px;font-size:15px;text-align:right;color:#f3ecdfa6;transition:color .3s}
+.row:hover p{color:var(--blk)}
+.row .thumb{position:absolute;right:calc(var(--g) + 300px);top:50%;width:220px;height:150px;transform:translate(0,-50%) rotate(6deg) scale(.4);opacity:0;transition:transform .6s var(--spring),opacity .3s;pointer-events:none;z-index:1}
+.row:hover .thumb{transform:translate(0,-50%) rotate(-5deg) scale(1);opacity:1}
+.menu-note{padding:22px var(--g) 0;font-size:13px;color:var(--grey)}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--rule)}
+.nums div{padding:48px var(--g) 40px;border-right:1px solid var(--rule)}
+.nums div:last-child{border-right:0}
+.nums b{display:block;white-space:nowrap;font:400 clamp(44px,5.6vw,96px)/.9 var(--d);color:var(--mus)}
+.nums span{font-size:14px;color:#f3ecdfa6}
+
+/* order */
+.order{padding:clamp(110px,14vw,190px) var(--g) 0}
+.order h2{font:400 clamp(60px,10vw,170px)/.92 var(--d);text-transform:uppercase;margin-bottom:56px}
+.order h2 em{font-style:normal;color:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{position:relative;min-height:300px;padding:28px;border-radius:24px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:transform .5s var(--spring)}
+.card:hover{transform:translateY(-8px) rotate(-1deg)}
+.card .eb{opacity:.75}
+.card h3{font:400 clamp(36px,3.6vw,54px)/.95 var(--d);text-transform:uppercase}
+.card .arr{position:absolute;right:24px;top:24px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:currentColor;transition:transform .5s var(--spring)}
+.card .arr svg{width:20px;height:20px}
+.card:hover .arr{transform:rotate(-45deg)}
+.c1{background:var(--mus);color:var(--blk)}.c1 .arr svg{color:var(--mus)}
+.c2{background:var(--red);color:var(--cream)}.c2 .arr svg{color:var(--red)}
+.c3{background:var(--cream);color:var(--blk)}.c3 .arr svg{color:var(--cream)}
+.map{margin-top:14px;height:380px;border-radius:24px;overflow:hidden;position:relative;filter:grayscale(1) invert(.92) contrast(.9)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.big{font:400 clamp(60px,17.6vw,340px)/.8 var(--d);text-transform:uppercase;text-align:center;margin-top:clamp(80px,10vw,140px);color:var(--red);white-space:nowrap;transform:translateY(.1em)}
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px var(--g);font-size:13px;color:var(--grey);border-top:1px solid var(--rule);position:relative;background:var(--blk)}
+
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+.fab{display:none}
+@media (max-width:960px){
+ .top nav,.open{display:none}
+ .hero{justify-content:center;padding-top:96px}
+ .hero-img{position:relative;left:auto;top:auto;width:58vw;margin:0 auto 18px;transform:rotate(-4deg) scale(.6);order:-1}
+ .go .hero-img{transform:rotate(-4deg)}
+ .s1{width:100px;height:100px;right:8px;top:90px;font-size:18px}.s1 b{font-size:34px}
+ .s2{width:92px;height:92px;left:8px;top:calc(96px + 60vw);font-size:14px}
+ .word.l2{-webkit-text-stroke:1.5px var(--cream)}
+ .xp{height:auto}
+ .xp-pin{position:static;height:auto;grid-template-columns:1fr;gap:32px;padding:90px var(--g)}
+ .stack{height:110vw}
+ .labels{justify-self:start;text-align:left;grid-template-columns:1fr 1fr;gap:10px 16px}
+ .labels li{opacity:1;transform:none;font-size:22px}
+ .row{grid-template-columns:40px 1fr;padding-block:18px}
+ .row p{grid-column:2;text-align:left}
+ .row .thumb{display:none}
+ .nums{grid-template-columns:1fr 1fr}
+ .nums div:nth-child(2){border-right:0}
+ .nums div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ .cards{grid-template-columns:1fr}
+ .card{min-height:220px}
+ .fab{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:8px;transform:translateY(140%);transition:transform .6s var(--ease)}
+ .fab.on{transform:none}
+ .fab a{flex:1}
+ footer{padding-bottom:96px}
+}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .word span,.rv{transform:none!important;opacity:1}
+ .hero-img,.sticker,.hero-foot{opacity:1}
+}
 </style>
 </head>
 <body>
-<nav id="nav"><div class="wrap">
- <a href="#" class="logo d"><i>★</i>Star Burger</a>
- <a href="tel:+33322445878" class="btn btn-y" style="padding:10px 18px">📞 03 22 44 58 78</a>
-</div></nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="st" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6 5.6 21.1 7 14l-5.3-5 7.2-.9z"/></symbol><symbol id="ar" viewBox="0 0 20 20"><path d="M3 10h14M11 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol></svg>
 
-<header class="hero"><div class="wrap">
- <div>
-  <span class="badge pop" style="animation-delay:.1s"><b></b>Ouvert · ferme à 23h</span>
-  <h1 class="d"><span><i>Burgers.</i></span><span><i>Tacos.</i></span><span><i>Kebab.</i></span></h1>
-  <p class="pop">Le spot street-food d'Amiens. Pains toastés, viande juteuse, frites croustillantes — sur place, à emporter ou livré chez toi.</p>
-  <div class="ctas pop" style="animation-delay:.8s">
-   <a href="tel:+33322445878" class="btn btn-y">Commander par tél →</a>
-   <a href="#menu" class="btn btn-o">Le menu</a>
+<header class="top" id="top">
+ <a href="#" class="logo"><svg><use href="#st"/></svg>Star Burger</a>
+ <nav><a href="#menu">Le menu</a><a href="#burger">Le burger</a><a href="#commander">Commander</a></nav>
+ <span class="open"><i></i>Ouvert · ferme à 23h</span>
+ <a href="tel:+33322445878" class="btn y" style="padding:12px 20px">03 22 44 58 78</a>
+</header>
+
+<main>
+<section class="hero">
+ <div class="hero-img"><div class="ph" data-label="Photo · burger signature"><img src="images/hero.jpg" alt="Burger signature Star Burger" onerror="this.remove()"></div></div>
+ <div class="sticker s1"><span><b>4,2</b>sur Google</span></div>
+ <div class="sticker s2"><span>Ouvert<br>jusqu'à<br>23h</span></div>
+ <div class="wrap-l"><h1 class="word" aria-label="Star Burger"><span>S</span><span>T</span><span>A</span><span>R</span></h1></div>
+ <div class="wrap-l"><p class="word l2" aria-hidden="true"><span>B</span><span>U</span><span>R</span><span>G</span><span>E</span><span>R</span></p></div>
+ <div class="hero-foot">
+  <p>Burgers, tacos, kebab et paninis, rue d'Abbeville. Sur place, à emporter ou livrés chez vous, tous les soirs jusqu'à 23h.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+   <a href="tel:+33322445878" class="btn y">Commander par téléphone</a>
+   <a href="#menu" class="btn o">Voir le menu</a>
   </div>
  </div>
- <div class="stage pop" style="animation-delay:.4s" id="stage">
-  <span class="ring"></span><span class="ring b"></span>
-  <div class="burger" id="bg">🍔<img src="images/hero-burger.jpg" alt="Burger Star Burger" onerror="this.remove()"></div>
-  <span class="chip a">⭐ <em>4,2</em> / 5 · 104 avis</span>
-  <span class="chip b">🛵 Livraison <em>Uber Eats</em></span>
-  <span class="chip c">💶 <em>10–20 €</em></span>
- </div>
-</div></header>
+</section>
 
-<div class="tape d" aria-hidden="true"><div><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Frites maison</span><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Frites maison</span></div></div>
-<div class="tape r d" aria-hidden="true"><div><span>Ouvert jusqu'à 23h</span><span>20 rue d'Abbeville</span><span>Amiens</span><span>Ouvert jusqu'à 23h</span><span>20 rue d'Abbeville</span><span>Amiens</span></div></div>
+<div class="tapes" aria-hidden="true">
+ <div class="tape a"><div><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span></div><div><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span><span>Burgers</span><span>Tacos</span><span>Kebab</span><span>Paninis</span></div></div>
+ <div class="tape b"><div><span>Rue d'Abbeville</span><span>Amiens</span><span>Jusqu'à 23h</span><span>Rue d'Abbeville</span><span>Amiens</span><span>Jusqu'à 23h</span></div><div><span>Rue d'Abbeville</span><span>Amiens</span><span>Jusqu'à 23h</span><span>Rue d'Abbeville</span><span>Amiens</span><span>Jusqu'à 23h</span></div></div>
+</div>
 
-<section id="menu"><div class="wrap">
- <div class="rv"><h2 class="d">Choisis ton <em>camp</em></h2><p class="lead">Quatre familles, zéro compromis. Carte complète en boutique et sur Uber Eats.</p></div>
- <div class="tabs rv" role="tablist">
-  <button class="on" data-f="all">Tout</button><button data-f="burger">Burgers</button><button data-f="tacos">Tacos</button><button data-f="kebab">Kebab</button><button data-f="panini">Paninis</button>
+<section class="xp" id="burger">
+ <div class="xp-pin">
+  <div class="intro">
+   <p class="eb" style="color:var(--red);margin-bottom:18px">Anatomie</p>
+   <h2>Monté<br>à la <em>commande</em></h2>
+   <p>Six étages, assemblés quand vous commandez. Rien d'attente, rien de réchauffé.</p>
+  </div>
+  <div class="stack" id="stack" aria-hidden="true">
+   <div class="layer" data-o="-3"><svg viewBox="0 0 440 150"><path d="M20 140C20 50 110 8 220 8s200 42 200 132z" fill="#d98a2b"/><path d="M40 132C46 66 120 26 220 26" stroke="#f0b35a" stroke-width="10" fill="none" stroke-linecap="round" opacity=".55"/><g fill="#f6e7c8"><ellipse cx="140" cy="60" rx="9" ry="5" transform="rotate(-20 140 60)"/><ellipse cx="200" cy="40" rx="9" ry="5"/><ellipse cx="270" cy="50" rx="9" ry="5" transform="rotate(18 270 50)"/><ellipse cx="320" cy="80" rx="9" ry="5" transform="rotate(30 320 80)"/><ellipse cx="100" cy="98" rx="9" ry="5" transform="rotate(-35 100 98)"/><ellipse cx="235" cy="85" rx="9" ry="5" transform="rotate(8 235 85)"/><ellipse cx="170" cy="105" rx="9" ry="5" transform="rotate(-10 170 105)"/><ellipse cx="350" cy="118" rx="9" ry="5" transform="rotate(40 350 118)"/></g><rect x="16" y="132" width="408" height="14" rx="7" fill="#b86a1d"/></svg></div>
+   <div class="layer" data-o="-2"><svg viewBox="0 0 440 40"><path d="M10 20q15-18 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0 30 0q-10 18-30 14-15 6-30-2-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-15 8-30 0-20 4-30-14z" fill="#6aa83a"/></svg></div>
+   <div class="layer" data-o="-1"><svg viewBox="0 0 440 34"><rect x="30" y="4" width="180" height="26" rx="13" fill="#d6372a"/><rect x="230" y="4" width="180" height="26" rx="13" fill="#d6372a"/><rect x="44" y="10" width="150" height="8" rx="4" fill="#ef6a55"/><rect x="244" y="10" width="150" height="8" rx="4" fill="#ef6a55"/></svg></div>
+   <div class="layer" data-o="0"><svg viewBox="0 0 440 60"><path d="M14 8h412l-14 18-20 4-8 26-14-26-60 0-12 18-12-18H160l-10 30-12-30H70l-18 6-10-6z" fill="#f2b01e"/></svg></div>
+   <div class="layer" data-o="1"><svg viewBox="0 0 440 70"><rect x="12" y="6" width="416" height="58" rx="29" fill="#5a3320"/><g fill="#3d2115"><circle cx="70" cy="30" r="5"/><circle cx="140" cy="44" r="4"/><circle cx="210" cy="24" r="5"/><circle cx="290" cy="42" r="4"/><circle cx="360" cy="28" r="5"/><circle cx="110" cy="22" r="3"/><circle cx="250" cy="48" r="3"/><circle cx="330" cy="50" r="3"/></g><path d="M40 16h360" stroke="#7a4a30" stroke-width="5" stroke-linecap="round"/></svg></div>
+   <div class="layer" data-o="2"><svg viewBox="0 0 440 30"><path d="M22 8h396q-8 16-40 16-20 6-40 0-20 8-40 0-20 8-40 0-20 8-40 0-20 8-40 0-20 8-40 0-20 8-40 0-30 0-36-16z" fill="#f4ead2"/></svg></div>
+   <div class="layer" data-o="3"><svg viewBox="0 0 440 80"><path d="M18 6h404v28c0 26-50 40-202 40S18 60 18 34z" fill="#d98a2b"/><rect x="18" y="4" width="404" height="12" rx="6" fill="#b86a1d"/></svg></div>
+  </div>
+  <ol class="labels" id="labels">
+   <li><small>01</small>Pain toasté</li>
+   <li><small>02</small>Salade</li>
+   <li><small>03</small>Tomate</li>
+   <li><small>04</small>Cheddar</li>
+   <li><small>05</small>Steak haché</li>
+   <li><small>06</small>Sauce maison</li>
+  </ol>
  </div>
- <div class="grid">
-  <div class="item rv" data-c="burger"><div class="im">🍔<img src="images/burger.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Star Burger</h3><p>Double steak, cheddar fondu, sauce maison.</p></div>
-  <div class="item rv" data-c="tacos"><div class="im">🌯<img src="images/tacos.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Tacos XL</h3><p>Viande au choix, frites, sauce fromagère.</p></div>
-  <div class="item rv" data-c="kebab"><div class="im">🥙<img src="images/kebab.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Kebab</h3><p>Pain maison, crudités, sauce blanche ou samouraï.</p></div>
-  <div class="item rv" data-c="panini"><div class="im">🥪<img src="images/panini.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Panini</h3><p>Pressé minute, fromage filant.</p></div>
-  <div class="item rv" data-c="burger"><div class="im">🧀<img src="images/cheese.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Cheese Bacon</h3><p>Bacon croustillant, double cheddar.</p></div>
-  <div class="item rv" data-c="tacos"><div class="im">🔥<img src="images/tacos2.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Tacos Mixte</h3><p>Deux viandes, gratiné au four.</p></div>
-  <div class="item rv" data-c="kebab"><div class="im">🍽️<img src="images/assiette.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Assiette Kebab</h3><p>Viande, frites, salade, sauce.</p></div>
-  <div class="item rv" data-c="panini"><div class="im">🍟<img src="images/frites.jpg" alt="" onerror="this.remove()"></div><h3 class="d">Menu Panini</h3><p>Panini + frites + boisson.</p></div>
- </div>
-</div></section>
+</section>
 
-<section style="border-top:1px solid var(--line)"><div class="wrap score">
- <div class="big d rv" id="sc">0,0</div>
- <div class="rv"><div class="stars">★★★★☆</div><h2 class="d" style="margin-top:10px">Validé par <em>104</em> clients</h2><p class="lead">Note moyenne Google. Prix moyen de 10 à 20 € par personne, d'après 13 clients.</p></div>
-</div></section>
-
-<section class="contact" id="contact"><div class="wrap">
- <h2 class="d rv">On t'attend.</h2>
- <div class="cgrid rv">
-  <div><small>Adresse</small><p>20 Rue d'Abbeville<br>80000 Amiens</p></div>
-  <div><small>Téléphone</small><p><a href="tel:+33322445878">03 22 44 58 78</a></p></div>
-  <div><small>Horaires</small><p>Ouvert · ferme à 23h</p></div>
+<section class="menu" id="menu">
+ <div class="menu-head">
+  <h2 class="rv">Quatre<br><em>envies</em></h2>
+  <p class="rv">Ce qui est écrit sur la devanture, c'est ce qu'on fait. Carte détaillée et prix en boutique ou sur Uber Eats.</p>
  </div>
- <div class="ctas rv">
-  <a class="btn btn-y" href="https://www.google.com/maps/search/?api=1&query=Star+Burger+20+Rue+d'Abbeville+Amiens" target="_blank" rel="noopener">Itinéraire →</a>
-  <a class="btn btn-o" href="https://www.ubereats.com/fr" target="_blank" rel="noopener">Uber Eats</a>
- </div>
-</div></section>
+ <ol class="rows">
+  <li class="row rv"><span class="n">01</span><h3>Burger</h3><p>Steak, cheddar, pain toasté, sauce maison.</p><div class="thumb ph" data-label="Photo · burger"><img src="images/burger.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">02</span><h3>Tacos</h3><p>Viande au choix, frites, sauce fromagère, grillé.</p><div class="thumb ph" data-label="Photo · tacos"><img src="images/tacos.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">03</span><h3>Kebab</h3><p>Pain, viande, crudités, sauce blanche ou samouraï.</p><div class="thumb ph" data-label="Photo · kebab"><img src="images/kebab.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">04</span><h3>Panini</h3><p>Pressé à la minute, fromage qui file.</p><div class="thumb ph" data-label="Photo · panini"><img src="images/panini.jpg" alt="" onerror="this.remove()"></div></li>
+ </ol>
+ <p class="menu-note">Descriptions indicatives, à valider avec la carte réelle.</p>
+</section>
 
-<footer><div class="wrap"><span>© 2026 Star Burger · Amiens</span><span>Maquette réalisée par Obsidyan Agency</span></div></footer>
-<div class="fab"><a href="tel:+33322445878" class="btn btn-y">📞 Appeler & commander</a></div>
+<section class="nums">
+ <div class="rv"><b data-n="4.2" data-dec="1">4,2</b><span>note Google</span></div>
+ <div class="rv"><b data-n="104">104</b><span>avis clients</span></div>
+ <div class="rv"><b>23h</b><span>fermeture</span></div>
+ <div class="rv"><b>10–20€</b><span>par personne</span></div>
+</section>
+
+<section class="order" id="commander">
+ <h2 class="rv">On<br>s'<em>occupe</em> de tout</h2>
+ <div class="cards">
+  <a class="card c1 rv" href="tel:+33322445878"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Appeler</span><h3>03 22 44<br>58 78</h3></a>
+  <a class="card c2 rv" href="https://www.ubereats.com/fr" target="_blank" rel="noopener"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Livraison</span><h3>Uber<br>Eats</h3></a>
+  <a class="card c3 rv" href="https://www.google.com/maps/dir/?api=1&destination=Star+Burger+20+Rue+d'Abbeville+80000+Amiens" target="_blank" rel="noopener"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Sur place</span><h3>20 rue<br>d'Abbeville</h3></a>
+ </div>
+ <div class="map rv"><iframe title="Plan d'accès Star Burger" loading="lazy" src="https://www.google.com/maps?q=20+Rue+d'Abbeville+80000+Amiens&z=16&output=embed"></iframe></div>
+ <p class="big" aria-hidden="true">Star Burger</p>
+</section>
+</main>
+<footer><span>© 2026 Star Burger · 20 rue d'Abbeville, 80000 Amiens</span><span>Proposition de site · Obsidyan Agency</span></footer>
+<div class="fab" id="fab"><a class="btn y" href="tel:+33322445878">Appeler</a><a class="btn r" href="https://www.ubereats.com/fr" target="_blank" rel="noopener">Uber Eats</a></div>
 
 <script>
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>40),{passive:true});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);
- if(e.target.id==='sc'){const t0=performance.now();(function f(t){const p=Math.min((t-t0)/1400,1);e.target.textContent=(4.2*(1-Math.pow(1-p,3))).toFixed(1).replace('.',',');p<1&&requestAnimationFrame(f)})(t0)}
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+requestAnimationFrame(()=>document.body.classList.add('go'));
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.add('in');io.unobserve(el);
+ const b=el.querySelector('[data-n]');if(b&&!reduce){const n=+b.dataset.n,dec=+(b.dataset.dec||0),t0=performance.now();
+  (function f(t){const p=Math.min((t-t0)/1500,1),v=n*(1-Math.pow(1-p,4));b.textContent=v.toFixed(dec).replace('.',',');p<1&&requestAnimationFrame(f)})(t0)}
 }),{threshold:.15});
-document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.08+'s';io.observe(el)});
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
- document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
- document.querySelectorAll('.item').forEach(it=>it.classList.toggle('hide',b.dataset.f!=='all'&&it.dataset.c!==b.dataset.f))});
-// parallax burger
-const st=document.getElementById('stage'),bg=document.getElementById('bg');
-if(matchMedia('(hover:hover)').matches)st.addEventListener('mousemove',e=>{const r=st.getBoundingClientRect();bg.style.translate=`${((e.clientX-r.left)/r.width-.5)*30}px ${((e.clientY-r.top)/r.height-.5)*30}px`});
+$$('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.07+'s';io.observe(el)});
+
+const top=$('#top'),fab=$('#fab'),xp=$('#burger'),layers=$$('#stack .layer'),labels=$$('#labels li');
+const ease=t=>1-Math.pow(1-t,3);
+let tick=false;
+function frame(){
+ tick=false;const y=scrollY,vh=innerHeight;
+ top.classList.toggle('solid',y>30);
+ fab.classList.toggle('on',y>vh*.6);
+ const mobile=innerWidth<=960;
+ let p;
+ if(mobile){const r=xp.getBoundingClientRect();p=Math.min(Math.max((vh*.7-r.top)/(vh*.8),0),1)}
+ else{const r=xp.getBoundingClientRect();p=Math.min(Math.max(-r.top/(r.height-vh),0),1)}
+ if(reduce)p=.6;
+ // 0→.15 stacked, .15→.7 explode, .7→1 hold
+ const e=ease(Math.min(Math.max((p-.12)/.55,0),1));
+ const gapClosed=mobile?22:26, gapOpen=mobile?58:78;
+ layers.forEach(l=>{const o=+l.dataset.o,g=gapClosed+(gapOpen-gapClosed)*e;
+  l.style.transform=`translate(-50%,calc(-50% + ${o*g}px)) rotate(${o*e*-1.5}deg)`});
+ const k=Math.floor(e*6.2);
+ labels.forEach((li,i)=>li.classList.toggle('on',mobile||i<k));
+}
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});
+addEventListener('resize',frame);frame();
+})();
 </script>
 </body>
 </html>
