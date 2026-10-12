@@ -135,7 +135,7 @@ img{display:block;max-width:100%}
 .list h3{font:400 clamp(30px,3.6vw,52px)/1 var(--serif);letter-spacing:-.01em;transition:transform .5s var(--ease)}
 .list li:hover h3{transform:translateX(14px)}
 .list p{color:var(--ink2);font-size:15px;margin-top:8px}
-.list .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.list .tag{font:italic 400 clamp(24px,2.4vw,34px)/1 var(--serif);color:var(--red);white-space:nowrap;font-variant-numeric:tabular-nums}
 .list li[hidden]{display:none}
 .peek{position:fixed;left:0;top:0;width:280px;height:340px;pointer-events:none;z-index:40;opacity:0;transform:translate(-50%,-50%) scale(.85) rotate(-4deg);transition:opacity .35s,transform .5s var(--ease)}
 .peek.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}
@@ -238,7 +238,7 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
   <li><a href="#salle">La salle</a></li>
   <li><a href="#venir">Nous trouver</a></li>
  </ul>
- <span class="status"><span class="dot"></span>Ouvert · 1 bd de Bapaume</span>
+ <a class="status" href="tel:+33322410611"><span class="dot"></span>03 22 41 06 11</a>
  <a href="#venir" class="cta">Commander <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.4"/></svg></a>
 </header>
 
@@ -265,8 +265,8 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
 </section>
 
 <div class="ticker" aria-hidden="true">
- <div><span>Adana kebab</span><span>Brochettes d'agneau</span><span>Döner à la broche</span><span>Dürüm grillé</span><span>Pain sorti du four</span></div>
- <div><span>Adana kebab</span><span>Brochettes d'agneau</span><span>Döner à la broche</span><span>Dürüm grillé</span><span>Pain sorti du four</span></div>
+ <div><span>Assiette iskender</span><span>Adana kebab</span><span>Côtelettes d'agneau</span><span>Assiette taksim</span><span>Brochettes de poulet</span></div>
+ <div><span>Assiette iskender</span><span>Adana kebab</span><span>Côtelettes d'agneau</span><span>Assiette taksim</span><span>Brochettes de poulet</span></div>
 </div>
 
 <section class="manifesto">
@@ -290,23 +290,24 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
 <section class="menu" id="carte">
  <div class="sec-head">
   <h2 class="rv">La <em>carte</em></h2>
-  <p class="rv">Les classiques de la grillade turque. Carte complète et tarifs en salle et sur les applis de livraison.</p>
+  <p class="rv">Les assiettes du grill, du kebab classique à l'iskender. Carte complète en salle, sur Deliveroo et Uber Eats.</p>
  </div>
  <div class="tabs rv" role="tablist">
   <button role="tab" aria-selected="true" data-f="*">Tout</button>
-  <button role="tab" aria-selected="false" data-f="g">Grillades</button>
-  <button role="tab" aria-selected="false" data-f="s">Sandwichs</button>
-  <button role="tab" aria-selected="false" data-f="v">Vegan</button>
+  <button role="tab" aria-selected="false" data-f="a">Assiettes</button>
+  <button role="tab" aria-selected="false" data-f="s">Sandwichs & tacos</button>
  </div>
  <ol class="list" id="list">
-  <li data-c="g" data-img="images/brochettes.jpg"><span class="n">01</span><div><h3>Assiette de brochettes</h3><p>Poulet, agneau ou mixte · riz pilaf · salade · pain</p></div><span class="tag">Grillade</span></li>
-  <li data-c="g" data-img="images/adana.jpg"><span class="n">02</span><div><h3>Adana kebab</h3><p>Viande hachée relevée au piment, grillée sur sabre</p></div><span class="tag">Grillade</span></li>
-  <li data-c="s" data-img="images/doner.jpg"><span class="n">03</span><div><h3>Döner Istanbul</h3><p>Pain maison · viande à la broche · crudités · sauce</p></div><span class="tag">Sandwich</span></li>
-  <li data-c="s" data-img="images/durum.jpg"><span class="n">04</span><div><h3>Dürüm</h3><p>Galette roulée puis passée au grill</p></div><span class="tag">Sandwich</span></li>
-  <li data-c="v" data-img="images/vegan.jpg"><span class="n">05</span><div><h3>Assiette végétale</h3><p>Légumes grillés · houmous · boulgour</p></div><span class="tag">Vegan</span></li>
-  <li data-c="g" data-img="images/enfant.jpg"><span class="n">06</span><div><h3>Menu enfant</h3><p>Une petite assiette, une boisson, un dessert</p></div><span class="tag">Enfant</span></li>
+  <li data-c="a" data-img="images/hero.jpg"><span class="n">01</span><div><h3>Assiette kebab</h3><p>Viande kebab · frites ou riz · salade · pain</p></div><span class="tag">10 €</span></li>
+  <li data-c="a" data-img="images/vitrine.jpg"><span class="n">02</span><div><h3>Assiette libanaise</h3><p>Grillade marinée façon libanaise · garnitures</p></div><span class="tag">10 €</span></li>
+  <li data-c="a" data-img="images/brochettes.jpg"><span class="n">03</span><div><h3>Assiette adana</h3><p>Viande hachée relevée au piment, grillée sur sabre</p></div><span class="tag">13 €</span></li>
+  <li data-c="a" data-img="images/brochettes.jpg"><span class="n">04</span><div><h3>Brochettes de poulet</h3><p>Poulet mariné, saisi au charbon</p></div><span class="tag">13 €</span></li>
+  <li data-c="a" data-img="images/vitrine.jpg"><span class="n">05</span><div><h3>Assiette iskender</h3><p>Kebab tranché sur pain, sauce tomate, yaourt</p></div><span class="tag">14 €</span></li>
+  <li data-c="a" data-img="images/hero.jpg"><span class="n">06</span><div><h3>Assiette taksim</h3><p>La grillade mixte de la maison</p></div><span class="tag">14,50 €</span></li>
+  <li data-c="a" data-img="images/brochettes.jpg"><span class="n">07</span><div><h3>Côtelettes d'agneau</h3><p>Côtelettes d'agneau grillées</p></div><span class="tag">15 €</span></li>
+  <li data-c="s" data-img="images/vitrine.jpg"><span class="n">08</span><div><h3>Tacos 2 viandes</h3><p>Deux viandes au choix · frites · sauce fromagère</p></div><span class="tag">12,90 €</span></li>
  </ol>
- <p class="note">Plats donnés à titre indicatif, à ajuster avec la carte réelle du restaurant.</p>
+ <p class="note">Prix relevés sur les plateformes de livraison, susceptibles d'évoluer. Tickets restaurant acceptés.</p>
 </section>
 <div class="peek" id="peek" aria-hidden="true"><div class="ph" data-label="Photo du plat"></div></div>
 
@@ -317,7 +318,7 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
  </div>
  <div class="occ-grid">
   <article class="rv"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="6" y="14" width="32" height="22"/><path d="M6 22h32M16 14V8h12v6"/></svg><h3>Salle privée</h3><p>Anniversaires, repas d'équipe, fêtes de famille. Privatisez la salle pour votre groupe.</p></article>
-  <article class="rv"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M10 34C10 18 22 8 36 8c0 14-10 26-26 26z"/><path d="M10 34 26 18"/></svg><h3>Options vegan</h3><p>Des plats 100 % végétaux à la carte, cuisinés avec autant de soin que les grillades.</p></article>
+  <article class="rv"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M10 34C10 18 22 8 36 8c0 14-10 26-26 26z"/><path d="M10 34 26 18"/></svg><h3>Options vegan</h3><p>Des options végétales à la carte, cuisinées avec le même soin que les grillades.</p></article>
   <article class="rv"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="22" cy="15" r="7"/><path d="M9 38c1-8 6-12 13-12s12 4 13 12"/></svg><h3>Menu enfant</h3><p>Des portions pensées pour les plus jeunes. Les familles sont ici chez elles.</p></article>
  </div>
  <div class="occ-fig">
@@ -343,13 +344,14 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
    <dl class="facts rv">
     <div><dt>Adresse</dt><dd>1 boulevard de Bapaume<br>80000 Amiens</dd></div>
     <div><dt>Service</dt><dd>Sur place · À emporter · Livraison</dd></div>
-    <div><dt>Horaires</dt><dd>À compléter</dd></div>
+    <div><dt>Téléphone</dt><dd><a href="tel:+33322410611">03 22 41 06 11</a></dd></div>
+    <div><dt>Horaires</dt><dd>Du midi jusque tard le soir</dd></div>
     <div><dt>Budget</dt><dd>10 à 20 € par personne</dd></div>
    </dl>
    <div class="ctas rv">
     <a class="cta" href="https://www.google.com/maps/dir/?api=1&destination=Grill+Istanbul+1+Bd+de+Bapaume+80000+Amiens" target="_blank" rel="noopener">Itinéraire <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.4"/></svg></a>
-    <a class="cta line" href="#">Commander à emporter</a>
-    <a class="cta line" href="#">Livraison</a>
+    <a class="cta line" href="https://deliveroo.fr/fr/menu/amiens/sud-ouest-saint-acheul/grill-istanbul-amiens" target="_blank" rel="noopener">Deliveroo</a>
+    <a class="cta line" href="https://www.ubereats.com/fr/store/grill-istanbul/ARKVbf6EVvmKI55ItqeckA" target="_blank" rel="noopener">Uber Eats</a>
    </div>
   </div>
   <div class="map rv"><iframe title="Plan d'accès Grill Istanbul" loading="lazy" src="https://www.google.com/maps?q=1+Boulevard+de+Bapaume+80000+Amiens&z=16&output=embed"></iframe></div>
@@ -358,7 +360,7 @@ footer{background:var(--ink);color:#f2eadc80;font-size:13px;display:flex;justify
 </section>
 </main>
 <footer><span>© 2026 Grill Istanbul · 1 bd de Bapaume, Amiens</span><span>Proposition de site · Obsidyan Agency</span></footer>
-<div class="mbar" id="mbar"><a href="#venir" class="cta">Commander</a><a class="cta line" style="background:var(--paper)" href="https://www.google.com/maps/dir/?api=1&destination=Grill+Istanbul+1+Bd+de+Bapaume+80000+Amiens">Itinéraire</a></div>
+<div class="mbar" id="mbar"><a href="tel:+33322410611" class="cta">Appeler</a><a class="cta line" style="background:var(--paper)" href="https://www.google.com/maps/dir/?api=1&destination=Grill+Istanbul+1+Bd+de+Bapaume+80000+Amiens">Itinéraire</a></div>
 
 <script>
 (()=>{

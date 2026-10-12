@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Star Burger — Burgers, tacos, kebab, tex-mex · Amiens</title>
-<meta name="description" content="Star Burger, 20 rue d'Abbeville à Amiens. Burgers, tacos, kebab et paninis jusqu'à 23h. Sur place, à emporter, livraison Uber Eats. 03 22 44 58 78.">
+<meta name="description" content="Star Burger, 20 rue d'Abbeville à Amiens. Burgers, tacos, kebab, tex-mex et paninis jusqu'à 23h. Sur place, à emporter, livraison Uber Eats. 03 22 44 58 78.">
 <meta name="theme-color" content="#111010">
 <meta property="og:title" content="Star Burger — Amiens">
 <meta property="og:description" content="Burgers, tacos, kebab, tex-mex et paninis, 20 rue d'Abbeville. Jusqu'à 23h.">
@@ -49,6 +49,7 @@ img{display:block;max-width:100%}
 .top nav a:hover{color:var(--mus)}
 .open{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--grey)}
 .open i{width:8px;height:8px;border-radius:50%;background:#3fbf5f;animation:blink 1.6s steps(2) infinite}
+.open.closed i{background:var(--red);animation:none}
 @keyframes blink{50%{opacity:.3}}
 
 /* hero */
@@ -192,7 +193,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 <header class="top" id="top">
  <a href="#" class="logo"><svg><use href="#st"/></svg>Star Burger</a>
  <nav><a href="#menu">Le menu</a><a href="#burger">Le burger</a><a href="#commander">Commander</a></nav>
- <span class="open"><i></i>Ouvert · ferme à 23h</span>
+ <span class="open" id="open"><i></i><span>Tous les soirs jusqu'à 23h</span></span>
  <a href="tel:+33322445878" class="btn y" style="padding:12px 20px">03 22 44 58 78</a>
 </header>
 
@@ -200,7 +201,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 <section class="hero">
  <div class="hero-img" aria-hidden="true"><span class="disc"></span><svg id="heroBurger" viewBox="0 0 440 360"></svg></div>
  <div class="sticker s1"><span><b>4,2</b>sur Google</span></div>
- <div class="sticker s2"><span>Ouvert<br>jusqu'à<br>23h</span></div>
+ <div class="sticker s2"><span>Tous les<br>soirs<br>jusqu'à 23h</span></div>
  <div class="wrap-l"><h1 class="word" aria-label="Star Burger"><span>S</span><span>T</span><span>A</span><span>R</span></h1></div>
  <div class="wrap-l"><p class="word l2" aria-hidden="true"><span>B</span><span>U</span><span>R</span><span>G</span><span>E</span><span>R</span></p></div>
  <div class="hero-foot">
@@ -247,16 +248,16 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 <section class="menu" id="menu">
  <div class="menu-head">
   <h2 class="rv">Cinq<br><em>envies</em></h2>
-  <p class="rv">Ce qui est écrit sur la devanture, c'est ce qu'on fait. Carte détaillée et prix en boutique ou sur Uber Eats.</p>
+  <p class="rv">Ce qui est écrit sur la devanture, c'est ce qu'on fait. Tout est servi en menu avec frites et boisson 33 cl.</p>
  </div>
  <ol class="rows">
-  <li class="row rv"><span class="n">01</span><h3>Burger</h3><p>Steak, cheddar, pain toasté, sauce maison.</p><div class="thumb ph" data-label="Photo · burger"><img src="images/burger.jpg" alt="" onerror="this.remove()"></div></li>
-  <li class="row rv"><span class="n">02</span><h3>Tacos</h3><p>Viande au choix, frites, sauce fromagère, grillé.</p><div class="thumb ph" data-label="Photo · tacos"><img src="images/tacos.jpg" alt="" onerror="this.remove()"></div></li>
-  <li class="row rv"><span class="n">03</span><h3>Kebab</h3><p>Pain, viande, crudités, sauce blanche ou samouraï.</p><div class="thumb ph" data-label="Photo · kebab"><img src="images/kebab.jpg" alt="" onerror="this.remove()"></div></li>
-  <li class="row rv"><span class="n">04</span><h3>Tex-Mex</h3><p>Wings, nuggets, tenders et frites, à partager.</p><div class="thumb ph" data-label="Photo · tex-mex"><img src="images/texmex.jpg" alt="" onerror="this.remove()"></div></li>
-  <li class="row rv"><span class="n">05</span><h3>Panini</h3><p>Pressé à la minute, fromage qui file.</p><div class="thumb ph" data-label="Photo · panini"><img src="images/panini.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">01</span><h3>Burger</h3><p>Du burger classique au Big Star. Menus dès 8 €.</p><div class="thumb ph" data-label="Photo · burger"><img src="images/burger.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">02</span><h3>Tacos</h3><p>Simple, double ou Le Star à trois viandes. Menus de 8 à 13 €.</p><div class="thumb ph" data-label="Photo · tacos"><img src="images/tacos.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">03</span><h3>Kebab</h3><p>Poulet et dinde, salade, tomate, oignons. En sandwich ou en assiette.</p><div class="thumb ph" data-label="Photo · kebab"><img src="images/kebab.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">04</span><h3>Tex-Mex</h3><p>La carte tex-mex, pour accompagner ou partager.</p><div class="thumb ph" data-label="Photo · tex-mex"><img src="images/texmex.jpg" alt="" onerror="this.remove()"></div></li>
+  <li class="row rv"><span class="n">05</span><h3>Panini</h3><p>Pressé à la minute, servi en menu.</p><div class="thumb ph" data-label="Photo · panini"><img src="images/panini.jpg" alt="" onerror="this.remove()"></div></li>
  </ol>
- <p class="menu-note">Descriptions indicatives, à valider avec la carte réelle.</p>
+ <p class="menu-note">Prix relevés sur la carte en ligne du restaurant, susceptibles d'évoluer.</p>
 </section>
 
 <section class="nums">
@@ -270,7 +271,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
  <h2 class="rv">On<br>s'<em>occupe</em> de tout</h2>
  <div class="cards">
   <a class="card c1 rv" href="tel:+33322445878"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Appeler</span><h3>03 22 44<br>58 78</h3></a>
-  <a class="card c2 rv" href="https://www.ubereats.com/fr" target="_blank" rel="noopener"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Livraison</span><h3>Uber<br>Eats</h3></a>
+  <a class="card c2 rv" href="https://www.ubereats.com/fr/store/le-star-burger/xcx0Y52BQpqLetsKDEJW3w" target="_blank" rel="noopener"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Livraison</span><h3>Uber<br>Eats</h3></a>
   <a class="card c3 rv" href="https://www.google.com/maps/dir/?api=1&destination=Star+Burger+20+Rue+d'Abbeville+80000+Amiens" target="_blank" rel="noopener"><span class="arr"><svg><use href="#ar"/></svg></span><span class="eb">Sur place</span><h3>20 rue<br>d'Abbeville</h3></a>
  </div>
  <div class="map rv"><iframe title="Plan d'accès Star Burger" loading="lazy" src="https://www.google.com/maps?q=20+Rue+d'Abbeville+80000+Amiens&z=16&output=embed"></iframe></div>
@@ -278,7 +279,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 </section>
 </main>
 <footer><span>© 2026 Star Burger · 20 rue d'Abbeville, 80000 Amiens</span><span>Proposition de site · Obsidyan Agency</span></footer>
-<div class="fab" id="fab"><a class="btn y" href="tel:+33322445878">Appeler</a><a class="btn r" href="https://www.ubereats.com/fr" target="_blank" rel="noopener">Uber Eats</a></div>
+<div class="fab" id="fab"><a class="btn y" href="tel:+33322445878">Appeler</a><a class="btn r" href="https://www.ubereats.com/fr/store/le-star-burger/xcx0Y52BQpqLetsKDEJW3w" target="_blank" rel="noopener">Uber Eats</a></div>
 
 <script>
 (()=>{
@@ -292,6 +293,13 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 }),{threshold:.15});
 $$('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.07+'s';io.observe(el)});
 
+// live open status (Europe/Paris): lunch Mon-Wed & Fri, every evening until 23h
+(()=>{const el=$('#open');if(!el)return;
+ const f=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+ const g=t=>f.find(x=>x.type===t)?.value,d=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'].indexOf(g('weekday')),m=+g('hour')*60+ +g('minute');
+ const lunch=[1,2,3,5].includes(d)&&m>=690&&m<(d===5?810:840),eve=m>=1080&&m<1380;
+ el.lastElementChild.textContent=lunch?'Ouvert · service du midi':eve?'Ouvert · ferme à 23h':m<1080?'Fermé · ouvre à 18h':'Fermé · à demain 18h';
+ if(!lunch&&!eve)el.classList.add('closed')})();
 const hb=$('#heroBurger'),Y=[0,124,150,166,196,256,268];
 $$('#stack .layer svg').forEach((sv,i)=>{const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('transform',`translate(0 ${Y[i]})`);g.innerHTML=sv.innerHTML;hb.prepend(g);sv.parentNode.style.zIndex=10-i});
 const top=$('#top'),fab=$('#fab'),xp=$('#burger'),layers=$$('#stack .layer'),labels=$$('#labels li');
