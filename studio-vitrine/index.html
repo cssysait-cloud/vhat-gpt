@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Studio Vitrine conçoit des sites sur mesure pour les commerces de proximité, restaurants et indépendants.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Studio Vitrine</title>
+<link rel="stylesheet" href="fonts/index.css">
+<style>
+/* Layout : héros manifeste à gauche, puis trois maquettes de navigateur cliquables, offres, méthode, contact. */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --fg:#16181A; --muted:#5D6461; --line:#DADDD7;
+  --accent:#1F6B4F; --mark:#FFD84D; --on-accent:#FFFFFF;
+  --display:"Bricolage Grotesque","Segoe UI",sans-serif; --body:"Figtree",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121514; --surface:#1B1F1D; --fg:#ECEFEC; --muted:#A2AAA6; --line:#2D3330;
+  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121514; --surface:#1B1F1D; --fg:#ECEFEC; --muted:#A2AAA6; --line:#2D3330;
+  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.02em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.label{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:22px;gap:16px}
+.brand{font-family:var(--display);font-weight:800;font-size:22px;text-decoration:none;display:inline-flex;align-items:center}
+.brand svg{width:34px;height:34px;margin-right:10px;flex:none}
+.brand span{color:var(--accent)}
+.navlinks{display:flex;gap:24px;font-weight:500;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:var(--fg)}
+
+.hero .wrap{padding-block:40px 64px}
+.hero h1{font-size:clamp(44px,7.4vw,104px);font-weight:800;max-width:14ch}
+.hl{background:linear-gradient(transparent 62%,var(--mark) 62%,var(--mark) 92%,transparent 92%);padding:0 .05em}
+.hero p{font-size:20px;color:var(--muted);max-width:56ch;margin:24px 0 32px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;padding:14px 24px;border-radius:10px}
+.btn.ghost{background:transparent;color:var(--fg);border:1.5px solid var(--line)}
+.facts{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
+.facts b{display:block;font-family:var(--display);font-size:34px;font-weight:700}
+.facts span{color:var(--muted);font-size:15px}
+
+section{padding-block:80px;border-top:1px solid var(--line)}
+.sechead{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
+.sechead h2{font-size:clamp(36px,5vw,60px);font-weight:700}
+.sechead p{color:var(--muted);margin:0;max-width:48ch}
+
+.projects{display:grid;gap:40px}
+.project{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;text-decoration:none}
+.project:nth-child(even) .browser{order:2}
+.browser{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 20px 50px rgba(0,0,0,.08);transition:transform .25s}
+.project:hover .browser{transform:translateY(-4px) rotate(-.4deg)}
+.bar{display:flex;gap:6px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.bar span{margin-left:10px;font-size:12px;color:var(--muted);background:var(--bg);padding:3px 12px;border-radius:6px;flex:1;max-width:260px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.screen{aspect-ratio:16/9.5;position:relative;overflow:hidden;max-width:100%}
+.pinfo h3{font-size:clamp(30px,3.6vw,44px);font-weight:700;margin:8px 0 12px}
+.pinfo p{color:var(--muted);margin:0 0 18px}
+.feats{list-style:none;padding:0;margin:0 0 22px;display:flex;flex-wrap:wrap;gap:8px}
+.feats li{font-size:14px;border:1px solid var(--line);padding:5px 12px;border-radius:999px;background:var(--surface)}
+.go{font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+
+/* maquettes miniatures, couleurs propres à chaque client (identiques dans les deux thèmes) */
+.m-car{background:#F2F4F7}
+.m-car .top{background:#0E1B2C;height:62%;padding:7% 7%;color:#fff}
+.m-car .t1{font:800 clamp(14px,2.6vw,30px)/1 "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;max-width:60%}
+.m-car .t1 em{font-style:normal;color:#FF5A1F}
+.m-car .widget{position:absolute;left:7%;right:7%;top:54%;height:14%;background:#fff;border-radius:4px;box-shadow:0 6px 16px rgba(0,0,0,.2);display:flex}
+.m-car .widget i{flex:1;border-right:1px solid #DCE1E8}
+.m-car .widget b{width:18%;background:#FF5A1F;border-radius:0 4px 4px 0}
+.m-car .cars{position:absolute;left:7%;right:7%;bottom:6%;height:18%;display:flex;gap:4%}
+.m-car .cars i{flex:1;background:#fff;border:1px solid #DCE1E8;border-radius:3px}
+.m-car svg{position:absolute;right:6%;top:18%;width:34%}
+
+.m-cos{background:#FFFFFF}
+.m-cos .ship{position:absolute;left:7%;right:7%;top:11%;height:1px;background:#E4E1DD}
+.m-cos .ship::before{content:"ALBÂTRE";position:absolute;left:50%;top:-180%;transform:translate(-50%,-50%);font:400 clamp(7px,1vw,11px) "Bodoni Moda",Didot,serif;letter-spacing:.32em;color:#1B1A19}
+.m-cos .hero{position:absolute;right:7%;top:20%;width:42%;height:70%;background:#F2F0ED}
+.m-cos .t1{position:absolute;left:7%;top:44%;font:400 clamp(15px,2.8vw,34px)/1.05 "Bodoni Moda",Didot,serif;color:#1B1A19;max-width:44%}
+.m-cos .t1 i{color:#9C7B74}
+.m-cos .bt{position:absolute;right:24%;bottom:24%;width:6%;height:30%;background:#C9A27E;border-top:10px solid #1B1A19}
+.m-cos .orb{position:absolute;right:15%;bottom:24%;width:9%;height:13%;background:#EEEAE5;border-top:6px solid #B9B2AA}
+.m-cos .prods{position:absolute;left:12%;right:12%;bottom:24%;height:1px;background:#D8D3CD;left:auto;width:34%;right:10%}
+.m-cos .prods i{display:none}
+
+.m-res{background:radial-gradient(120% 90% at 50% 100%,#C8693F 0%,#6E2F2A 38%,#1A1110 72%)}
+.m-res .nv{position:absolute;left:0;right:0;top:7%;text-align:center;font:400 clamp(6px,.9vw,10px) Georgia,serif;letter-spacing:.4em;color:#F4EDE1}
+.m-res .arch{position:absolute;left:50%;top:20%;width:30%;height:66%;transform:translateX(-50%);border:1.5px solid #D9B77C;border-bottom:0;border-radius:999px 999px 0 0}
+.m-res .t1{position:absolute;left:0;right:0;top:40%;text-align:center;font:italic 400 clamp(16px,3vw,36px)/1 "Cormorant Garamond",Georgia,serif;color:#F4EDE1}
+.m-res .cta{position:absolute;left:50%;top:62%;transform:translateX(-50%);width:16%;height:7%;border:1px solid #F4EDE1}
+.m-res .roofs{position:absolute;left:0;right:0;bottom:0;height:16%;background:#0D0B09;clip-path:polygon(0 60%,8% 60%,8% 30%,14% 30%,14% 55%,26% 55%,26% 20%,30% 20%,30% 50%,44% 50%,44% 35%,58% 35%,58% 55%,70% 55%,70% 25%,74% 25%,74% 50%,88% 50%,88% 40%,100% 40%,100% 100%,0 100%)}
+
+.sechead.sub{margin-top:80px}
+.live{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.lcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .25s,border-color .25s}
+.lcard:hover{transform:translateY(-4px);border-color:var(--accent)}
+.lcard h3{font-size:28px;font-weight:700}
+.lcard p{margin:0;color:var(--muted);font-size:16px}
+.lcard .url{margin-top:auto;padding-top:8px;font-weight:600;color:var(--accent);font-size:14px;overflow-wrap:anywhere}
+.infra{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.infra li{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
+.infra a,.infra b{font-weight:600;overflow-wrap:anywhere}
+.infra a{color:var(--accent);text-underline-offset:4px}
+.infra span{color:var(--muted);font-size:15px}
+.offers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.offer{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.offer.best{border:2px solid var(--accent)}
+.offer .pill{align-self:flex-start;font-size:12px;font-weight:600;background:var(--accent);color:var(--on-accent);padding:3px 10px;border-radius:999px}
+.offer h3{font-size:26px;font-weight:700}
+.offer .price{font-family:var(--display);font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
+.offer .price small{font-family:var(--body);font-size:15px;font-weight:400;color:var(--muted)}
+.offer ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:6px}
+.offer .for{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
+.note{color:var(--muted);font-size:15px;margin-top:20px}
+
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:n}
+.steps li{counter-increment:n}
+.steps li::before{content:counter(n);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--mark);color:#16181A;font-family:var(--display);font-weight:700;margin-bottom:14px}
+.steps h3{font-size:22px;font-weight:700;margin-bottom:6px}
+.steps p{margin:0;color:var(--muted)}
+.steps .when{display:block;font-size:13px;font-weight:600;color:var(--accent);margin-top:8px}
+
+.contact .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.contact h2{font-size:clamp(36px,5vw,60px);font-weight:700}
+.contact p{color:var(--muted);max-width:46ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:16px}
+.line{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.line div{min-width:0}
+.line small{display:block;color:var(--muted);font-size:13px}
+.line b{font-weight:600;overflow-wrap:anywhere}
+.line b a{text-decoration:none}
+.line b a:hover{text-decoration:underline}
+.copy{background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px 14px;font:500 14px var(--body);cursor:pointer}
+
+footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+
+@media (max-width:860px){
+  .sechead,.project,.contact .wrap{grid-template-columns:1fr}
+  .project:nth-child(even) .browser{order:0}
+  .offers,.live{grid-template-columns:1fr}
+  .sechead.sub{margin-top:56px}
+  .steps{grid-template-columns:1fr 1fr}
+  nav .wrap{flex-wrap:wrap;gap:0}
+  .navlinks{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .navlinks a{flex:none;padding-inline:2px}
+}
+@media (max-width:480px){.steps{grid-template-columns:1fr}.facts{gap:24px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<link rel="stylesheet" href="touch.css">
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#1F6B4F"/><path fill="#FFD84D" d="M96 112H416V176A32 32 0 0 1 352 176A32 32 0 0 1 288 176A32 32 0 0 1 224 176A32 32 0 0 1 160 176A32 32 0 0 1 96 176Z"/><path fill="#fff" d="M168 248H222L256 352L290 248H344L282 404H230Z"/></svg>Studio<span>Vitrine</span></a>
+  <div class="navlinks"><a href="#realisations">Réalisations</a><a href="#offres">Formules</a><a href="#methode">Méthode</a><a href="#contact">Contact</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="label">Conception de sites web · Commerces et indépendants</div>
+  <h1>Une vitrine en ligne <span class="hl">à la hauteur</span> de votre commerce.</h1>
+  <p>Studio Vitrine conçoit des sites sur mesure pour les commerces de proximité, restaurants et indépendants : un design soigné, une lecture parfaite sur mobile et des fonctionnalités utiles au quotidien, comme la réservation, la vente ou la prise de contact.</p>
+  <div class="actions"><a class="btn" href="#realisations">Découvrir les réalisations</a><a class="btn ghost" href="#contact">Demander un devis</a></div>
+  <div class="facts">
+    <div><b>3 semaines</b><span>délai moyen de réalisation</span></div>
+    <div><b>Mobile d'abord</b><span>une conception pensée pour le smartphone</span></div>
+    <div><b>Un seul contact</b><span>de la conception au suivi du site</span></div>
+  </div>
+</div></header>
+
+<section id="realisations"><div class="wrap">
+  <div class="sechead">
+    <h2>Nos réalisations</h2>
+    <p>Trois maquettes de démonstration, puis les projets réellement en ligne et l'infrastructure qui les héberge.</p>
+  </div>
+  <div class="projects">
+    <a class="project" href="location-auto.html">
+      <div class="browser"><div class="bar"><i></i><i></i><i></i><span>rivage-location.fr</span></div>
+        <div class="screen m-car" aria-hidden="true">
+          <div class="top"><div class="t1">Louez une voiture à Nice <em>en 3 minutes</em></div></div>
+          <svg viewBox="0 0 300 110"><path fill="#FF5A1F" d="M18 78 C18 62 30 56 48 54 L86 50 L120 24 C128 18 136 16 148 16 L206 16 C220 16 230 22 238 32 L258 52 L272 56 C284 59 290 66 290 78 L290 86 L18 86 Z"/><circle cx="80" cy="86" r="20" fill="#16283F"/><circle cx="232" cy="86" r="20" fill="#16283F"/></svg>
+          <div class="widget"><i></i><i></i><i></i><b></b></div>
+          <div class="cars"><i></i><i></i><i></i></div>
+        </div></div>
+      <div class="pinfo">
+        <div class="label">Location de véhicules</div>
+        <h3>Rivage Location</h3>
+        <p>Une agence qui souhaite développer la réservation en ligne. Le tarif final s'affiche dès le choix des dates, ce qui rassure le client et réduit les appels.</p>
+        <ul class="feats"><li>Devis instantané</li><li>Flotte filtrable</li><li>Questions fréquentes</li></ul>
+        <span class="go">Voir le projet →</span>
+      </div>
+    </a>
+    <a class="project" href="cosmetique.html">
+      <div class="browser"><div class="bar"><i></i><i></i><i></i><span>maison-albatre.fr</span></div>
+        <div class="screen m-cos" aria-hidden="true">
+          <div class="ship"></div>
+          <div class="hero"></div>
+          <div class="t1">L'essentiel, <i>rien de plus</i></div>
+          <div class="prods"></div><div class="bt"></div><div class="orb"></div>
+        </div></div>
+      <div class="pinfo">
+        <div class="label">Boutique en ligne · Cosmétiques</div>
+        <h3>Maison Albâtre</h3>
+        <p>Une marque de soins qui vend en ligne. Le panier met en avant le seuil de livraison offerte afin d'augmenter le montant moyen des commandes.</p>
+        <ul class="feats"><li>Panier complet</li><li>Filtre par type de peau</li><li>Inscription à la newsletter</li></ul>
+        <span class="go">Voir le projet →</span>
+      </div>
+    </a>
+    <a class="project" href="restaurant.html">
+      <div class="browser"><div class="bar"><i></i><i></i><i></i><span>solstice-paris.fr</span></div>
+        <div class="screen m-res" aria-hidden="true">
+          <div class="nv">SOLSTICE</div>
+          <div class="arch"></div>
+          <div class="t1">Dîner au-dessus de Paris</div>
+          <div class="cta"></div>
+          <div class="roofs"></div>
+        </div></div>
+      <div class="pinfo">
+        <div class="label">Restaurant · Rooftop · Bar</div>
+        <h3>Solstice</h3>
+        <p>Un restaurant-rooftop parisien où l'expérience compte autant que la cuisine. Le site met en scène la soirée et facilite les réservations comme les demandes de privatisation.</p>
+        <ul class="feats"><li>Réservation par créneaux</li><li>Agenda des soirées</li><li>Demande de privatisation</li></ul>
+        <span class="go">Voir le projet →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="sechead sub">
+    <h2>En ligne</h2>
+    <p>Des projets réels, publiés et accessibles. Chaque carte ouvre le site dans un nouvel onglet.</p>
+  </div>
+  <div class="live">
+    <a class="lcard" href="https://postmanagement-landing.vercel.app" target="_blank" rel="noopener">
+      <div class="label">Plateforme · SaaS</div><h3>postmanagement</h3>
+      <p>Préparez avec votre agent IA, publiez ce que vos clients ont validé. Variantes par réseau, validation par lien sans compte, publication planifiée.</p>
+      <span class="url">postmanagement-landing.vercel.app ↗</span>
+    </a>
+    <a class="lcard" href="https://inspection-auto-camera.vercel.app" target="_blank" rel="noopener">
+      <div class="label">Application web mobile</div><h3>Inspection auto</h3>
+      <p>Photographier une voiture vue par vue avec un cadrage guidé en direct. Photos conservées uniquement sur le téléphone.</p>
+      <span class="url">inspection-auto-camera.vercel.app ↗</span>
+    </a>
+    <a class="lcard" href="https://chez-os-psi.vercel.app" target="_blank" rel="noopener">
+      <div class="label">Snack · Commande en ligne</div><h3>Chez Os</h3>
+      <p>Kefta grillée et riz crousty à Nogent-sur-Oise. Commande en ligne, retrait sur place.</p>
+      <span class="url">chez-os-psi.vercel.app ↗</span>
+    </a>
+    <a class="lcard" href="https://delice-df5.vercel.app" target="_blank" rel="noopener">
+      <div class="label">Snack · Commande et réservation</div><h3>DF5</h3>
+      <p>Burgers, smashs, tacos et pizzas halal à Nogent-sur-Oise. Commande, retrait ou réservation de table.</p>
+      <span class="url">delice-df5.vercel.app ↗</span>
+    </a>
+    <a class="lcard" href="https://night-by-night.vercel.app" target="_blank" rel="noopener">
+      <div class="label">Site de contenu · Guides</div><h3>Night by Night</h3>
+      <p>Guides de sommeil pour bébés de 4 à 18 mois, sourcés, avec pages imprimables. Site en anglais.</p>
+      <span class="url">night-by-night.vercel.app ↗</span>
+    </a>
+  </div>
+
+  <div class="sechead sub">
+    <h2>Infrastructure</h2>
+    <p>Tous nos sites sont hébergés sur Vercel : déploiement en un envoi, HTTPS automatique, réseau de diffusion mondial. Liste complète des adresses en production.</p>
+  </div>
+  <ul class="infra">
+    <li><b>studio-vitrine-chi.vercel.app</b><span>Ce site</span></li>
+    <li><a href="https://postmanagement-landing.vercel.app" target="_blank" rel="noopener">postmanagement-landing.vercel.app</a><span>Plateforme</span></li>
+    <li><a href="https://inspection-auto-camera.vercel.app" target="_blank" rel="noopener">inspection-auto-camera.vercel.app</a><span>Application mobile</span></li>
+    <li><a href="https://chez-os-psi.vercel.app" target="_blank" rel="noopener">chez-os-psi.vercel.app</a><span>Site</span></li>
+    <li><a href="https://delice-df5.vercel.app" target="_blank" rel="noopener">delice-df5.vercel.app</a><span>Site</span></li>
+    <li><a href="https://night-by-night.vercel.app" target="_blank" rel="noopener">night-by-night.vercel.app</a><span>Site</span></li>
+  </ul>
+</div></section>
+
+<section id="offres"><div class="wrap">
+  <div class="sechead">
+    <h2>Formules</h2>
+    <p>Un devis personnalisé, à partir de 300 €, défini avant le début du projet. Hébergement, nom de domaine et mise en ligne compris.</p>
+  </div>
+  <div class="offers">
+    <article class="offer">
+      <h3>Site vitrine</h3>
+      <div class="price">Sur devis</div>
+      <ul><li>Jusqu'à 5 pages</li><li>Horaires, services, plan d'accès</li><li>Formulaire de contact</li><li>Optimisation de la fiche Google</li></ul>
+      <div class="for">Idéal pour une première présence en ligne.</div>
+    </article>
+    <article class="offer best">
+      <span class="pill">Recommandé</span>
+      <h3>Site et réservation ou vente en ligne</h3>
+      <div class="price">Sur devis</div>
+      <ul><li>L'ensemble de la formule Site vitrine</li><li>Module de réservation ou boutique en ligne</li><li>Notifications par e-mail</li><li>Prise en main d'une heure incluse</li></ul>
+      <div class="for">Adapté aux restaurants, agences de location, salons et boutiques.</div>
+    </article>
+    <article class="offer">
+      <h3>Refonte de site</h3>
+      <div class="price">Sur devis</div>
+      <ul><li>Audit du site existant</li><li>Nouveau design adapté au mobile</li><li>Reprise des contenus existants</li><li>Redirections pour préserver le référencement</li></ul>
+      <div class="for">Pour moderniser un site daté ou peu lisible sur mobile.</div>
+    </article>
+  </div>
+  <p class="note">Maintenance : 40 € par mois, comprenant le SEO, le GEO (visibilité dans les réponses des IA) et la gestion de votre fiche Google My Business, en plus des mises à jour, sauvegardes et modifications courantes.</p>
+</div></section>
+
+<section id="methode"><div class="wrap">
+  <div class="sechead"><h2>Méthode</h2></div>
+  <ol class="steps">
+    <li><h3>Échange découverte</h3><p>Analyse de votre activité, de votre clientèle et de vos objectifs.</p><span class="when">Semaine 1</span></li>
+    <li><h3>Maquette</h3><p>Présentation de la page d'accueil, puis ajustements selon vos retours.</p><span class="when">Semaines 1 à 2</span></li>
+    <li><h3>Développement</h3><p>Réalisation de l'ensemble des pages et tests sur mobile et ordinateur.</p><span class="when">Semaines 2 à 3</span></li>
+    <li><h3>Mise en ligne</h3><p>Publication sur votre nom de domaine et prise en main de votre site.</p><span class="when">Semaine 3</span></li>
+  </ol>
+</div></section>
+
+<section class="contact" id="contact"><div class="wrap">
+  <div>
+    <h2>Démarrer un projet</h2>
+    <p>Présentez votre activité et vos besoins. Après un premier échange, vous recevez un devis détaillé.</p>
+  </div>
+  <div class="card">
+    <div class="line"><div><small>E-mail</small><b id="mail"><a href="mailto:studio.vitrine92700@gmail.com">studio.vitrine92700@gmail.com</a></b></div><button class="copy" data-copy="mail">Copier</button></div>
+    <div class="line"><div><small>Téléphone</small><b id="phone"><a href="tel:+33667728602">06 67 72 86 02</a></b></div><button class="copy" data-copy="phone">Copier</button></div>
+    <div class="line"><div><small>Zone d'intervention</small><b>Colombes et Hauts-de-Seine en rendez-vous, toute la France en visioconférence</b></div></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Studio Vitrine · Les trois maquettes sont des démonstrations, les entreprises sont fictives. · <a href="mentions-legales.html">Mentions légales</a> · <a href="/espace">Espace pro</a></div></footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy),txt=el.textContent;
+  const done=()=>{b.textContent='Copié';setTimeout(()=>b.textContent='Copier',1600)};
+  try{navigator.clipboard.writeText(txt).then(done,()=>{getSelection().selectAllChildren(el)})}catch(e){getSelection().selectAllChildren(el)}
+}));
+</script>
+
+</body>
+</html>

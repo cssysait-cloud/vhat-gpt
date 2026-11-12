@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Solstice Paris</title>
+<link rel="stylesheet" href="fonts/restaurant.css">
+<style>
+/* Layout : héros plein écran au coucher du soleil sur les toits, trois moments (dîner, bar, nuit) en arches, carte, agenda des soirées, privatisation, infos, réservation. Thème nuit unique assumé. */
+:root{
+  --noir:#100D0B; --noir-2:#191411; --creme:#F4EDE1; --dim:#B5A998; --or:#D9B77C; --terra:#C8693F; --line:rgba(244,237,225,.16);
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Jost",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--noir);color:var(--creme);font:300 17px/1.7 var(--sans)}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1;margin:0;text-wrap:balance}
+:focus-visible{outline:1px solid var(--or);outline-offset:4px}
+.eyebrow{font:400 12px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--or)}
+.btn{display:inline-block;font:400 13px var(--sans);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--creme);border:1px solid var(--creme);padding:15px 30px;background:transparent;cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:var(--creme);color:var(--noir)}
+.btn.solid{background:var(--or);border-color:var(--or);color:var(--noir)}
+.btn.solid:hover{background:var(--creme);border-color:var(--creme)}
+
+.demo{position:relative;z-index:30;background:#000;font-size:12px;letter-spacing:.06em}
+.demo .wrap{display:flex;justify-content:space-between;gap:12px;padding-block:7px;flex-wrap:wrap}
+.demo a{color:var(--or)}
+
+/* navigation */
+nav{position:sticky;top:0;z-index:20;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.solid{background:rgba(16,13,11,.92);backdrop-filter:blur(8px);border-color:var(--line)}
+nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-block:18px;gap:16px}
+.links{display:flex;gap:28px;font:400 12px var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.links a{text-decoration:none;color:var(--dim);transition:color .2s}
+.links a:hover{color:var(--creme)}
+.logo{font:400 22px var(--serif);letter-spacing:.5em;text-decoration:none;padding-left:.5em;text-transform:uppercase}
+nav .right{display:flex;justify-content:flex-end;align-items:center;gap:20px}
+.status{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:8px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dot,#776B5E)}
+nav .btn{padding:11px 20px;font-size:12px}
+
+/* héros */
+.hero{position:relative;min-height:calc(100svh - 30px);margin-top:-73px;display:grid;place-items:center;text-align:center;overflow:hidden;
+  background:
+    radial-gradient(60% 45% at 50% 78%,rgba(255,170,90,.55),transparent 70%),
+    linear-gradient(180deg,#1B1424 0%,#3B2233 26%,#7A3A35 52%,#C8693F 72%,#E8A066 84%,#2A1A14 100%)}
+.hero .sky{position:absolute;inset:0;pointer-events:none}
+.hero .sun{position:absolute;left:50%;bottom:16%;width:min(46vw,420px);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFD9A0 0%,#F3A060 40%,rgba(232,140,80,0) 70%);opacity:.75}
+.hero svg.roofs{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;display:block}
+.hero .arch{position:absolute;left:50%;top:15%;bottom:0;width:min(78vw,620px);transform:translateX(-50%);border:1px solid rgba(217,183,124,.55);border-bottom:0;border-radius:999px 999px 0 0;pointer-events:none}
+.hero .arch::after{content:"";position:absolute;inset:14px 14px 0;border:1px solid rgba(217,183,124,.22);border-bottom:0;border-radius:inherit}
+.hero .inner{position:relative;z-index:2;padding:140px 16px 180px;max-width:900px}
+.hero h1{font-size:clamp(56px,10vw,136px);font-style:italic;letter-spacing:-.01em;margin:22px 0 24px;text-shadow:0 4px 40px rgba(40,10,10,.45)}
+.hero p{max-width:46ch;margin:0 auto 36px;font-size:18px;color:#F6E6D2}
+.hero .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.lights{position:absolute;left:-2%;right:-2%;top:26%;height:90px;pointer-events:none}
+.lights i{position:absolute;width:6px;height:6px;border-radius:50%;background:#FFE3A8;box-shadow:0 0 12px 3px rgba(255,210,140,.75);animation:tw 3.5s ease-in-out infinite}
+@keyframes tw{50%{opacity:.45}}
+
+section{padding-block:110px}
+.center{text-align:center}
+.intro h2{font-size:clamp(40px,5.6vw,72px);margin:18px auto 24px;max-width:18ch}
+.intro h2 em{color:var(--or)}
+.intro p{max-width:58ch;margin:0 auto;color:var(--dim);font-size:18px}
+
+/* trois moments */
+.moments{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:72px}
+.moment{text-align:center}
+.moment .pic{aspect-ratio:3/4;border-radius:999px 999px 0 0;position:relative;overflow:hidden;margin-bottom:26px}
+.moment .pic svg{position:absolute;inset:0;width:100%;height:100%}
+.moment .pic span{position:absolute;left:0;right:0;bottom:22px;font:400 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:rgba(244,237,225,.8)}
+.m1 .pic{background:radial-gradient(70% 50% at 50% 70%,#E8A066,#8A3E2C 60%,#2A1712)}
+.m2 .pic{background:radial-gradient(70% 55% at 50% 40%,#2F6B5E,#143A33 55%,#0B1A17)}
+.m3 .pic{background:radial-gradient(70% 55% at 50% 50%,#7A2E4A,#3A1426 55%,#120910)}
+.moment h3{font-size:38px;font-style:italic;margin-bottom:10px}
+.moment .time{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--or);margin-bottom:10px}
+.moment p{color:var(--dim);margin:0 auto;max-width:34ch}
+
+/* carte */
+.carte{background:var(--noir-2);border-block:1px solid var(--line)}
+.carte h2,.agenda h2,.priv h2,.resa h2,.info h2{font-size:clamp(44px,6vw,80px);font-style:italic;margin-top:16px}
+.tabs{display:flex;justify-content:center;gap:6px 30px;flex-wrap:wrap;margin:40px 0 56px}
+.tabs button{background:none;border:0;border-bottom:1px solid transparent;color:var(--dim);padding:6px 2px;font:400 13px var(--sans);letter-spacing:.24em;text-transform:uppercase;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--creme);border-color:var(--or)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:8px 72px;max-width:980px;margin:0 auto}
+.dish{padding:18px 0;border-bottom:1px solid var(--line)}
+.dish .t{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.dish h3{font-size:27px;font-weight:400}
+.dish .p{font:400 16px var(--sans);color:var(--or);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dish p{margin:4px 0 0;color:var(--dim);font-size:15px}
+.chef{display:block;text-align:center;margin-top:48px;font:italic 300 22px var(--serif);color:var(--dim)}
+
+/* agenda */
+.agenda .list{margin-top:56px;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line);transition:background .3s}
+.ev .d{font:400 12px var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+.ev h3{font-size:clamp(28px,3.4vw,40px);font-style:italic}
+.ev p{margin:2px 0 0;color:var(--dim);font-size:15px}
+.ev .h{font-size:14px;letter-spacing:.14em;color:var(--or);white-space:nowrap}
+.ev.next{background:linear-gradient(90deg,rgba(217,183,124,.08),transparent)}
+.ev.next .d{color:var(--or)}
+.ev.next .d::after{content:" · ce soir";color:var(--creme)}
+.ev.next.later .d::after{content:" · prochain"}
+
+/* privatisation */
+.priv .wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.priv p.lead{color:var(--dim);font-size:18px;max-width:44ch}
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;border-top:1px solid var(--line);padding-top:28px}
+.figs b{display:block;font:300 48px/1 var(--serif);color:var(--or)}
+.figs span{font-size:13px;color:var(--dim)}
+form{display:grid;gap:22px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+label{display:block;font:400 11px var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+input,select,textarea{width:100%;min-width:0;background:transparent;border:0;border-bottom:1px solid rgba(244,237,225,.35);color:var(--creme);padding:10px 0;font:300 17px var(--sans);border-radius:0}
+select option{background:var(--noir)}
+textarea{resize:vertical;min-height:80px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--or)}
+.msg{font-size:15px;color:var(--dim)}
+.ok{border:1px solid var(--or);padding:18px 20px;color:var(--creme)}
+.err{color:#E89A86;margin:0}
+
+/* infos */
+.info{background:var(--noir-2);border-top:1px solid var(--line)}
+.info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:28px}
+td{padding:12px 0;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;color:var(--dim)}
+tr.today td{color:var(--or)}
+.addr{font:italic 300 30px/1.2 var(--serif);margin:28px 0 10px}
+.info .wrap p{color:var(--dim)}
+.link{color:var(--or);font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid}
+
+/* réservation */
+.resa .wrap{max-width:760px}
+.resa .sub{color:var(--dim);margin:16px auto 48px;max-width:50ch}
+.slots{display:flex;flex-wrap:wrap;gap:10px}
+.slots button{background:transparent;border:1px solid var(--line);color:var(--creme);padding:10px 16px;font:400 15px var(--sans);cursor:pointer;font-variant-numeric:tabular-nums;transition:border-color .2s}
+.slots button:hover:not(:disabled){border-color:var(--creme)}
+.slots button[aria-pressed="true"]{background:var(--or);border-color:var(--or);color:var(--noir)}
+.slots button:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.resa form .btn{justify-self:center;margin-top:8px}
+
+footer{border-top:1px solid var(--line);padding-block:56px 40px;text-align:center;color:var(--dim);font-size:14px}
+footer .logo{display:inline-block;margin-bottom:18px}
+footer .fl{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+
+@media (max-width:900px){
+  .links,.status{display:none}
+  nav .wrap{grid-template-columns:auto 1fr}
+  nav .right{grid-column:2}
+  .logo{grid-column:1;grid-row:1}
+  .moments{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+  .menu,.priv .wrap,.info .wrap{grid-template-columns:1fr}
+  .priv .wrap,.info .wrap{gap:56px}
+  .ev{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:480px){.row2{grid-template-columns:1fr}.figs b{font-size:38px}.logo{letter-spacing:.35em;font-size:19px}section{padding-block:80px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="stylesheet" href="touch.css">
+</head>
+<body>
+<div class="demo"><div class="wrap"><span>Site de démonstration · restaurant fictif</span><a href="index.html">← Retour au portfolio</a></div></div>
+
+<nav id="nav"><div class="wrap">
+  <div class="links"><a href="#carte">La carte</a><a href="#agenda">Soirées</a><a href="#privatiser">Privatiser</a></div>
+  <a class="logo" href="#">Solstice</a>
+  <div class="right"><span class="status" id="status">Horaires</span><a class="btn" href="#reserver">Réserver</a></div>
+</div></nav>
+
+<header class="hero">
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="lights" id="lights"></div>
+    <svg class="roofs" viewBox="0 0 1440 260" preserveAspectRatio="none">
+      <path fill="#2A1A14" d="M0 150 L60 150 L60 120 L72 120 L72 110 L84 110 L84 120 L140 120 L170 92 L300 92 L330 120 L360 120 L360 104 L376 104 L376 120 L430 120 L430 80 L444 80 L444 120 L520 120 L548 96 L690 96 L718 120 L760 120 L760 100 L772 100 L772 120 L840 120 L840 70 L852 70 L852 120 L900 120 L930 90 L1080 90 L1110 120 L1150 120 L1150 106 L1164 106 L1164 120 L1230 120 L1260 98 L1380 98 L1410 120 L1440 120 L1440 260 L0 260 Z"/>
+      <path fill="#140D0A" d="M0 200 L40 200 L70 170 L210 170 L240 200 L280 200 L280 180 L294 180 L294 200 L380 200 L410 168 L580 168 L610 200 L660 200 L660 176 L676 176 L676 200 L760 200 L790 172 L960 172 L990 200 L1040 200 L1040 182 L1054 182 L1054 200 L1120 200 L1150 166 L1320 166 L1350 200 L1440 200 L1440 260 L0 260 Z"/>
+      <g fill="#FFC77A" opacity=".85"><rect x="100" y="214" width="10" height="16"/><rect x="190" y="210" width="10" height="16"/><rect x="460" y="212" width="10" height="16"/><rect x="520" y="212" width="10" height="16"/><rect x="860" y="214" width="10" height="16"/><rect x="1200" y="210" width="10" height="16"/><rect x="1240" y="210" width="10" height="16"/></g>
+    </svg>
+    <div class="arch"></div>
+  </div>
+  <div class="inner">
+    <div class="eyebrow">Restaurant · Rooftop · Paris 8<sup>e</sup></div>
+    <h1>Dîner <span style="white-space:nowrap">au-dessus</span> de Paris</h1>
+    <p>Une terrasse au septième étage, une cuisine méditerranéenne à partager, et des soirées qui commencent au coucher du soleil.</p>
+    <div class="row"><a class="btn solid" href="#reserver">Réserver une table</a><a class="btn" href="#agenda">Les soirées</a></div>
+  </div>
+</header>
+
+<section class="intro center"><div class="wrap">
+  <div class="eyebrow">L'expérience</div>
+  <h2>On vient pour dîner, on reste <em>pour la nuit</em></h2>
+  <p>Solstice est pensé comme une soirée en trois temps. L'apéritif face aux toits, le dîner sous les guirlandes, puis le bar quand la musique monte. Chaque table a vue sur Paris.</p>
+  <div class="moments">
+    <article class="moment m1">
+      <div class="pic" aria-hidden="true"><svg viewBox="0 0 300 400"><g fill="none" stroke="rgba(255,226,180,.55)" stroke-width="1.2"><ellipse cx="150" cy="300" rx="90" ry="14"/><path d="M110 300 C110 250 190 250 190 300"/><path d="M60 240 L60 300 M240 240 L240 300"/><path d="M50 240 L70 240 M230 240 L250 240"/></g></svg><span>Le dîner</span></div>
+      <div class="time">19 h 30 – 23 h</div>
+      <h3>À la table</h3>
+      <p>Des assiettes à partager au centre de la table, des produits de Méditerranée et du feu de bois.</p>
+    </article>
+    <article class="moment m2">
+      <div class="pic" aria-hidden="true"><svg viewBox="0 0 300 400"><g fill="none" stroke="rgba(190,240,220,.55)" stroke-width="1.2"><path d="M110 170 L190 170 L150 230 Z"/><path d="M150 230 L150 300 M125 300 L175 300"/><circle cx="178" cy="160" r="12"/></g></svg><span>Le bar</span></div>
+      <div class="time">18 h – 2 h</div>
+      <h3>Au comptoir</h3>
+      <p>Cocktails de saison, spritz à l'heure dorée et une cave de vins de petits domaines.</p>
+    </article>
+    <article class="moment m3">
+      <div class="pic" aria-hidden="true"><svg viewBox="0 0 300 400"><g fill="none" stroke="rgba(255,190,220,.55)" stroke-width="1.2"><circle cx="150" cy="230" r="60"/><circle cx="150" cy="230" r="40"/><circle cx="150" cy="230" r="6"/><path d="M200 170 L230 140"/></g></svg><span>La nuit</span></div>
+      <div class="time">Jeudi – samedi, 22 h – 2 h</div>
+      <h3>Sur la piste</h3>
+      <p>DJ résidents et invités, live jazz le vendredi. Les tables se poussent, la terrasse danse.</p>
+    </article>
+  </div>
+</div></section>
+
+<section class="carte center" id="carte"><div class="wrap">
+  <div class="eyebrow">Cuisine méditerranéenne</div>
+  <h2>La carte</h2>
+  <div class="tabs" role="tablist" aria-label="Catégories de la carte">
+    <button role="tab" aria-selected="true" data-k="partager">À partager</button>
+    <button role="tab" aria-selected="false" data-k="plats">Plats</button>
+    <button role="tab" aria-selected="false" data-k="desserts">Desserts</button>
+    <button role="tab" aria-selected="false" data-k="cocktails">Cocktails</button>
+  </div>
+  <div class="menu" id="menu" role="tabpanel" style="text-align:left"></div>
+  <span class="chef">Carte imaginée par le chef Marius Delorme, renouvelée à chaque saison</span>
+</div></section>
+
+<section class="agenda" id="agenda"><div class="wrap">
+  <div class="center"><div class="eyebrow">Cette semaine</div><h2>Les soirées</h2></div>
+  <div class="list" id="events"></div>
+</div></section>
+
+<section class="priv" id="privatiser" style="border-top:1px solid var(--line)"><div class="wrap">
+  <div>
+    <div class="eyebrow">Événements privés</div>
+    <h2>Privatiser Solstice</h2>
+    <p class="lead">Dîner d'entreprise, lancement de produit, anniversaire ou mariage : la terrasse, le salon ou le lieu entier, avec un menu et une programmation musicale sur mesure.</p>
+    <div class="figs">
+      <div><b>250</b><span>invités en cocktail</span></div>
+      <div><b>110</b><span>couverts assis</span></div>
+      <div><b>400 m²</b><span>de terrasse</span></div>
+    </div>
+  </div>
+  <form id="privForm" novalidate>
+    <div class="row2">
+      <div><label for="pnom">Nom</label><input id="pnom" type="text" autocomplete="name"></div>
+      <div><label for="psoc">Société</label><input id="psoc" type="text" autocomplete="organization" placeholder="Facultatif"></div>
+    </div>
+    <div class="row2">
+      <div><label for="pdate">Date souhaitée</label><input id="pdate" type="date"></div>
+      <div><label for="pinv">Invités</label><select id="pinv"><option>20 à 50</option><option selected>50 à 110</option><option>110 à 250</option></select></div>
+    </div>
+    <div><label for="pmail">E-mail</label><input id="pmail" type="email" autocomplete="email"></div>
+    <div><label for="pmsg">Votre projet</label><textarea id="pmsg" placeholder="Type d'événement, ambiance, budget…"></textarea></div>
+    <button class="btn" type="submit">Envoyer la demande</button>
+    <div id="privOut" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<section class="info"><div class="wrap">
+  <div>
+    <div class="eyebrow">Ouverture</div>
+    <h2>Horaires</h2>
+    <table id="hours"><tbody></tbody></table>
+  </div>
+  <div>
+    <div class="eyebrow">Accès</div>
+    <h2>Nous trouver</h2>
+    <p class="addr">12 rue des Saussaies, 7<sup>e</sup> étage<br>75008 Paris</p>
+    <p>Métro Miromesnil, lignes 9 et 13. Voiturier à partir de 19 h 30. Tenue élégante appréciée après 22 h.</p>
+    <a class="link" href="https://www.google.com/maps/search/Miromesnil+Paris" target="_blank" rel="noopener">Itinéraire</a>
+  </div>
+</div></section>
+
+<section class="resa center" id="reserver"><div class="wrap">
+  <div class="eyebrow">Réservation</div>
+  <h2>Réserver une table</h2>
+  <p class="sub">Confirmation immédiate. Pour plus de 8 personnes, passez par la demande de privatisation.</p>
+  <form id="resaForm" novalidate style="text-align:left">
+    <div class="row2">
+      <div><label for="rdate">Date</label><input id="rdate" type="date"></div>
+      <div><label for="couverts">Couverts</label><select id="couverts"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></div>
+    </div>
+    <div><label id="slotsLabel">Heure</label><div class="slots" id="slots" role="group" aria-labelledby="slotsLabel"></div></div>
+    <div class="row2">
+      <div><label for="nom">Nom</label><input id="nom" type="text" autocomplete="name"></div>
+      <div><label for="telr">Téléphone</label><input id="telr" type="tel" autocomplete="tel"></div>
+    </div>
+    <button class="btn solid" type="submit">Confirmer la réservation</button>
+    <div id="confirm" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<footer><div class="wrap">
+  <a class="logo" href="#">Solstice</a>
+  <div class="fl"><a href="#carte">La carte</a><a href="#agenda">Soirées</a><a href="#privatiser">Privatiser</a><a href="#reserver">Réserver</a></div>
+  <div>Solstice · Restaurant & rooftop · Paris 8<sup>e</sup> · Lieu fictif créé par Studio Vitrine</div>
+</div></footer>
+
+<script>
+// barre de navigation opaque après le héros
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('solid',scrollY>80);addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+// guirlande lumineuse
+const lights=document.getElementById('lights');
+for(let i=0;i<=26;i++){const x=i/26,y=Math.sin(x*Math.PI*3)*18+Math.abs(Math.sin(x*Math.PI*3))*22;
+  const el=document.createElement('i');el.style.left=(x*100)+'%';el.style.top=(y+30)+'px';el.style.animationDelay=(i%7*.45)+'s';lights.appendChild(el)}
+
+const menu={
+  partager:[["Burrata des Pouilles","Tomates anciennes, huile de basilic",19],["Poulpe grillé","Houmous fumé, citron confit",24],["Focaccia du four","Romarin, fleur de sel, olives taggiasche",9],["Carpaccio de daurade","Agrumes, piment d'Espelette",22]],
+  plats:[["Loup de mer entier","Cuit au feu de bois, fenouil, sauce vierge",42],["Côte de veau","Jus corsé, gnocchis à la sauge",44],["Linguine aux palourdes","Ail, persil, vin blanc",28],["Risotto à la truffe","Parmesan 24 mois",34]],
+  desserts:[["Tiramisu à partager","Préparé à la table",14],["Pavlova aux fruits rouges","Crème légère à la vanille",13],["Baba au rhum ambré","Chantilly, zestes de citron vert",14],["Sorbets du moment","Trois parfums",10]],
+  cocktails:[["Solstice","Gin, liqueur d'abricot, romarin, tonic",17],["Heure dorée","Apérol, prosecco, orange sanguine",15],["Minuit à Paris","Mezcal, mûre, citron vert",18],["Sans alcool · Jardin","Concombre, basilic, ginger beer",11]]
+};
+function showMenu(k){
+  document.getElementById('menu').innerHTML=menu[k].map(([n,d,p])=>`<div class="dish"><div class="t"><h3>${n}</h3><span class="p">${p} €</span></div><p>${d}</p></div>`).join('');
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(o=>o.setAttribute('aria-selected',o===b));showMenu(b.dataset.k)}));
+showMenu('partager');
+
+const dayNames=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+const now=new Date(),dow=now.getDay();
+
+// agenda de la semaine ; la prochaine soirée est mise en avant
+const events=[
+  [3,"Apéro sur les toits","Cocktails signature à 12 € jusqu'à 20 h","18 h"],
+  [4,"Sunset sessions","DJ résident, house et disco au coucher du soleil","21 h"],
+  [5,"Jazz au septième","Trio live pendant le dîner, puis DJ jusqu'à 2 h","20 h 30"],
+  [6,"Nuit Solstice","DJ invité, la terrasse se transforme en piste","22 h"],
+  [0,"Brunch en musique","Buffet méditerranéen et pianiste","11 h 30"]
+];
+const ord=d=>(d-dow+7)%7;
+const nextEv=events.reduce((a,e)=>ord(e[0])<ord(a[0])?e:a);
+document.getElementById('events').innerHTML=events.map(e=>`<div class="ev${e===nextEv?' next'+(ord(e[0])?' later':''):''}"><div class="d">${dayNames[e[0]]}</div><div><h3>${e[1]}</h3><p>${e[2]}</p></div><div class="h">${e[3]}</div></div>`).join('');
+
+// horaires : services en heures décimales, la nuit dépasse minuit (26 = 2 h)
+const hours={1:null,2:[[18,26]],3:[[18,26]],4:[[18,26]],5:[[18,26]],6:[[18,26]],0:[[11.5,16]]};
+const h=x=>{x=x%24;const H=Math.floor(x),M=Math.round((x-H)*60);return `${H} h${M?' '+String(M).padStart(2,'0'):''}`};
+document.querySelector('#hours tbody').innerHTML=[1,2,3,4,5,6,0].map(d=>`<tr class="${d===dow?'today':''}"><td>${dayNames[d]}</td><td>${hours[d]?hours[d].map(s=>h(s[0])+' – '+h(s[1])).join(' · '):'Fermé'}</td></tr>`).join('');
+const cur=now.getHours()+now.getMinutes()/60,yest=(dow+6)%7;
+const open=(hours[dow]||[]).some(([a,b])=>cur>=a&&cur<b)||(hours[yest]||[]).some(([a,b])=>cur+24>=a&&cur+24<b);
+const st=document.getElementById('status');st.textContent=open?'Ouvert':'Fermé';st.style.setProperty('--dot',open?'#9CC08A':'#C2554F');
+
+// réservation : dîner du mardi au samedi, brunch le dimanche
+const svc={2:[19.5,22.5],3:[19.5,22.5],4:[19.5,22.5],5:[19.5,23],6:[19.5,23],0:[11.5,14]};
+const rdate=document.getElementById('rdate'),slots=document.getElementById('slots');
+const iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const first=new Date();if(first.getDay()===1)first.setDate(first.getDate()+1);
+rdate.value=iso(first);rdate.min=iso(new Date());
+let chosen=null;
+function buildSlots(){
+  const d=new Date(rdate.value+'T12:00'),day=d.getDay();chosen=null;
+  const r=svc[day];
+  if(!r){slots.innerHTML='<span class="msg">Solstice est fermé le lundi.</span>';return}
+  const times=[];for(let t=r[0];t<=r[1];t+=.5)times.push(t);
+  const seed=d.getDate();
+  slots.innerHTML=times.map((t,i)=>`<button type="button" data-t="${h(t)}" ${((i+seed)%4===0)?'disabled aria-label="'+h(t)+' complet"':''} aria-pressed="false">${h(t)}</button>`).join('');
+}
+slots.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;
+  slots.querySelectorAll('button').forEach(o=>o.setAttribute('aria-pressed',o===b));chosen=b.dataset.t});
+rdate.addEventListener('change',buildSlots);buildSlots();
+const esc=s=>s.replace(/[<>&"]/g,'');
+document.getElementById('resaForm').addEventListener('submit',e=>{
+  e.preventDefault();const c=document.getElementById('confirm'),nom=document.getElementById('nom').value.trim();
+  if(!chosen){c.innerHTML='<p class="err">Choisissez une heure pour continuer.</p>';return}
+  if(!nom){c.innerHTML='<p class="err">Indiquez votre nom pour la réservation.</p>';return}
+  const d=new Date(rdate.value+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  c.innerHTML=`<div class="ok"><strong>Table pour ${document.getElementById('couverts').value}, ${d} à ${chosen}, au nom de ${esc(nom)}.</strong><br><span class="msg">Démo : sur le vrai site, un SMS de confirmation serait envoyé et la réservation apparaîtrait dans l'agenda du restaurant.</span></div>`;
+});
+
+// privatisation
+const pdate=document.getElementById('pdate');pdate.min=iso(new Date());
+document.getElementById('privForm').addEventListener('submit',e=>{
+  e.preventDefault();const o=document.getElementById('privOut'),nom=document.getElementById('pnom').value.trim(),mail=document.getElementById('pmail').value.trim();
+  if(!nom||!/^\S+@\S+\.\S+$/.test(mail)){o.innerHTML='<p class="err">Indiquez votre nom et une adresse e-mail valide.</p>';return}
+  o.innerHTML=`<div class="ok"><strong>Merci ${esc(nom)}, votre demande est bien partie.</strong><br><span class="msg">Démo : sur le vrai site, l'équipe événementielle recevrait la demande et répondrait sous 48 h avec une proposition.</span></div>`;
+});
+</script>
+</body>
+</html>

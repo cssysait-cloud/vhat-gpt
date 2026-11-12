@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rivage Location</title>
+<link rel="stylesheet" href="fonts/location-auto.css">
+<style>
+/* Layout : bandeau héros navy avec widget de réservation qui chevauche, puis flotte en grille filtrable. Thème unique assumé. */
+:root{
+  --navy:#0E1B2C; --navy-2:#16283F; --paper:#F2F4F7; --white:#FFFFFF;
+  --signal:#FF5A1F; --ink:#0E1B2C; --muted:#5B6878; --line:#DCE1E8;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"Barlow",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--body)}
+img,svg{max-width:100%}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.demo{background:#000;color:#fff;font-size:13px}
+.demo .wrap{display:flex;justify-content:space-between;gap:12px;padding-block:8px;flex-wrap:wrap}
+.demo a{color:#FFB08F}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+
+header.top{background:var(--navy);color:var(--white)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:18px;gap:16px}
+.logo{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:.02em;text-decoration:none}
+.logo span{color:var(--signal)}
+.links{display:flex;gap:24px;font-weight:500}
+.links a{text-decoration:none;opacity:.85}
+.links a:hover{opacity:1}
+.tel{font-family:var(--display);font-size:20px;font-weight:700;white-space:nowrap}
+
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;padding-block:48px 96px}
+.hero h1{font-size:clamp(48px,7vw,92px);font-weight:800}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.hero p{max-width:46ch;color:#C5CFDB;font-size:18px;margin:20px 0 0}
+.road{position:relative;height:150px}
+.road svg{position:absolute;bottom:0;right:0;width:100%;max-width:460px}
+.badges{display:flex;gap:24px;margin-top:28px;flex-wrap:wrap}
+.badges div{font-size:14px;color:#C5CFDB}
+.badges b{display:block;font-family:var(--display);font-size:30px;color:var(--white)}
+
+.book{margin-top:-56px;position:relative;z-index:2}
+.book form{background:var(--white);border-radius:6px;box-shadow:0 18px 40px rgba(14,27,44,.18);display:grid;grid-template-columns:1.2fr 1fr 1fr 1.2fr auto;gap:0;overflow:hidden}
+.field{padding:14px 18px;border-right:1px solid var(--line);min-width:0}
+.field label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.field select,.field input{width:100%;border:0;font:600 16px var(--body);color:var(--ink);background:transparent;padding:4px 0;min-width:0}
+.go{background:var(--signal);color:#fff;border:0;font:700 20px var(--display);text-transform:uppercase;padding:0 30px;cursor:pointer;letter-spacing:.03em}
+.go:hover{background:#E84A12}
+.quote{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:15px;color:var(--muted);min-height:28px}
+.quote strong{color:var(--ink);font-family:var(--display);font-size:24px}
+
+section{padding-block:72px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.head h2{font-size:clamp(36px,5vw,56px);font-weight:800}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--navy);background:transparent;border-radius:999px;padding:7px 16px;font:600 14px var(--body);cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--navy);color:#fff}
+
+.fleet{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.car{background:var(--white);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px;border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.car:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(14,27,44,.10)}
+.car .cat{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--signal)}
+.car h3{font-size:28px}
+.car .sub{color:var(--muted);font-size:14px;margin:4px 0 0}
+.car .pic{background:linear-gradient(180deg,#EEF1F5,#E3E8EE);border-radius:4px;aspect-ratio:16/8;display:grid;place-items:center;max-width:100%}
+.car .pic svg{width:82%}
+.specs{display:flex;gap:16px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.specs span::before{content:"";display:inline-block;width:6px;height:6px;background:var(--signal);border-radius:50%;margin-right:6px;vertical-align:middle}
+.price{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:14px;border-top:1px dashed var(--line)}
+.price b{font-family:var(--display);font-size:32px}
+.price small{color:var(--muted)}
+.pick{background:var(--navy);color:#fff;border:0;border-radius:4px;padding:10px 16px;font:600 15px var(--body);cursor:pointer}
+.pick:hover{background:var(--signal)}
+
+.steps{background:var(--navy);color:#fff}
+.steps ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:s}
+.steps li{counter-increment:s;border-top:2px solid var(--signal);padding-top:18px}
+.steps li::before{content:"Étape " counter(s);font-family:var(--display);color:var(--signal);font-size:18px;text-transform:uppercase}
+.steps h3{font-size:28px;margin:6px 0 8px}
+.steps p{color:#C5CFDB;margin:0}
+
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:var(--white);padding:24px;border-radius:6px;border:1px solid var(--line)}
+.stars{color:var(--signal);letter-spacing:2px}
+.review p{margin:10px 0 14px}
+.review footer{font-size:14px;color:var(--muted)}
+
+.faq{max-width:780px}
+details{border-bottom:1px solid var(--line);padding:18px 0}
+summary{cursor:pointer;font-weight:600;font-size:18px}
+details p{color:var(--muted);margin:10px 0 0}
+
+footer.site{background:var(--navy-2);color:#C5CFDB;padding-block:40px;font-size:14px}
+footer.site .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:32px 90px}
+  .road{display:none}
+  .book form{grid-template-columns:1fr 1fr}
+  .field:nth-child(2n){border-right:0}
+  .field{border-bottom:1px solid var(--line)}
+  .go{grid-column:1/-1;padding:16px}
+  .fleet,.reviews{grid-template-columns:1fr 1fr}
+  .steps ol{grid-template-columns:1fr}
+  .links{display:none}
+}
+@media (max-width:560px){
+  .fleet,.reviews{grid-template-columns:1fr}
+  .book form{grid-template-columns:1fr}
+  .field{border-right:0}
+  .tel{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="stylesheet" href="touch.css">
+</head>
+<body>
+<div class="demo"><div class="wrap"><span>Site de démonstration · entreprise fictive</span><a href="index.html">← Retour au portfolio</a></div></div>
+
+<header class="top">
+  <nav><div class="wrap">
+    <a class="logo" href="#">Rivage<span>.</span></a>
+    <div class="links"><a href="#flotte">Nos véhicules</a><a href="#fonctionnement">Comment ça marche</a><a href="#faq">Questions</a></div>
+    <span class="tel">04 93 00 00 00</span>
+  </div></nav>
+  <div class="hero"><div class="wrap">
+    <div>
+      <h1>Louez une voiture à Nice <em>en 3 minutes</em></h1>
+      <p>Citadines, SUV et utilitaires disponibles 7 j/7 à l'aéroport et en gare Thiers. Kilométrage illimité, sans frais cachés.</p>
+      <div class="badges">
+        <div><b>4,8/5</b>1 240 avis clients</div>
+        <div><b>32</b>véhicules récents</div>
+        <div><b>0 €</b>frais d'annulation 48 h</div>
+      </div>
+    </div>
+    <div class="road" aria-hidden="true">
+      <svg viewBox="0 0 460 150"><line x1="0" y1="140" x2="460" y2="140" stroke="#2B4060" stroke-width="3" stroke-dasharray="28 18"/><use href="#car" x="60" y="10" width="360" height="130" fill="#FF5A1F"/></svg>
+    </div>
+  </div></div>
+</header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="car" viewBox="0 0 300 110">
+    <path d="M18 78 C18 62 30 56 48 54 L86 50 L120 24 C128 18 136 16 148 16 L206 16 C220 16 230 22 238 32 L258 52 L272 56 C284 59 290 66 290 78 L290 86 L18 86 Z"/>
+    <path d="M128 28 L146 24 L200 24 C210 24 216 28 222 34 L236 50 L104 50 Z" fill="#DCE6F2" opacity=".85"/>
+    <line x1="170" y1="24" x2="170" y2="50" stroke="#0E1B2C" stroke-width="3"/>
+    <circle cx="80" cy="86" r="20" fill="#0E1B2C"/><circle cx="80" cy="86" r="8" fill="#B8C2CF"/>
+    <circle cx="232" cy="86" r="20" fill="#0E1B2C"/><circle cx="232" cy="86" r="8" fill="#B8C2CF"/>
+  </symbol>
+  <symbol id="van" viewBox="0 0 300 110">
+    <path d="M18 86 L18 30 C18 22 24 16 32 16 L196 16 C206 16 212 20 218 28 L252 56 L278 62 C286 64 290 70 290 78 L290 86 Z"/>
+    <path d="M200 26 L240 58 L200 58 Z" fill="#DCE6F2" opacity=".85"/>
+    <circle cx="80" cy="86" r="20" fill="#0E1B2C"/><circle cx="80" cy="86" r="8" fill="#B8C2CF"/>
+    <circle cx="232" cy="86" r="20" fill="#0E1B2C"/><circle cx="232" cy="86" r="8" fill="#B8C2CF"/>
+  </symbol>
+</svg>
+
+<div class="wrap book">
+  <form id="booking" novalidate>
+    <div class="field"><label for="agence">Agence de départ</label>
+      <select id="agence"><option>Nice Aéroport T2</option><option>Nice Gare Thiers</option><option>Antibes Centre</option></select></div>
+    <div class="field"><label for="start">Départ</label><input id="start" type="date"></div>
+    <div class="field"><label for="end">Retour</label><input id="end" type="date"></div>
+    <div class="field"><label for="vehicule">Véhicule</label><select id="vehicule"></select></div>
+    <button class="go" type="submit">Réserver</button>
+  </form>
+  <div class="quote" id="quote" aria-live="polite"></div>
+</div>
+
+<section id="flotte"><div class="wrap">
+  <div class="head"><h2>Notre flotte</h2>
+    <div class="chips" role="group" aria-label="Filtrer par catégorie">
+      <button class="chip" aria-pressed="true" data-f="all">Tous</button>
+      <button class="chip" aria-pressed="false" data-f="Citadine">Citadines</button>
+      <button class="chip" aria-pressed="false" data-f="SUV">SUV</button>
+      <button class="chip" aria-pressed="false" data-f="Utilitaire">Utilitaires</button>
+      <button class="chip" aria-pressed="false" data-f="Premium">Premium</button>
+    </div>
+  </div>
+  <div class="fleet" id="fleet"></div>
+</div></section>
+
+<section class="steps" id="fonctionnement"><div class="wrap">
+  <div class="head"><h2>Comment ça marche</h2></div>
+  <ol>
+    <li><h3>Choisissez</h3><p>Sélectionnez vos dates et votre véhicule. Le prix affiché est le prix final, assurance incluse.</p></li>
+    <li><h3>Récupérez</h3><p>Présentez votre permis au comptoir ou utilisez la boîte à clés sécurisée, même à 23 h.</p></li>
+    <li><h3>Rendez</h3><p>Déposez la voiture avec le même niveau de carburant. La caution est libérée sous 48 h.</p></li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <div class="head"><h2>Ils ont roulé avec nous</h2></div>
+  <div class="reviews">
+    <article class="review"><div class="stars">★★★★★</div><p>Voiture prête à l'arrivée de notre vol de 22 h, personne n'a attendu. Prix identique à celui annoncé.</p><footer>Claire M. · Clio, 5 jours</footer></article>
+    <article class="review"><div class="stars">★★★★★</div><p>J'ai loué le Trafic pour un déménagement, propre et facile à conduire. Je repasserai.</p><footer>Yanis B. · Trafic, 1 jour</footer></article>
+    <article class="review"><div class="stars">★★★★☆</div><p>Très bon accueil en gare. Le 3008 était quasi neuf, parfait pour l'arrière-pays.</p><footer>Thomas R. · 3008, 1 semaine</footer></article>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap faq">
+  <div class="head"><h2>Questions fréquentes</h2></div>
+  <details><summary>Quel âge faut-il avoir pour louer ?</summary><p>21 ans et 2 ans de permis minimum. Les catégories Premium demandent 25 ans et 3 ans de permis.</p></details>
+  <details><summary>Quel est le montant de la caution ?</summary><p>800 € pour les citadines, 1 200 € pour les SUV et utilitaires, 2 000 € pour les Premium. Elle est bloquée sur carte bancaire, jamais débitée sans dommage constaté.</p></details>
+  <details><summary>Puis-je ajouter un conducteur ?</summary><p>Oui, 5 € par jour, plafonné à 40 € par location.</p></details>
+  <details><summary>Puis-je annuler ?</summary><p>L'annulation est gratuite jusqu'à 48 h avant le départ. Ensuite, la première journée est retenue.</p></details>
+</div></section>
+
+<footer class="site"><div class="wrap">
+  <span>Rivage Location · 12 avenue Thiers, 06000 Nice</span>
+  <span>Ouvert 7 j/7 · 7 h – 23 h</span>
+</div></footer>
+
+<script>
+const cars=[
+  {n:"Renault Clio",c:"Citadine",s:"ou similaire",p:39,seats:5,box:"Manuelle",fuel:"Essence",color:"#FF5A1F",shape:"car"},
+  {n:"Fiat 500",c:"Citadine",s:"ou similaire",p:35,seats:4,box:"Manuelle",fuel:"Hybride",color:"#2BB3A3",shape:"car"},
+  {n:"Peugeot 3008",c:"SUV",s:"ou similaire",p:69,seats:5,box:"Automatique",fuel:"Diesel",color:"#3A5A86",shape:"car"},
+  {n:"Dacia Duster",c:"SUV",s:"4x4 ou similaire",p:55,seats:5,box:"Manuelle",fuel:"Essence",color:"#9AA6B5",shape:"car"},
+  {n:"Renault Trafic",c:"Utilitaire",s:"9 m³",p:79,seats:3,box:"Manuelle",fuel:"Diesel",color:"#E9EDF2",shape:"van"},
+  {n:"BMW Série 3",c:"Premium",s:"ou similaire",p:109,seats:5,box:"Automatique",fuel:"Hybride",color:"#0E1B2C",shape:"car"}
+];
+const fleet=document.getElementById('fleet'),sel=document.getElementById('vehicule');
+cars.forEach((c,i)=>{
+  sel.add(new Option(`${c.n} · ${c.p} €/j`,i));
+  const el=document.createElement('article');el.className='car';el.dataset.cat=c.c;
+  el.innerHTML=`<div><div class="cat">${c.c}</div><h3>${c.n}</h3><p class="sub">${c.s}</p></div>
+  <div class="pic"><svg viewBox="0 0 300 110" aria-hidden="true"><use href="#${c.shape}" fill="${c.color}" stroke="#0E1B2C" stroke-width="${c.color==='#E9EDF2'?2:0}"/></svg></div>
+  <div class="specs"><span>${c.seats} places</span><span>${c.box}</span><span>${c.fuel}</span></div>
+  <div class="price"><div><b>${c.p} €</b> <small>/ jour</small></div><button class="pick" data-i="${i}">Choisir</button></div>`;
+  fleet.appendChild(el);
+});
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  fleet.querySelectorAll('.car').forEach(c=>c.hidden=!(b.dataset.f==='all'||c.dataset.cat===b.dataset.f));
+}));
+fleet.addEventListener('click',e=>{
+  const b=e.target.closest('.pick');if(!b)return;
+  sel.value=b.dataset.i;update();document.getElementById('booking').scrollIntoView({block:'center'});sel.focus();
+});
+const s=document.getElementById('start'),en=document.getElementById('end'),q=document.getElementById('quote');
+const iso=d=>d.toISOString().slice(0,10);
+const t=new Date();t.setDate(t.getDate()+3);s.value=iso(t);t.setDate(t.getDate()+4);en.value=iso(t);
+function days(){const d=(new Date(en.value)-new Date(s.value))/864e5;return isNaN(d)?0:d}
+function update(){
+  const d=days(),c=cars[sel.value];
+  if(d<1){q.innerHTML='<span>La date de retour doit être après la date de départ.</span>';return}
+  const total=c.p*d-(d>=7?Math.round(c.p*d*.1):0);
+  q.innerHTML=`<span>${c.n} · ${d} jour${d>1?'s':''}${d>=7?' · −10 % à partir de 7 jours':''}</span><span>Total estimé <strong>${total} €</strong></span>`;
+}
+[s,en,sel].forEach(x=>x.addEventListener('change',update));update();
+document.getElementById('booking').addEventListener('submit',e=>{
+  e.preventDefault();if(days()<1)return update();
+  q.innerHTML=`<span><strong style="font-size:18px">Demande enregistrée (démo).</strong> Sur le vrai site, le client reçoit ici sa confirmation par e-mail.</span>`;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* Confort tactile commun à toutes les pages : cibles de 44 px, pas de zoom iOS dans les champs, pas de délai au toucher. */
+html{-webkit-text-size-adjust:100%}
+a,button,select,input,summary,label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,.08)}
+@media (pointer:coarse),(max-width:860px){
+  button,select,textarea,input:not([type=checkbox]):not([type=radio]){min-height:44px;font-size:16px}
+  button{min-width:44px}
+  .demo a,.brand,.logo,.links a,.navlinks a,.infra a,.link,.bag,.close,nav a{display:inline-flex;align-items:center;min-height:44px}
+  footer a{padding-block:12px;margin-block:-12px}
+}
+@media (hover:none){
+  .lcard:hover,.project:hover .browser,.car:hover{transform:none}
+}
