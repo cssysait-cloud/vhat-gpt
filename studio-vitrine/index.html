@@ -4,68 +4,246 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Studio Vitrine conçoit des sites sur mesure pour les commerces de proximité, restaurants et indépendants.">
+<meta name="theme-color" content="#1F6B4F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Studio Vitrine</title>
 <link rel="stylesheet" href="fonts/index.css">
 <style>
-/* Layout : héros manifeste à gauche, puis trois maquettes de navigateur cliquables, offres, méthode, contact. */
+/* Layout : héros court, puis la piste des services (une carte à la fois, voisines en aperçu),
+   réalisations, formules, méthode, contact. Sur téléphone : une idée par écran, détails repliés,
+   barre d'action en bas. */
 :root{
   --bg:#F3F4F1; --surface:#FFFFFF; --fg:#16181A; --muted:#5D6461; --line:#DADDD7;
-  --accent:#1F6B4F; --mark:#FFD84D; --on-accent:#FFFFFF;
+  --accent:#1F6B4F; --mark:#FFD84D; --on-accent:#FFFFFF; --stage:#E7EAE4;
   --display:"Bricolage Grotesque","Segoe UI",sans-serif; --body:"Figtree",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#121514; --surface:#1B1F1D; --fg:#ECEFEC; --muted:#A2AAA6; --line:#2D3330;
-  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; color-scheme:dark}}
+  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; --stage:#202523; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#121514; --surface:#1B1F1D; --fg:#ECEFEC; --muted:#A2AAA6; --line:#2D3330;
-  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; color-scheme:dark}
+  --accent:#5FC79B; --mark:#E7C23A; --on-accent:#0E1311; --stage:#202523; color-scheme:dark}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--body)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h1,h2,h3{font-family:var(--display);line-height:1.04;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .label{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.skip{position:absolute;left:12px;top:-60px;z-index:60;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
 
-nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:22px;gap:16px}
+/* Boutons : une paire, un rayon. Survol = petit pas, clic = appui. */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;padding:14px 24px;border-radius:10px;border:1.5px solid var(--accent);transition:transform .18s,box-shadow .18s;cursor:pointer;font-family:inherit;font-size:16px}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px -10px var(--accent)}
+.btn:active{transform:translateY(1px);box-shadow:none}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--fg);box-shadow:none}
+.link{font-weight:600;color:var(--accent);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+
+/* Navigation */
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:18px;gap:16px}
 .brand{font-family:var(--display);font-weight:800;font-size:22px;text-decoration:none;display:inline-flex;align-items:center}
 .brand svg{width:34px;height:34px;margin-right:10px;flex:none}
 .brand span{color:var(--accent)}
-.navlinks{display:flex;gap:24px;font-weight:500;font-size:15px}
+.navlinks{display:flex;align-items:center;gap:26px;font-weight:500;font-size:15px}
 .navlinks a{text-decoration:none;color:var(--muted)}
 .navlinks a:hover{color:var(--fg)}
+.navlinks .btn{color:var(--on-accent);padding:10px 18px;font-size:15px}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:10px;color:var(--fg);font:600 15px var(--body);padding:0 14px;height:44px;align-items:center;gap:8px;cursor:pointer}
+.menu-btn i{display:grid;gap:4px}
+.menu-btn i::before,.menu-btn i::after{content:"";display:block;width:16px;height:2px;background:currentColor;border-radius:2px}
+.menu{position:fixed;inset:0;z-index:50;background:var(--bg);display:flex;flex-direction:column;padding:max(18px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.menu[hidden]{display:none}
+.menu-top{display:flex;justify-content:space-between;align-items:center}
+.menu ul{list-style:none;margin:32px 0 0;padding:0;display:grid}
+.menu li a{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font:700 30px/1.1 var(--display);text-decoration:none}
+.menu li a::after{content:"→";color:var(--accent);font-size:22px}
+.menu .btn{margin-top:auto}
 
-.hero .wrap{padding-block:40px 64px}
-.hero h1{font-size:clamp(44px,7.4vw,104px);font-weight:800;max-width:14ch}
+/* Héros */
+.hero .wrap{padding-block:36px 64px}
+.hero h1{font-size:clamp(40px,7.4vw,100px);font-weight:800;max-width:14ch}
 .hl{background:linear-gradient(transparent 62%,var(--mark) 62%,var(--mark) 92%,transparent 92%);padding:0 .05em}
-.hero p{font-size:20px;color:var(--muted);max-width:56ch;margin:24px 0 32px}
+.hero .lead{font-size:20px;color:var(--muted);max-width:52ch;margin:22px 0 30px}
 .actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;padding:14px 24px;border-radius:10px}
-.btn.ghost{background:transparent;color:var(--fg);border:1.5px solid var(--line)}
-.facts{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
-.facts b{display:block;font-family:var(--display);font-size:34px;font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:16px 48px;margin:44px 0 0;padding:22px 0 0;border-top:1px solid var(--line);list-style:none}
+.facts b{display:block;font-family:var(--display);font-size:32px;font-weight:700;line-height:1.1}
 .facts span{color:var(--muted);font-size:15px}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .wrap>*{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.hero .wrap>:nth-child(2){animation-delay:.06s}.hero .wrap>:nth-child(3){animation-delay:.12s}
+.hero .wrap>:nth-child(4){animation-delay:.18s}.hero .wrap>:nth-child(5){animation-delay:.24s}
 
-section{padding-block:80px;border-top:1px solid var(--line)}
+/* Sections */
+section{padding-block:88px;border-top:1px solid var(--line)}
 .sechead{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
-.sechead h2{font-size:clamp(36px,5vw,60px);font-weight:700}
-.sechead p{color:var(--muted);margin:0;max-width:48ch}
+.sechead h2{font-size:clamp(34px,5vw,60px);font-weight:700}
+.sechead p{color:var(--muted);max-width:48ch}
 
-.projects{display:grid;gap:40px}
-.project{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;text-decoration:none}
+/* ---------- Services : piste horizontale, une carte au centre ---------- */
+#services{overflow:hidden}
+.svc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.svc-tabs button{font:600 13px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.svc-tabs button:hover{color:var(--fg);border-color:var(--fg)}
+.svc-tabs button[aria-current="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.track{--cw:min(84vw,980px);display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-inline:calc((100% - var(--cw))/2);padding-block:6px 10px;scrollbar-width:none;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.svc{flex:none;width:var(--cw);scroll-snap-align:center;scroll-snap-stop:always;display:grid;grid-template-columns:1.08fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;opacity:.4;transition:opacity .35s}
+.svc.is-active{opacity:1}
+.stage{position:relative;min-height:400px;background:var(--stage);display:grid;place-items:center;overflow:hidden;border-right:1px solid var(--line)}
+.badge{position:absolute;left:14px;top:14px;z-index:3;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--surface);border:1px solid var(--line);color:var(--accent);border-radius:999px;padding:5px 11px}
+.svc-body{display:flex;flex-direction:column;gap:14px;padding:36px 34px 30px;min-width:0}
+.tag{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.svc h3{font-size:clamp(26px,2.6vw,36px);font-weight:700}
+.svc p{color:var(--muted)}
+.svc ul{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;font-size:15px}
+.svc li{display:flex;gap:10px}
+.svc li::before{content:"";flex:none;width:7px;height:7px;margin-top:9px;border-radius:2px;background:var(--accent)}
+.svc .row{margin-top:auto;padding-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.svc .row .btn{padding:12px 20px}
+.svc-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:26px}
+.arrow{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:border-color .2s,transform .18s}
+.arrow:hover{border-color:var(--fg)}
+.arrow:active{transform:scale(.94)}
+.arrow:disabled{opacity:.35;cursor:default}
+.arrow svg{width:18px;height:18px}
+.dots{display:none;align-items:center}
+.dots button{width:26px;height:44px;border:0;background:none;padding:0;display:grid;place-items:center;cursor:pointer}
+.dots button span{display:block;width:7px;height:7px;border-radius:99px;background:var(--line);transition:width .25s,background .25s}
+.dots button[aria-current="true"] span{width:22px;background:var(--accent)}
+.count{font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--muted);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:center}
+.progress{height:2px;background:var(--line);border-radius:2px;margin:18px auto 0;max-width:220px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+
+/* Scènes miniatures : de petits écrans, couleurs d'écran fixes dans les deux thèmes. Leur état de
+   repos est l'état final, les boucles partent de là. Elles ne tournent que sur la carte active. */
+.mock{position:relative;width:min(88%,360px);font-family:var(--body);color:#16181A}
+.phone{width:200px;height:340px;margin:0 auto;border-radius:30px;background:#16181A;padding:9px;box-shadow:0 24px 50px -24px rgba(0,0,0,.45)}
+.phone .scr{height:100%;border-radius:22px;background:#fff;overflow:hidden;position:relative}
+.panel{background:#fff;border-radius:14px;box-shadow:0 18px 40px -22px rgba(0,0,0,.35);border:1px solid #E3E6E0}
+.svc:not(.is-active) .mock *,.paused .mock *{animation-play-state:paused!important}
+
+/* 01 vitrine : la page défile dans le téléphone */
+.m-site .feed{animation:feed 7s ease-in-out infinite}
+@keyframes feed{0%,18%{transform:none}50%,68%{transform:translateY(-118px)}100%{transform:none}}
+.m-site .sh{height:148px;background:linear-gradient(160deg,#2C6E55,#1F4B3B);padding:30px 14px 0;color:#fff}
+.m-site .sh small{font-size:8px;letter-spacing:.2em;opacity:.8}
+.m-site .sh b{display:block;font:800 19px/1.05 var(--display);margin-top:6px}
+.m-site .open{margin:12px 12px 0;display:flex;align-items:center;gap:6px;font-size:10px;font-weight:600}
+.m-site .open i{width:7px;height:7px;border-radius:50%;background:#2DB37A}
+.m-site .bt{margin:10px 12px 0;display:flex;gap:6px}
+.m-site .bt span{flex:1;font-size:9px;font-weight:700;text-align:center;padding:8px 0;border-radius:7px;background:#1F6B4F;color:#fff}
+.m-site .bt span+span{background:#EEF1EC;color:#16181A}
+.m-site .ph{margin:12px 12px 0;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.m-site .ph i{height:62px;border-radius:8px;background:#E2D3BF}
+.m-site .ph i:nth-child(2){background:#C9D8CF}.m-site .ph i:nth-child(3){background:#D8CDE0}.m-site .ph i:nth-child(4){background:#F0DFB0}
+.m-site .hrs{margin:12px;border-top:1px solid #E6E8E3;padding-top:8px;display:grid;gap:4px;font-size:9px;color:#5D6461}
+.m-site .hrs span{display:flex;justify-content:space-between}
+
+/* 02 réservation : un créneau se choisit, la confirmation tombe */
+.m-book{padding:18px}
+.m-book .hd{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:#5D6461}
+.m-book .hd b{font:700 17px var(--display);color:#16181A}
+.m-book .days{display:flex;gap:6px;margin:12px 0}
+.m-book .days span{flex:1;text-align:center;font-size:10px;padding:6px 0;border-radius:8px;background:#F1F3EF;color:#5D6461}
+.m-book .days span.on{background:#16181A;color:#fff}
+.m-book .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.m-book .slots span{font-size:11px;font-weight:600;text-align:center;padding:8px 0;border-radius:8px;border:1px solid #DADDD7;font-variant-numeric:tabular-nums}
+.m-book .slots span.off{color:#B9BEB8;text-decoration:line-through;border-style:dashed}
+.m-book .slots span.pick{background:#1F6B4F;border-color:#1F6B4F;color:#fff;animation:pick 4s infinite}
+@keyframes pick{0%,20%{background:#fff;color:#16181A;border-color:#DADDD7}30%,100%{background:#1F6B4F;color:#fff;border-color:#1F6B4F}}
+.toast{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);white-space:nowrap;display:flex;align-items:center;gap:8px;background:#16181A;color:#fff;font-size:11px;font-weight:600;padding:9px 14px;border-radius:999px;box-shadow:0 12px 26px -12px rgba(0,0,0,.5)}
+.toast i{width:16px;height:16px;border-radius:50%;background:#2DB37A;display:grid;place-items:center;font-style:normal;font-size:10px}
+.m-book .toast{animation:toast 4s infinite}
+@keyframes toast{0%,38%{opacity:0;transform:translate(-50%,10px)}48%,90%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,0)}}
+
+/* 03 boutique : la jauge de livraison offerte se remplit */
+.m-shop{padding:16px}
+.m-shop .ln{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #EEF0EC;font-size:12px}
+.m-shop .ln i{width:38px;height:38px;border-radius:9px;background:#EFE6DC;flex:none}
+.m-shop .ln:nth-child(2) i{background:#DCE7E1}.m-shop .ln:nth-child(3) i{background:#E8DFEA}
+.m-shop .ln div{flex:1;min-width:0}.m-shop .ln small{display:block;color:#7A817D;font-size:10px}
+.m-shop .ln b{font-variant-numeric:tabular-nums}
+.m-shop .gauge{margin-top:12px;font-size:10.5px;color:#5D6461}
+.m-shop .bar{height:7px;border-radius:9px;background:#EEF0EC;margin-top:6px;overflow:hidden}
+.m-shop .bar i{display:block;height:100%;width:100%;background:#1F6B4F;border-radius:9px;transform-origin:left;animation:fill 4s ease-out infinite}
+@keyframes fill{0%,10%{transform:scaleX(.55)}55%,100%{transform:scaleX(1)}}
+.m-shop .free{display:inline-flex;margin-top:8px;font-size:10px;font-weight:700;color:#1F6B4F;background:#E3F1EA;border-radius:999px;padding:4px 10px;animation:pop 4s infinite}
+@keyframes pop{0%,50%{opacity:0;transform:scale(.9)}60%,100%{opacity:1;transform:none}}
+.m-shop .pay{margin-top:12px;font-size:12px;font-weight:700;text-align:center;padding:11px 0;border-radius:10px;background:#16181A;color:#fff}
+
+/* 04 fiche Google : les étoiles se remplissent */
+.m-gbp .map{height:118px;border-radius:14px 14px 0 0;background:
+  linear-gradient(90deg,transparent 46%,#FFFFFF 46% 50%,transparent 50%),
+  linear-gradient(0deg,transparent 58%,#FFFFFF 58% 62%,transparent 62%),
+  linear-gradient(35deg,transparent 30%,#F8E7A8 30% 33%,transparent 33%),#DCE8DD;position:relative}
+.m-gbp .pin{position:absolute;left:48%;top:42%;width:26px;height:26px;border-radius:50% 50% 50% 0;background:#D93A2B;transform:translate(-50%,-50%) rotate(-45deg);box-shadow:0 6px 12px -4px rgba(0,0,0,.35);animation:drop 4s infinite}
+.m-gbp .pin::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
+@keyframes drop{0%,8%{transform:translate(-50%,-160%) rotate(-45deg);opacity:0}20%,100%{transform:translate(-50%,-50%) rotate(-45deg);opacity:1}}
+.m-gbp .info{padding:14px 16px 16px}
+.m-gbp .info b{font:700 16px var(--display)}
+.m-gbp .meta{font-size:11px;color:#5D6461;margin-top:3px}
+.stars{position:relative;display:inline-block;font-size:14px;letter-spacing:2px;color:#E2E4DF;margin-top:6px}
+.stars span{position:absolute;inset:0;overflow:hidden;color:#F3B300;width:96%;animation:stars 4s infinite}
+@keyframes stars{0%,22%{width:0}60%,100%{width:96%}}
+.m-gbp .st{font-size:11px;font-weight:600;color:#1E8E5A;margin-top:4px}
+.m-gbp .acts{display:flex;gap:6px;margin-top:12px}
+.m-gbp .acts span{flex:1;text-align:center;font-size:10px;font-weight:600;padding:7px 0;border-radius:999px;border:1px solid #DADDD7;color:#1A5FB4}
+.m-gbp .acts span:first-child{background:#1A5FB4;border-color:#1A5FB4;color:#fff}
+
+/* 05 visibilité : la recherche se tape, votre site ressort, l'IA le cite */
+.m-seo{display:grid;gap:10px}
+.m-seo .q{display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:999px;font-size:12px}
+.m-seo .q svg{width:14px;height:14px;flex:none;color:#7A817D}
+.m-seo .typed{display:inline-block;overflow:hidden;white-space:nowrap;border-right:1.5px solid #16181A;width:20ch;animation:type 4s steps(20) infinite,caret .8s step-end infinite}
+@keyframes type{0%,8%{width:0}45%,100%{width:20ch}}
+@keyframes caret{50%{border-color:transparent}}
+.m-seo .res{padding:12px 14px;font-size:11px;animation:hit 4s infinite}
+@keyframes hit{0%,45%{box-shadow:0 0 0 0 #1F6B4F00}60%,100%{box-shadow:0 0 0 2px #1F6B4F}}
+.m-seo .res small{color:#1E7A4D}
+.m-seo .res b{display:block;color:#1A4FA0;font-size:13px;margin:2px 0}
+.m-seo .res p{color:#5D6461;font-size:10.5px;line-height:1.45}
+.m-seo .ai{padding:12px 14px;font-size:10.5px;line-height:1.5;color:#3C423F;animation:pop 4s infinite}
+.m-seo .ai em{font-style:normal;font-weight:700;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#7A817D;display:block;margin-bottom:4px}
+.m-seo .ai mark{background:#FFF1B3;color:#16181A;border-radius:3px;padding:0 3px}
+
+/* 06 refonte : avant / après, le curseur balaie */
+.m-redo{width:min(88%,380px);aspect-ratio:4/3;max-width:100%;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 18px 40px -22px rgba(0,0,0,.35)}
+.m-redo .old,.m-redo .new{position:absolute;inset:0}
+.m-redo .old{background:#E9E4D6;font-family:"Times New Roman",serif;padding:10px;font-size:7px;color:#333;line-height:1.3}
+.m-redo .old b{display:block;font-size:13px;color:#7A1E1E;text-align:center;border-bottom:2px ridge #999;padding-bottom:4px}
+.m-redo .old p{margin:6px 0;columns:3;column-gap:8px;text-align:justify}
+.m-redo .old i{display:inline-block;width:46%;height:34px;background:#BFB7A3;margin:2px 1%}
+.m-redo .new{background:#fff;clip-path:inset(0 0 0 50%);animation:wipe 4s ease-in-out infinite alternate;display:grid;grid-template-columns:1fr 1fr}
+.m-redo .new .l{grid-column:2;padding:16px 14px;display:flex;flex-direction:column;gap:8px}
+.m-redo .new b{font:800 17px/1.05 var(--display);color:#16181A}
+.m-redo .new span{font-size:9px;font-weight:700;color:#fff;background:#1F6B4F;border-radius:7px;padding:7px 10px;align-self:flex-start}
+.m-redo .new i{height:46px;border-radius:8px;background:#C9D8CF}
+@keyframes wipe{from{clip-path:inset(0 0 0 72%)}to{clip-path:inset(0 0 0 28%)}}
+.m-redo .knob{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#16181A;animation:knob 4s ease-in-out infinite alternate}
+.m-redo .knob::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#16181A;color:#fff;font-size:12px;display:grid;place-items:center}
+@keyframes knob{from{left:72%}to{left:28%}}
+.m-redo .tg{position:absolute;bottom:8px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:#16181A;color:#fff;border-radius:999px;padding:3px 8px}
+.m-redo .tg.a{left:8px}.m-redo .tg.b{right:8px;background:#1F6B4F}
+
+/* ---------- Réalisations ---------- */
+.projects{display:grid;gap:48px}
+.project{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:center;text-decoration:none}
 .project:nth-child(even) .browser{order:2}
 .browser{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 20px 50px rgba(0,0,0,.08);transition:transform .25s}
-.project:hover .browser{transform:translateY(-4px) rotate(-.4deg)}
+.project:hover .browser{transform:translateY(-2px)}
+.project:hover .link{text-decoration-thickness:3px}
 .bar{display:flex;gap:6px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
 .bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
 .bar span{margin-left:10px;font-size:12px;color:var(--muted);background:var(--bg);padding:3px 12px;border-radius:6px;flex:1;max-width:260px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .screen{aspect-ratio:16/9.5;position:relative;overflow:hidden;max-width:100%}
-.pinfo h3{font-size:clamp(30px,3.6vw,44px);font-weight:700;margin:8px 0 12px}
+.pinfo h3{font-size:clamp(28px,3.6vw,44px);font-weight:700;margin:8px 0 12px}
 .pinfo p{color:var(--muted);margin:0 0 18px}
 .feats{list-style:none;padding:0;margin:0 0 22px;display:flex;flex-wrap:wrap;gap:8px}
 .feats li{font-size:14px;border:1px solid var(--line);padding:5px 12px;border-radius:999px;background:var(--surface)}
-.go{font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:4px}
 
 /* maquettes miniatures, couleurs propres à chaque client (identiques dans les deux thèmes) */
 .m-car{background:#F2F4F7}
@@ -78,7 +256,6 @@ section{padding-block:80px;border-top:1px solid var(--line)}
 .m-car .cars{position:absolute;left:7%;right:7%;bottom:6%;height:18%;display:flex;gap:4%}
 .m-car .cars i{flex:1;background:#fff;border:1px solid #DCE1E8;border-radius:3px}
 .m-car svg{position:absolute;right:6%;top:18%;width:34%}
-
 .m-cos{background:#FFFFFF}
 .m-cos .ship{position:absolute;left:7%;right:7%;top:11%;height:1px;background:#E4E1DD}
 .m-cos .ship::before{content:"ALBÂTRE";position:absolute;left:50%;top:-180%;transform:translate(-50%,-50%);font:400 clamp(7px,1vw,11px) "Bodoni Moda",Didot,serif;letter-spacing:.32em;color:#1B1A19}
@@ -87,9 +264,7 @@ section{padding-block:80px;border-top:1px solid var(--line)}
 .m-cos .t1 i{color:#9C7B74}
 .m-cos .bt{position:absolute;right:24%;bottom:24%;width:6%;height:30%;background:#C9A27E;border-top:10px solid #1B1A19}
 .m-cos .orb{position:absolute;right:15%;bottom:24%;width:9%;height:13%;background:#EEEAE5;border-top:6px solid #B9B2AA}
-.m-cos .prods{position:absolute;left:12%;right:12%;bottom:24%;height:1px;background:#D8D3CD;left:auto;width:34%;right:10%}
-.m-cos .prods i{display:none}
-
+.m-cos .prods{position:absolute;bottom:24%;height:1px;background:#D8D3CD;width:34%;right:10%}
 .m-res{background:radial-gradient(120% 90% at 50% 100%,#C8693F 0%,#6E2F2A 38%,#1A1110 72%)}
 .m-res .nv{position:absolute;left:0;right:0;top:7%;text-align:center;font:400 clamp(6px,.9vw,10px) Georgia,serif;letter-spacing:.4em;color:#F4EDE1}
 .m-res .arch{position:absolute;left:50%;top:20%;width:30%;height:66%;transform:translateX(-50%);border:1.5px solid #D9B77C;border-bottom:0;border-radius:999px 999px 0 0}
@@ -97,39 +272,52 @@ section{padding-block:80px;border-top:1px solid var(--line)}
 .m-res .cta{position:absolute;left:50%;top:62%;transform:translateX(-50%);width:16%;height:7%;border:1px solid #F4EDE1}
 .m-res .roofs{position:absolute;left:0;right:0;bottom:0;height:16%;background:#0D0B09;clip-path:polygon(0 60%,8% 60%,8% 30%,14% 30%,14% 55%,26% 55%,26% 20%,30% 20%,30% 50%,44% 50%,44% 35%,58% 35%,58% 55%,70% 55%,70% 25%,74% 25%,74% 50%,88% 50%,88% 40%,100% 40%,100% 100%,0 100%)}
 
-.sechead.sub{margin-top:80px}
-.live{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.lcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .25s,border-color .25s}
-.lcard:hover{transform:translateY(-4px);border-color:var(--accent)}
-.lcard h3{font-size:28px;font-weight:700}
-.lcard p{margin:0;color:var(--muted);font-size:16px}
+.sub{margin-top:88px}
+.live{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.lcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .2s,border-color .2s}
+.lcard:hover{transform:translateY(-2px);border-color:var(--accent)}
+.lcard h3{font-size:26px;font-weight:700}
+.lcard p{color:var(--muted);font-size:16px}
 .lcard .url{margin-top:auto;padding-top:8px;font-weight:600;color:var(--accent);font-size:14px;overflow-wrap:anywhere}
-.infra{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.infra li{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
-.infra a,.infra b{font-weight:600;overflow-wrap:anywhere}
-.infra a{color:var(--accent);text-underline-offset:4px}
-.infra span{color:var(--muted);font-size:15px}
+details.infra{margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+details.infra summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font-weight:600}
+details.infra summary::-webkit-details-marker{display:none}
+details.infra summary::after{content:"+";font:400 26px/1 var(--display);color:var(--accent);transition:transform .2s}
+details.infra[open] summary::after{transform:rotate(45deg)}
+details.infra summary small{display:block;font-weight:400;color:var(--muted);font-size:15px}
+details.infra ul{list-style:none;margin:0 0 12px;padding:0}
+details.infra li{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0;border-top:1px solid var(--line)}
+details.infra li a,details.infra li b{font-weight:600;overflow-wrap:anywhere}
+details.infra li a{color:var(--accent);text-underline-offset:4px}
+details.infra li span{color:var(--muted);font-size:15px}
+
+/* ---------- Formules ---------- */
 .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .offer{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:14px}
 .offer.best{border:2px solid var(--accent)}
 .offer .pill{align-self:flex-start;font-size:12px;font-weight:600;background:var(--accent);color:var(--on-accent);padding:3px 10px;border-radius:999px}
 .offer h3{font-size:26px;font-weight:700}
-.offer .price{font-family:var(--display);font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
-.offer .price small{font-family:var(--body);font-size:15px;font-weight:400;color:var(--muted)}
+.offer .price{font-family:var(--display);font-size:34px;font-weight:700}
 .offer ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:6px}
 .offer .for{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
-.note{color:var(--muted);font-size:15px;margin-top:20px}
+.care{margin-top:20px;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 28px}
+.care b{font-family:var(--display);font-size:28px;font-weight:700;white-space:nowrap}
+.care b small{font-family:var(--body);font-size:15px;font-weight:400;color:var(--muted)}
+.care p{color:var(--muted)}
+.care strong{color:var(--fg);font-weight:600}
 
+/* ---------- Méthode ---------- */
 .steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:n}
 .steps li{counter-increment:n}
 .steps li::before{content:counter(n);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--mark);color:#16181A;font-family:var(--display);font-weight:700;margin-bottom:14px}
 .steps h3{font-size:22px;font-weight:700;margin-bottom:6px}
-.steps p{margin:0;color:var(--muted)}
+.steps p{color:var(--muted)}
 .steps .when{display:block;font-size:13px;font-weight:600;color:var(--accent);margin-top:8px}
 
+/* ---------- Contact ---------- */
 .contact .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-.contact h2{font-size:clamp(36px,5vw,60px);font-weight:700}
-.contact p{color:var(--muted);max-width:46ch}
+.contact h2{font-size:clamp(34px,5vw,60px);font-weight:700}
+.contact p{color:var(--muted);max-width:46ch;margin-top:16px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:grid;gap:16px}
 .line{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .line div{min-width:0}
@@ -141,44 +329,270 @@ section{padding-block:80px;border-top:1px solid var(--line)}
 
 footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 
-@media (max-width:860px){
-  .sechead,.project,.contact .wrap{grid-template-columns:1fr}
-  .project:nth-child(even) .browser{order:0}
-  .offers,.live{grid-template-columns:1fr}
-  .sechead.sub{margin-top:56px}
-  .steps{grid-template-columns:1fr 1fr}
-  nav .wrap{flex-wrap:wrap;gap:0}
-  .navlinks{width:100%;gap:20px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
-  .navlinks a{flex:none;padding-inline:2px}
-}
-@media (max-width:480px){.steps{grid-template-columns:1fr}.facts{gap:24px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+/* Barre d'action téléphone : apparaît après le héros, s'efface sur le contact. */
+.dock{display:none}
 
+/* ---------- Tablette et téléphone ---------- */
+@media (max-width:860px){
+  body{font-size:16px}
+  .navlinks{display:none}
+  .menu-btn{display:inline-flex}
+  .hero .wrap{padding-block:20px 48px}
+  .hero .lead{font-size:18px;margin:18px 0 26px}
+  .actions .btn{flex:1 1 200px}
+  .facts{grid-template-columns:1fr;gap:0;margin-top:36px;padding-top:0;border-top:0}
+  .facts li{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
+  .facts b{font-size:20px}
+  .facts span{text-align:right;font-size:14px}
+  section{padding-block:60px}
+  .sechead{grid-template-columns:1fr;gap:12px;margin-bottom:28px}
+  .sechead p{font-size:16px}
+  .sub{margin-top:60px}
+
+  .svc-tabs{display:none}
+  .track{--cw:86%;gap:12px}
+  .svc{grid-template-columns:1fr;opacity:.55}
+  .stage{min-height:0;height:250px;border-right:0;border-bottom:1px solid var(--line)}
+  .stage .mock{transform:scale(.82)}
+  .stage .phone{height:272px;transform:scale(.8)}
+  .svc-body{padding:20px 18px 18px;gap:10px}
+  .svc h3{font-size:24px}
+  .svc p{font-size:15px}
+  .svc ul{display:none}
+  .svc .row{flex-direction:column;align-items:stretch;gap:4px}
+  .svc .row .btn{width:100%}
+  .svc .row .link{align-self:center;padding:11px 0}
+  .arrow{display:none}
+  .dots{display:flex}
+  .svc-nav{flex-direction:column;gap:2px;margin-top:14px}
+  .progress{display:none}
+
+  .projects{gap:40px}
+  .project,.contact .wrap{grid-template-columns:1fr;gap:18px}
+  .project:nth-child(even) .browser{order:0}
+  .pinfo h3{margin:4px 0 8px}
+  .pinfo p{font-size:15px;margin-bottom:12px}
+  .feats{display:none}
+  .live{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+  .lcard{flex-direction:row;flex-wrap:wrap;align-items:center;gap:2px 12px;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:14px 0}
+  .lcard:hover{transform:none}
+  .lcard .label{flex-basis:100%;font-size:11px}
+  .lcard h3{font-size:21px;flex:1}
+  .lcard p{display:none}
+  .lcard .url{margin:0;padding:0;font-size:0}
+  .lcard .url::after{content:"↗";font-size:20px}
+
+  .offers{grid-template-columns:1fr;gap:14px}
+  .offer{padding:22px}
+  .offer.best{order:-1}
+  .offer .price{display:none}
+  .care{grid-template-columns:1fr;padding:20px}
+
+  .steps{grid-template-columns:1fr;gap:0}
+  .steps li{display:grid;grid-template-columns:40px 1fr auto;column-gap:14px;row-gap:2px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+  .steps li::before{grid-row:1/3;align-self:start;margin:0}
+  .steps h3{grid-column:2;font-size:20px;margin:0}
+  .steps .when{grid-column:3;grid-row:1;margin:0}
+  .steps p{grid-column:2/4;font-size:15px}
+
+  .dock{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
+    padding:10px max(16px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+    transform:translateY(110%);visibility:hidden;transition:transform .3s,visibility .3s}
+  .dock.show{transform:none;visibility:visible}
+  .dock .btn{flex:1;padding:12px 10px}
+  body{padding-bottom:76px}
+}
+@media (max-width:400px){
+  .hero h1{font-size:38px}
+  .stage{height:232px}
+  .stage .mock{transform:scale(.76)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .track{scroll-behavior:auto}
+}
+</style>
 <link rel="stylesheet" href="touch.css">
 </head>
 <body>
-<nav><div class="wrap">
+<a class="skip" href="#main">Aller au contenu</a>
+
+<nav aria-label="Navigation principale"><div class="wrap">
   <a class="brand" href="#"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#1F6B4F"/><path fill="#FFD84D" d="M96 112H416V176A32 32 0 0 1 352 176A32 32 0 0 1 288 176A32 32 0 0 1 224 176A32 32 0 0 1 160 176A32 32 0 0 1 96 176Z"/><path fill="#fff" d="M168 248H222L256 352L290 248H344L282 404H230Z"/></svg>Studio<span>Vitrine</span></a>
-  <div class="navlinks"><a href="#realisations">Réalisations</a><a href="#offres">Formules</a><a href="#methode">Méthode</a><a href="#contact">Contact</a></div>
+  <div class="navlinks"><a href="#services">Services</a><a href="#realisations">Réalisations</a><a href="#offres">Formules</a><a href="#methode">Méthode</a><a class="btn" href="#contact">Demander un devis</a></div>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><i aria-hidden="true"></i>Menu</button>
 </div></nav>
 
-<header class="hero"><div class="wrap">
-  <div class="label">Conception de sites web · Commerces et indépendants</div>
-  <h1>Une vitrine en ligne <span class="hl">à la hauteur</span> de votre commerce.</h1>
-  <p>Studio Vitrine conçoit des sites sur mesure pour les commerces de proximité, restaurants et indépendants : un design soigné, une lecture parfaite sur mobile et des fonctionnalités utiles au quotidien, comme la réservation, la vente ou la prise de contact.</p>
-  <div class="actions"><a class="btn" href="#realisations">Découvrir les réalisations</a><a class="btn ghost" href="#contact">Demander un devis</a></div>
-  <div class="facts">
-    <div><b>3 semaines</b><span>délai moyen de réalisation</span></div>
-    <div><b>Mobile d'abord</b><span>une conception pensée pour le smartphone</span></div>
-    <div><b>Un seul contact</b><span>de la conception au suivi du site</span></div>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="brand">Studio<span>Vitrine</span></span>
+    <button class="menu-btn" type="button" data-close aria-label="Fermer le menu">Fermer</button>
   </div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#offres">Formules</a></li>
+    <li><a href="#methode">Méthode</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn" href="#contact">Demander un devis</a>
+</div>
+
+<main id="main">
+<header class="hero"><div class="wrap">
+  <div class="label">Sites web · Commerces et indépendants</div>
+  <h1>Une vitrine en ligne <span class="hl">à la hauteur</span> de votre commerce.</h1>
+  <p class="lead">Des sites sur mesure pour les commerces de proximité, les restaurants et les indépendants. Lisibles sur téléphone, avec réservation, vente ou prise de contact selon votre activité.</p>
+  <div class="actions"><a class="btn" href="#contact">Demander un devis</a><a class="btn ghost" href="#services">Voir les services</a></div>
+  <ul class="facts">
+    <li><b>3 semaines</b><span>délai moyen de réalisation</span></li>
+    <li><b>Mobile d'abord</b><span>pensé pour le smartphone</span></li>
+    <li><b>Un seul contact</b><span>de la conception au suivi</span></li>
+  </ul>
 </div></header>
 
-<section id="realisations"><div class="wrap">
+<section id="services" aria-labelledby="services-t">
+  <div class="wrap">
+    <div class="sechead">
+      <h2 id="services-t">Nos services</h2>
+      <p>Six façons d'amener des clients jusqu'à votre porte. Prenez seulement ce qui sert votre commerce.</p>
+    </div>
+    <div class="svc-tabs" role="group" aria-label="Choisir un service">
+      <button type="button">Site vitrine</button><button type="button">Réservation</button><button type="button">Boutique</button><button type="button">Fiche Google</button><button type="button">Google et IA</button><button type="button">Refonte</button>
+    </div>
+  </div>
+
+  <div class="track" data-track aria-roledescription="carrousel" aria-label="Services">
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 01</span>
+        <div class="mock phone m-site" aria-hidden="true"><div class="scr"><div class="feed">
+          <div class="sh"><small>BOULANGERIE</small><b>Le pain du quartier, cuit sur place</b></div>
+          <div class="open"><i></i>Ouvert · ferme à 19:30</div>
+          <div class="bt"><span>Itinéraire</span><span>Appeler</span></div>
+          <div class="ph"><i></i><i></i><i></i><i></i></div>
+          <div class="hrs"><span>Lun – Ven<b>7:00 – 19:30</b></span><span>Samedi<b>7:30 – 19:00</b></span><span>Dimanche<b>8:00 – 13:00</b></span></div>
+        </div></div></div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Site vitrine</span>
+        <h3>Un site qui donne envie de pousser la porte.</h3>
+        <p>Horaires, services, photos et plan d'accès, trouvés en dix secondes sur un téléphone.</p>
+        <ul><li>Jusqu'à 5 pages</li><li>Formulaire de contact</li><li>Hébergement et nom de domaine compris</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#realisations">Voir les réalisations</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 02</span>
+        <div class="mock panel m-book" aria-hidden="true">
+          <div class="hd"><b>Réserver une table</b>4 pers.</div>
+          <div class="days"><span>Jeu 14</span><span class="on">Ven 15</span><span>Sam 16</span><span>Dim 17</span></div>
+          <div class="slots"><span>19:00</span><span class="off">19:30</span><span>20:00</span><span class="pick">20:30</span><span class="off">21:00</span><span>21:30</span><span>22:00</span><span class="off">22:30</span></div>
+          <div class="toast"><i>✓</i>Réservation confirmée · ven. 20:30</div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Réservation en ligne</span>
+        <h3>Des réservations qui arrivent pendant le service.</h3>
+        <p>Le client choisit son créneau, vous recevez un e-mail. Moins d'appels à décrocher, moins d'oublis.</p>
+        <ul><li>Créneaux, tables ou rendez-vous</li><li>Notifications par e-mail</li><li>Prise en main d'une heure incluse</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="restaurant.html">Voir un exemple</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 03</span>
+        <div class="mock panel m-shop" aria-hidden="true">
+          <div class="ln"><i></i><div>Crème légère<small>50 ml</small></div><b>24 €</b></div>
+          <div class="ln"><i></i><div>Huile démaquillante<small>100 ml</small></div><b>19 €</b></div>
+          <div class="ln"><i></i><div>Baume lèvres<small>15 ml</small></div><b>9 €</b></div>
+          <div class="gauge">Livraison offerte dès 50 €<div class="bar"><i></i></div></div>
+          <span class="free">Livraison offerte débloquée</span>
+          <div class="pay">Payer 52 €</div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Vente en ligne</span>
+        <h3>Une boutique ouverte même le dimanche.</h3>
+        <p>Catalogue, panier et paiement. Le panier affiche le seuil de livraison offerte pour faire grimper la commande.</p>
+        <ul><li>Panier et paiement en ligne</li><li>Filtres par produit</li><li>Commande, retrait ou livraison</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="cosmetique.html">Voir un exemple</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 04</span>
+        <div class="mock panel m-gbp" aria-hidden="true">
+          <div class="map"><span class="pin"></span></div>
+          <div class="info">
+            <b>Votre commerce</b>
+            <div class="meta">Fleuriste · Colombes</div>
+            <div class="stars">★★★★★<span>★★★★★</span></div>
+            <div class="st">Ouvert · ferme à 19:00</div>
+            <div class="acts"><span>Itinéraire</span><span>Appeler</span><span>Site web</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Fiche Google</span>
+        <h3>Bien placé quand on vous cherche près de chez soi.</h3>
+        <p>Votre fiche Google My Business complète et à jour : horaires, photos, avis. Souvent, c'est elle qu'on voit avant votre site.</p>
+        <ul><li>Création ou reprise de la fiche</li><li>Photos, horaires et catégories</li><li>Réponses aux avis</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 05</span>
+        <div class="mock m-seo" aria-hidden="true">
+          <div class="panel q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="typed">fleuriste à Colombes</span></div>
+          <div class="panel res"><small>votre-commerce.fr</small><b>Fleuriste à Colombes · Bouquets du jour</b><p>Bouquets, plantes et compositions sur commande. Retrait en boutique ou livraison dans le quartier.</p></div>
+          <div class="panel ai"><em>Réponse d'une IA</em>Pour un bouquet à Colombes, <mark>votre-commerce.fr</mark> propose le retrait en boutique et la livraison locale.</div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Référencement · SEO et GEO</span>
+        <h3>Trouvé sur Google, cité par les IA.</h3>
+        <p>Textes, balises et données structurées travaillés pour remonter sur Google et apparaître dans les réponses de ChatGPT, Gemini ou Perplexity.</p>
+        <ul><li>Mots que tapent vos clients</li><li>Site rapide sur téléphone</li><li>Compris dans la maintenance</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 06</span>
+        <div class="mock m-redo" aria-hidden="true">
+          <div class="old"><b>Bienvenue sur notre site internet !!!</b><p>Notre établissement vous accueille depuis de nombreuses années dans un cadre agréable. Cliquez sur les liens ci-dessous pour découvrir nos prestations, nos horaires, nos tarifs et notre plan d'accès. Pour toute question, contactez-nous.</p><i></i><i></i><p>Copyright · Tous droits réservés · Plan du site · Liens · Livre d'or</p></div>
+          <div class="new"><div class="l"><b>Votre commerce, en clair.</b><span>Réserver</span><i></i></div></div>
+          <span class="knob"></span><span class="tg a">Avant</span><span class="tg b">Après</span>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Refonte</span>
+        <h3>Votre ancien site, enfin lisible sur téléphone.</h3>
+        <p>Nouveau design pour le mobile, contenus repris, anciennes adresses redirigées pour garder votre référencement.</p>
+        <ul><li>Audit du site existant</li><li>Reprise des contenus</li><li>Redirections SEO</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="wrap">
+    <div class="svc-nav">
+      <button class="arrow" type="button" data-prev aria-label="Service précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="dots" role="group" aria-label="Aller à un service"></div>
+      <span class="count" aria-live="polite">1 / 6</span>
+      <button class="arrow" type="button" data-next aria-label="Service suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<section id="realisations" aria-labelledby="real-t"><div class="wrap">
   <div class="sechead">
-    <h2>Nos réalisations</h2>
-    <p>Trois maquettes de démonstration, puis les projets réellement en ligne et l'infrastructure qui les héberge.</p>
+    <h2 id="real-t">Nos réalisations</h2>
+    <p>Trois maquettes de démonstration à ouvrir, puis les projets déjà en ligne.</p>
   </div>
   <div class="projects">
     <a class="project" href="location-auto.html">
@@ -192,9 +606,9 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
       <div class="pinfo">
         <div class="label">Location de véhicules</div>
         <h3>Rivage Location</h3>
-        <p>Une agence qui souhaite développer la réservation en ligne. Le tarif final s'affiche dès le choix des dates, ce qui rassure le client et réduit les appels.</p>
+        <p>Le tarif final s'affiche dès le choix des dates : le client est rassuré, l'agence reçoit moins d'appels.</p>
         <ul class="feats"><li>Devis instantané</li><li>Flotte filtrable</li><li>Questions fréquentes</li></ul>
-        <span class="go">Voir le projet →</span>
+        <span class="link">Voir le projet →</span>
       </div>
     </a>
     <a class="project" href="cosmetique.html">
@@ -208,9 +622,9 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
       <div class="pinfo">
         <div class="label">Boutique en ligne · Cosmétiques</div>
         <h3>Maison Albâtre</h3>
-        <p>Une marque de soins qui vend en ligne. Le panier met en avant le seuil de livraison offerte afin d'augmenter le montant moyen des commandes.</p>
+        <p>Le panier met en avant le seuil de livraison offerte pour augmenter le montant moyen des commandes.</p>
         <ul class="feats"><li>Panier complet</li><li>Filtre par type de peau</li><li>Inscription à la newsletter</li></ul>
-        <span class="go">Voir le projet →</span>
+        <span class="link">Voir le projet →</span>
       </div>
     </a>
     <a class="project" href="restaurant.html">
@@ -225,16 +639,16 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
       <div class="pinfo">
         <div class="label">Restaurant · Rooftop · Bar</div>
         <h3>Solstice</h3>
-        <p>Un restaurant-rooftop parisien où l'expérience compte autant que la cuisine. Le site met en scène la soirée et facilite les réservations comme les demandes de privatisation.</p>
+        <p>Le site met en scène la soirée et facilite les réservations comme les demandes de privatisation.</p>
         <ul class="feats"><li>Réservation par créneaux</li><li>Agenda des soirées</li><li>Demande de privatisation</li></ul>
-        <span class="go">Voir le projet →</span>
+        <span class="link">Voir le projet →</span>
       </div>
     </a>
   </div>
 
   <div class="sechead sub">
     <h2>En ligne</h2>
-    <p>Des projets réels, publiés et accessibles. Chaque carte ouvre le site dans un nouvel onglet.</p>
+    <p>Des projets réels, publiés et accessibles. Chaque lien ouvre le site dans un nouvel onglet.</p>
   </div>
   <div class="live">
     <a class="lcard" href="https://postmanagement-landing.vercel.app" target="_blank" rel="noopener">
@@ -264,80 +678,138 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
     </a>
   </div>
 
-  <div class="sechead sub">
-    <h2>Infrastructure</h2>
-    <p>Tous nos sites sont hébergés sur Vercel : déploiement en un envoi, HTTPS automatique, réseau de diffusion mondial. Liste complète des adresses en production.</p>
-  </div>
-  <ul class="infra">
-    <li><b>studio-vitrine-chi.vercel.app</b><span>Ce site</span></li>
-    <li><a href="https://postmanagement-landing.vercel.app" target="_blank" rel="noopener">postmanagement-landing.vercel.app</a><span>Plateforme</span></li>
-    <li><a href="https://inspection-auto-camera.vercel.app" target="_blank" rel="noopener">inspection-auto-camera.vercel.app</a><span>Application mobile</span></li>
-    <li><a href="https://chez-os-psi.vercel.app" target="_blank" rel="noopener">chez-os-psi.vercel.app</a><span>Site</span></li>
-    <li><a href="https://delice-df5.vercel.app" target="_blank" rel="noopener">delice-df5.vercel.app</a><span>Site</span></li>
-    <li><a href="https://night-by-night.vercel.app" target="_blank" rel="noopener">night-by-night.vercel.app</a><span>Site</span></li>
-  </ul>
+  <details class="infra">
+    <summary><span>Hébergement<small>Tous nos sites tournent sur Vercel : HTTPS automatique, réseau mondial.</small></span></summary>
+    <ul>
+      <li><b>studio-vitrine-chi.vercel.app</b><span>Ce site</span></li>
+      <li><a href="https://postmanagement-landing.vercel.app" target="_blank" rel="noopener">postmanagement-landing.vercel.app</a><span>Plateforme</span></li>
+      <li><a href="https://inspection-auto-camera.vercel.app" target="_blank" rel="noopener">inspection-auto-camera.vercel.app</a><span>Application mobile</span></li>
+      <li><a href="https://chez-os-psi.vercel.app" target="_blank" rel="noopener">chez-os-psi.vercel.app</a><span>Site</span></li>
+      <li><a href="https://delice-df5.vercel.app" target="_blank" rel="noopener">delice-df5.vercel.app</a><span>Site</span></li>
+      <li><a href="https://night-by-night.vercel.app" target="_blank" rel="noopener">night-by-night.vercel.app</a><span>Site</span></li>
+    </ul>
+  </details>
 </div></section>
 
-<section id="offres"><div class="wrap">
+<section id="offres" aria-labelledby="offres-t"><div class="wrap">
   <div class="sechead">
-    <h2>Formules</h2>
-    <p>Un devis personnalisé, à partir de 300 €, défini avant le début du projet. Hébergement, nom de domaine et mise en ligne compris.</p>
+    <h2 id="offres-t">Formules</h2>
+    <p>Un devis personnalisé, à partir de 300 €, fixé avant le début du projet. Hébergement, nom de domaine et mise en ligne compris.</p>
   </div>
   <div class="offers">
     <article class="offer">
       <h3>Site vitrine</h3>
       <div class="price">Sur devis</div>
       <ul><li>Jusqu'à 5 pages</li><li>Horaires, services, plan d'accès</li><li>Formulaire de contact</li><li>Optimisation de la fiche Google</li></ul>
-      <div class="for">Idéal pour une première présence en ligne.</div>
+      <div class="for">Pour une première présence en ligne.</div>
     </article>
     <article class="offer best">
       <span class="pill">Recommandé</span>
       <h3>Site et réservation ou vente en ligne</h3>
       <div class="price">Sur devis</div>
-      <ul><li>L'ensemble de la formule Site vitrine</li><li>Module de réservation ou boutique en ligne</li><li>Notifications par e-mail</li><li>Prise en main d'une heure incluse</li></ul>
-      <div class="for">Adapté aux restaurants, agences de location, salons et boutiques.</div>
+      <ul><li>Tout le Site vitrine</li><li>Module de réservation ou boutique en ligne</li><li>Notifications par e-mail</li><li>Prise en main d'une heure incluse</li></ul>
+      <div class="for">Restaurants, agences de location, salons et boutiques.</div>
     </article>
     <article class="offer">
       <h3>Refonte de site</h3>
       <div class="price">Sur devis</div>
-      <ul><li>Audit du site existant</li><li>Nouveau design adapté au mobile</li><li>Reprise des contenus existants</li><li>Redirections pour préserver le référencement</li></ul>
+      <ul><li>Audit du site existant</li><li>Nouveau design adapté au mobile</li><li>Reprise des contenus existants</li><li>Redirections pour garder le référencement</li></ul>
       <div class="for">Pour moderniser un site daté ou peu lisible sur mobile.</div>
     </article>
   </div>
-  <p class="note">Maintenance : 40 € par mois, comprenant le SEO, le GEO (visibilité dans les réponses des IA) et la gestion de votre fiche Google My Business, en plus des mises à jour, sauvegardes et modifications courantes.</p>
+  <div class="care">
+    <b>40 € <small>/ mois</small></b>
+    <p><strong>Maintenance.</strong> SEO, GEO (visibilité dans les réponses des IA) et fiche Google My Business, plus les mises à jour, sauvegardes et modifications courantes.</p>
+  </div>
 </div></section>
 
-<section id="methode"><div class="wrap">
-  <div class="sechead"><h2>Méthode</h2></div>
+<section id="methode" aria-labelledby="methode-t"><div class="wrap">
+  <div class="sechead"><h2 id="methode-t">Méthode</h2><p>Trois semaines en moyenne, de l'échange à la mise en ligne.</p></div>
   <ol class="steps">
-    <li><h3>Échange découverte</h3><p>Analyse de votre activité, de votre clientèle et de vos objectifs.</p><span class="when">Semaine 1</span></li>
-    <li><h3>Maquette</h3><p>Présentation de la page d'accueil, puis ajustements selon vos retours.</p><span class="when">Semaines 1 à 2</span></li>
-    <li><h3>Développement</h3><p>Réalisation de l'ensemble des pages et tests sur mobile et ordinateur.</p><span class="when">Semaines 2 à 3</span></li>
-    <li><h3>Mise en ligne</h3><p>Publication sur votre nom de domaine et prise en main de votre site.</p><span class="when">Semaine 3</span></li>
+    <li><h3>Échange découverte</h3><span class="when">Semaine 1</span><p>Analyse de votre activité, de votre clientèle et de vos objectifs.</p></li>
+    <li><h3>Maquette</h3><span class="when">Semaines 1 à 2</span><p>Présentation de la page d'accueil, puis ajustements selon vos retours.</p></li>
+    <li><h3>Développement</h3><span class="when">Semaines 2 à 3</span><p>Réalisation de l'ensemble des pages et tests sur mobile et ordinateur.</p></li>
+    <li><h3>Mise en ligne</h3><span class="when">Semaine 3</span><p>Publication sur votre nom de domaine et prise en main de votre site.</p></li>
   </ol>
 </div></section>
 
-<section class="contact" id="contact"><div class="wrap">
+<section class="contact" id="contact" aria-labelledby="contact-t"><div class="wrap">
   <div>
-    <h2>Démarrer un projet</h2>
+    <h2 id="contact-t">Démarrer un projet</h2>
     <p>Présentez votre activité et vos besoins. Après un premier échange, vous recevez un devis détaillé.</p>
   </div>
   <div class="card">
-    <div class="line"><div><small>E-mail</small><b id="mail"><a href="mailto:studio.vitrine92700@gmail.com">studio.vitrine92700@gmail.com</a></b></div><button class="copy" data-copy="mail">Copier</button></div>
-    <div class="line"><div><small>Téléphone</small><b id="phone"><a href="tel:+33667728602">06 67 72 86 02</a></b></div><button class="copy" data-copy="phone">Copier</button></div>
+    <div class="line"><div><small>E-mail</small><b id="mail"><a href="mailto:studio.vitrine92700@gmail.com">studio.vitrine92700@gmail.com</a></b></div><button class="copy" type="button" data-copy="mail">Copier</button></div>
+    <div class="line"><div><small>Téléphone</small><b id="phone"><a href="tel:+33667728602">06 67 72 86 02</a></b></div><button class="copy" type="button" data-copy="phone">Copier</button></div>
     <div class="line"><div><small>Zone d'intervention</small><b>Colombes et Hauts-de-Seine en rendez-vous, toute la France en visioconférence</b></div></div>
   </div>
 </div></section>
+</main>
 
 <footer><div class="wrap">© 2026 Studio Vitrine · Les trois maquettes sont des démonstrations, les entreprises sont fictives. · <a href="mentions-legales.html">Mentions légales</a> · <a href="/espace">Espace pro</a></div></footer>
 
+<div class="dock" aria-label="Actions rapides"><a class="btn ghost" href="tel:+33667728602">Appeler</a><a class="btn" href="#contact">Demander un devis</a></div>
+
 <script>
+/* Copier e-mail et téléphone */
 document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
   const el=document.getElementById(b.dataset.copy),txt=el.textContent;
   const done=()=>{b.textContent='Copié';setTimeout(()=>b.textContent='Copier',1600)};
-  try{navigator.clipboard.writeText(txt).then(done,()=>{getSelection().selectAllChildren(el)})}catch(e){getSelection().selectAllChildren(el)}
+  try{navigator.clipboard.writeText(txt).then(done,()=>getSelection().selectAllChildren(el))}catch(e){getSelection().selectAllChildren(el)}
 }));
-</script>
 
+/* Menu plein écran (téléphone) */
+(()=>{
+  const menu=document.getElementById('menu'),open=document.querySelector('nav .menu-btn');
+  const set=v=>{menu.hidden=!v;open.setAttribute('aria-expanded',v);document.body.style.overflow=v?'hidden':'';(v?menu.querySelector('a'):open).focus()};
+  open.addEventListener('click',()=>set(true));
+  menu.querySelector('[data-close]').addEventListener('click',()=>set(false));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.hidden=true;open.setAttribute('aria-expanded',false);document.body.style.overflow=''}));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden)set(false)});
+})();
+
+/* Piste des services : le navigateur gère le défilement et l'aimantation, on ne fait que suivre
+   la carte centrée pour les onglets, les points, le compteur et la barre. */
+(()=>{
+  const sec=document.getElementById('services'),track=sec.querySelector('[data-track]'),cards=[...track.children],N=cards.length;
+  const tabs=[...sec.querySelectorAll('.svc-tabs button')],dots=sec.querySelector('.dots'),count=sec.querySelector('.count');
+  const prev=sec.querySelector('[data-prev]'),next=sec.querySelector('[data-next]'),bar=sec.querySelector('.progress i');
+  cards.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Service ${i+1} : ${c.querySelector('.tag').textContent}`);b.innerHTML='<span></span>';dots.append(b);c.setAttribute('aria-label',`${i+1} sur ${N}`)});
+  const dotBtns=[...dots.children];
+  let active=-1;
+  const centre=r=>r.left+r.width/2;
+  const go=i=>{const c=cards[Math.max(0,Math.min(N-1,i))];track.scrollTo({left:track.scrollLeft+centre(c.getBoundingClientRect())-centre(track.getBoundingClientRect())})};
+  const show=i=>{
+    if(i===active)return;active=i;
+    cards.forEach((c,k)=>c.classList.toggle('is-active',k===i));
+    for(const set of [tabs,dotBtns])set.forEach((b,k)=>b.setAttribute('aria-current',String(k===i)));
+    count.textContent=`${i+1} / ${N}`;bar.style.width=`${(i+1)/N*100}%`;
+    prev.disabled=i===0;next.disabled=i===N-1;
+  };
+  let raf=0;
+  track.addEventListener('scroll',()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const m=centre(track.getBoundingClientRect());
+    let best=0,d=1e9;cards.forEach((c,k)=>{const e=Math.abs(centre(c.getBoundingClientRect())-m);if(e<d){d=e;best=k}});show(best)})},{passive:true});
+  tabs.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
+  dotBtns.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
+  prev.addEventListener('click',()=>go(active-1));next.addEventListener('click',()=>go(active+1));
+  track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(active+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(active-1)}});
+  /* Une carte voisine qui reçoit le focus clavier est ramenée au centre. */
+  track.addEventListener('focusin',e=>{const i=cards.findIndex(c=>c.contains(e.target));if(i!==active)go(i)});
+  /* Les petites scènes ne tournent que quand la section est à l'écran. */
+  if('IntersectionObserver' in window)new IntersectionObserver(([e])=>sec.classList.toggle('paused',!e.isIntersecting)).observe(sec);
+  show(0);
+})();
+
+/* Barre d'action téléphone : visible après les services (chaque carte porte déjà le bouton
+   devis) et jusqu'au contact. */
+(()=>{
+  const dock=document.querySelector('.dock'),svc=document.getElementById('services'),contact=document.getElementById('contact');
+  if(!('IntersectionObserver' in window))return;
+  let past=false,atContact=false;
+  const upd=()=>dock.classList.toggle('show',past&&!atContact);
+  new IntersectionObserver(([e])=>{past=!e.isIntersecting&&e.boundingClientRect.top<0;upd()}).observe(svc);
+  new IntersectionObserver(([e])=>{atContact=e.isIntersecting;upd()},{rootMargin:'0px 0px -20% 0px'}).observe(contact);
+})();
+</script>
 </body>
 </html>
