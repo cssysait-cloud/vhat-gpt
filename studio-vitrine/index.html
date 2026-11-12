@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Studio Vitrine conçoit des sites sur mesure pour les commerces de proximité, restaurants et indépendants.">
+<meta name="description" content="Studio Vitrine conçoit des sites et des outils sur mesure pour les commerces, restaurants et indépendants : vitrine, réservation, vente en ligne, CRM, tableaux de bord avec agent IA, audit de sécurité.">
 <meta name="theme-color" content="#1F6B4F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Studio Vitrine</title>
@@ -85,7 +85,9 @@ section{padding-block:88px;border-top:1px solid var(--line)}
 
 /* ---------- Services : piste horizontale, une carte au centre ---------- */
 #services{overflow:hidden}
-.svc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.svc-tabs{display:flex;flex-wrap:wrap;gap:10px 28px;margin-bottom:28px}
+.grp{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.grp>span{font-size:13px;font-weight:600;color:var(--muted);margin-right:4px}
 .svc-tabs button{font:600 13px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .svc-tabs button:hover{color:var(--fg);border-color:var(--fg)}
 .svc-tabs button[aria-current="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -110,10 +112,6 @@ section{padding-block:88px;border-top:1px solid var(--line)}
 .arrow:active{transform:scale(.94)}
 .arrow:disabled{opacity:.35;cursor:default}
 .arrow svg{width:18px;height:18px}
-.dots{display:none;align-items:center}
-.dots button{width:26px;height:44px;border:0;background:none;padding:0;display:grid;place-items:center;cursor:pointer}
-.dots button span{display:block;width:7px;height:7px;border-radius:99px;background:var(--line);transition:width .25s,background .25s}
-.dots button[aria-current="true"] span{width:22px;background:var(--accent)}
 .count{font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--muted);font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:center}
 .progress{height:2px;background:var(--line);border-radius:2px;margin:18px auto 0;max-width:220px;overflow:hidden}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
@@ -229,6 +227,52 @@ section{padding-block:88px;border-top:1px solid var(--line)}
 .m-redo .tg{position:absolute;bottom:8px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:#16181A;color:#fff;border-radius:999px;padding:3px 8px}
 .m-redo .tg.a{left:8px}.m-redo .tg.b{right:8px;background:#1F6B4F}
 
+/* 07 CRM : une affaire passe de « Devis envoyé » à « Gagné » */
+.m-crm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px;width:min(94%,390px)}
+.m-crm .col{background:#F1F3EF;border-radius:10px;padding:7px;display:grid;gap:6px;align-content:start;min-height:176px}
+.m-crm .col>b{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#5D6461;display:flex;justify-content:space-between;gap:4px}
+.m-crm .col>b em{font-style:normal;color:#16181A}
+.m-crm .c{background:#fff;border:1px solid #E3E6E0;border-radius:8px;padding:7px;font-size:10px;font-weight:600;line-height:1.3}
+.m-crm .c small{display:block;color:#7A817D;font-size:8.5px;font-weight:400}
+.m-crm .c.mv{border-color:#1F6B4F;box-shadow:0 0 0 1px #1F6B4F;position:relative;z-index:2;animation:mv 4s ease-in-out infinite}
+@keyframes mv{0%,20%{transform:translateX(calc(-100% - 22px))}30%{transform:translateX(calc(-100% - 22px)) translateY(-4px) rotate(-3deg)}60%,100%{transform:none}}
+
+/* 08 compta : les barres montent, l'agent répond */
+.m-acc{padding:14px;display:grid;gap:9px;width:min(92%,370px)}
+.m-acc .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.m-acc .k{background:#F1F3EF;border-radius:10px;padding:8px 10px;font-size:9px;color:#5D6461;line-height:1.3}
+.m-acc .k b{display:block;font:700 17px var(--display);color:#16181A;font-variant-numeric:tabular-nums;margin-top:2px}
+.m-acc .k b.late{color:#C2410C}
+.m-acc .bars{display:flex;align-items:flex-end;gap:5px;height:54px;border-bottom:1px solid #E3E6E0}
+.m-acc .bars i{flex:1;background:#C9D8CF;border-radius:3px 3px 0 0;transform-origin:bottom;animation:grow 4s ease-out infinite}
+.m-acc .bars i:last-child{background:#1F6B4F}
+@keyframes grow{0%,8%{transform:scaleY(.12)}40%,100%{transform:none}}
+.m-acc .ask{justify-self:end;background:#16181A;color:#fff;font-size:10px;border-radius:10px 10px 2px 10px;padding:6px 10px}
+.m-acc .ans{background:#E3F1EA;color:#16181A;font-size:10px;line-height:1.45;border-radius:10px 10px 10px 2px;padding:7px 10px;animation:pop 4s infinite}
+.m-acc .ans em{font-style:normal;font-weight:700;color:#1F6B4F;margin-right:4px}
+
+/* 09 audit : les contrôles tombent un par un */
+.m-sec{padding:14px 16px;width:min(92%,360px);font-size:11px}
+.m-sec .hd{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.m-sec .hd b{font:700 15px var(--display)}
+.m-sec .hd span{font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#FFF1B3;color:#6B5200;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.m-sec .r{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid #EEF0EC;animation:row 4s infinite}
+.m-sec .r:nth-child(3){animation-delay:.2s}.m-sec .r:nth-child(4){animation-delay:.4s}.m-sec .r:nth-child(5){animation-delay:.6s}.m-sec .r:nth-child(6){animation-delay:.8s}
+@keyframes row{0%,6%{opacity:0;transform:translateX(-6px)}16%,100%{opacity:1;transform:none}}
+.m-sec .r i{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:800;color:#fff;flex:none}
+.m-sec .ok{background:#2DB37A}.m-sec .warn{background:#D99A00}.m-sec .ko{background:#D93A2B}
+.m-sec .r small{margin-left:auto;color:#7A817D;font-size:9.5px;white-space:nowrap}
+
+/* 10 sur mesure : les briques s'allument tour à tour */
+.m-any{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(92%,360px)}
+.m-any span{background:#fff;border:1px solid #E3E6E0;border-radius:12px;padding:14px 6px;display:grid;justify-items:center;gap:7px;font-size:10.5px;font-weight:600;text-align:center;box-shadow:0 10px 24px -18px rgba(0,0,0,.4);animation:cyc 6s infinite}
+.m-any span:nth-child(2){animation-delay:1s}.m-any span:nth-child(3){animation-delay:2s}.m-any span:nth-child(4){animation-delay:3s}.m-any span:nth-child(5){animation-delay:4s}.m-any span:nth-child(6){animation-delay:5s}
+@keyframes cyc{0%,14%{border-color:#1F6B4F;box-shadow:0 0 0 1px #1F6B4F,0 10px 24px -14px rgba(0,0,0,.4);transform:translateY(-2px)}22%,100%{border-color:#E3E6E0;transform:none}}
+.m-any span i{width:30px;height:30px;border-radius:9px;background:#E3F1EA;color:#1F6B4F;display:grid;place-items:center}
+.m-any span i svg{width:17px;height:17px}
+.m-any .plus{border-style:dashed;background:#FBFCFA}
+.m-any .plus i{background:#FFF1B3;color:#6B5200}
+
 /* ---------- Réalisations ---------- */
 .projects{display:grid;gap:48px}
 .project{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:center;text-decoration:none}
@@ -300,7 +344,7 @@ details.infra li span{color:var(--muted);font-size:15px}
 .offer .price{font-family:var(--display);font-size:34px;font-weight:700}
 .offer ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:6px}
 .offer .for{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px;margin-top:auto}
-.care{margin-top:20px;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 28px}
+.care{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 28px}
 .care b{font-family:var(--display);font-size:28px;font-weight:700;white-space:nowrap}
 .care b small{font-family:var(--body);font-size:15px;font-weight:400;color:var(--muted)}
 .care p{color:var(--muted)}
@@ -362,10 +406,8 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
   .svc .row{flex-direction:column;align-items:stretch;gap:4px}
   .svc .row .btn{width:100%}
   .svc .row .link{align-self:center;padding:11px 0}
-  .arrow{display:none}
-  .dots{display:flex}
-  .svc-nav{flex-direction:column;gap:2px;margin-top:14px}
-  .progress{display:none}
+  .svc-nav{margin-top:16px}
+  .progress{margin-top:12px;max-width:160px}
 
   .projects{gap:40px}
   .project,.contact .wrap{grid-template-columns:1fr;gap:18px}
@@ -441,9 +483,9 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
 
 <main id="main">
 <header class="hero"><div class="wrap">
-  <div class="label">Sites web · Commerces et indépendants</div>
+  <div class="label">Sites et outils sur mesure</div>
   <h1>Une vitrine en ligne <span class="hl">à la hauteur</span> de votre commerce.</h1>
-  <p class="lead">Des sites sur mesure pour les commerces de proximité, les restaurants et les indépendants. Lisibles sur téléphone, avec réservation, vente ou prise de contact selon votre activité.</p>
+  <p class="lead">Des sites pour faire venir les clients, des outils pour gérer le reste : CRM, tableau de bord comptable, agent IA. Pour les commerces, les restaurants et les indépendants, tout est construit sur mesure.</p>
   <div class="actions"><a class="btn" href="#contact">Demander un devis</a><a class="btn ghost" href="#services">Voir les services</a></div>
   <ul class="facts">
     <li><b>3 semaines</b><span>délai moyen de réalisation</span></li>
@@ -456,10 +498,11 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
   <div class="wrap">
     <div class="sechead">
       <h2 id="services-t">Nos services</h2>
-      <p>Six façons d'amener des clients jusqu'à votre porte. Prenez seulement ce qui sert votre commerce.</p>
+      <p>Des sites pour être trouvé, des outils pour gérer l'activité. Prenez seulement ce qui vous sert, on construit le reste.</p>
     </div>
     <div class="svc-tabs" role="group" aria-label="Choisir un service">
-      <button type="button">Site vitrine</button><button type="button">Réservation</button><button type="button">Boutique</button><button type="button">Fiche Google</button><button type="button">Google et IA</button><button type="button">Refonte</button>
+      <div class="grp"><span>Sites</span><button type="button">Site vitrine</button><button type="button">Réservation</button><button type="button">Boutique</button><button type="button">Fiche Google</button><button type="button">Google et IA</button><button type="button">Refonte</button></div>
+      <div class="grp"><span>Outils</span><button type="button">CRM</button><button type="button">Compta et IA</button><button type="button">Sécurité</button><button type="button">Sur mesure</button></div>
     </div>
   </div>
 
@@ -576,13 +619,87 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
         <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
       </div>
     </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 07</span>
+        <div class="mock panel m-crm" aria-hidden="true">
+          <div class="col"><b>Nouveau<em>3</em></b><div class="c">Boulangerie Léa<small>Site vitrine</small></div><div class="c">Garage Martin<small>Réservation</small></div></div>
+          <div class="col"><b>Devis envoyé<em>2</em></b><div class="c">Salon Nour<small>Relance demain</small></div></div>
+          <div class="col"><b>Gagné<em>4</em></b><div class="c mv">Café du Parc<small>Boutique · signé</small></div><div class="c">Atelier Sami<small>Refonte</small></div></div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">CRM sur mesure</span>
+        <h3>Vos clients et vos devis au même endroit.</h3>
+        <p>Un CRM construit autour de votre façon de vendre : fiches clients, relances, devis et historique, sans licences pour des fonctions dont vous n'avez pas besoin.</p>
+        <ul><li>Suivi des affaires et relances</li><li>Devis et factures</li><li>Accès par rôle pour l'équipe</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 08</span>
+        <div class="mock panel m-acc" aria-hidden="true">
+          <div class="kpis"><div class="k">Chiffre d'affaires du mois<b>12 480 €</b></div><div class="k">Factures en retard<b class="late">3</b></div></div>
+          <div class="bars"><i style="height:38%"></i><i style="height:52%"></i><i style="height:44%"></i><i style="height:63%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:90%"></i></div>
+          <div class="ask">Quelles factures sont en retard ?</div>
+          <div class="ans"><em>Agent IA</em> 3 factures, 2 140 € au total. Les relances sont prêtes à envoyer.</div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Gestion · Agent IA</span>
+        <h3>Votre comptabilité lisible d'un coup d'œil.</h3>
+        <p>Chiffre d'affaires, dépenses, factures en retard et trésorerie dans un tableau de bord à jour, avec un agent IA qui répond à vos questions et prépare les relances.</p>
+        <ul><li>Tableau de bord à jour</li><li>Agent IA pour les questions et les relances</li><li>Export pour votre comptable</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 09</span>
+        <div class="mock panel m-sec" aria-hidden="true">
+          <div class="hd"><b>Rapport d'audit</b><span>2 points à corriger</span></div>
+          <div class="r"><i class="ok">✓</i>HTTPS et en-têtes de sécurité<small>conforme</small></div>
+          <div class="r"><i class="ok">✓</i>Sauvegardes<small>quotidiennes</small></div>
+          <div class="r"><i class="warn">!</i>Mots de passe et accès<small>à renforcer</small></div>
+          <div class="r"><i class="ko">×</i>Extensions à jour<small>3 en retard</small></div>
+          <div class="r"><i class="ok">✓</i>Formulaires protégés<small>conforme</small></div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Audit de sécurité</span>
+        <h3>Vos failles trouvées avant les autres.</h3>
+        <p>On passe en revue votre site, vos accès et vos outils, puis on vous remet un rapport clair : ce qui va, ce qui doit être corrigé, et dans quel ordre.</p>
+        <ul><li>Site, hébergement et accès</li><li>Rapport classé par priorité</li><li>Corrections possibles sur devis</li></ul>
+        <div class="row"><a class="btn" href="#contact">Demander un devis</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
+
+    <article class="svc">
+      <div class="stage"><span class="badge">Service 10</span>
+        <div class="mock m-any" aria-hidden="true">
+          <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i>Planning</span>
+          <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></i>Stock</span>
+          <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></i>Espace client</span>
+          <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></i>Appli mobile</span>
+          <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></i>Automatisations</span>
+          <span class="plus"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></i>Votre idée</span>
+        </div>
+      </div>
+      <div class="svc-body">
+        <span class="tag">Sur mesure</span>
+        <h3>Pas dans la liste&nbsp;? On le construit.</h3>
+        <p>Planning, gestion de stock, espace client, application mobile, automatisations : on part de votre problème et on construit l'outil qui le règle.</p>
+        <ul><li>Un premier échange pour cadrer</li><li>Devis fixé avant de commencer</li><li>Suivi après la mise en ligne</li></ul>
+        <div class="row"><a class="btn" href="#contact">Décrire mon besoin</a><a class="link" href="#offres">Voir les formules</a></div>
+      </div>
+    </article>
   </div>
 
   <div class="wrap">
     <div class="svc-nav">
       <button class="arrow" type="button" data-prev aria-label="Service précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <div class="dots" role="group" aria-label="Aller à un service"></div>
-      <span class="count" aria-live="polite">1 / 6</span>
+      <span class="count" aria-live="polite">1 / 10</span>
       <button class="arrow" type="button" data-next aria-label="Service suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
     <div class="progress" aria-hidden="true"><i></i></div>
@@ -718,6 +835,10 @@ footer{padding-block:32px;color:var(--muted);font-size:14px;border-top:1px solid
     </article>
   </div>
   <div class="care">
+    <b>Sur devis</b>
+    <p><strong>Outils sur mesure.</strong> CRM, tableau de bord comptable avec agent IA, audit de sécurité, application ou automatisation : chiffré après un premier échange.</p>
+  </div>
+  <div class="care">
     <b>40 € <small>/ mois</small></b>
     <p><strong>Maintenance.</strong> SEO, GEO (visibilité dans les réponses des IA) et fiche Google My Business, plus les mises à jour, sauvegardes et modifications courantes.</p>
   </div>
@@ -772,17 +893,16 @@ document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
    la carte centrée pour les onglets, les points, le compteur et la barre. */
 (()=>{
   const sec=document.getElementById('services'),track=sec.querySelector('[data-track]'),cards=[...track.children],N=cards.length;
-  const tabs=[...sec.querySelectorAll('.svc-tabs button')],dots=sec.querySelector('.dots'),count=sec.querySelector('.count');
+  const tabs=[...sec.querySelectorAll('.svc-tabs button')],count=sec.querySelector('.count');
   const prev=sec.querySelector('[data-prev]'),next=sec.querySelector('[data-next]'),bar=sec.querySelector('.progress i');
-  cards.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Service ${i+1} : ${c.querySelector('.tag').textContent}`);b.innerHTML='<span></span>';dots.append(b);c.setAttribute('aria-label',`${i+1} sur ${N}`)});
-  const dotBtns=[...dots.children];
+  cards.forEach((c,i)=>c.setAttribute('aria-label',`${i+1} sur ${N}`));
   let active=-1;
   const centre=r=>r.left+r.width/2;
   const go=i=>{const c=cards[Math.max(0,Math.min(N-1,i))];track.scrollTo({left:track.scrollLeft+centre(c.getBoundingClientRect())-centre(track.getBoundingClientRect())})};
   const show=i=>{
     if(i===active)return;active=i;
     cards.forEach((c,k)=>c.classList.toggle('is-active',k===i));
-    for(const set of [tabs,dotBtns])set.forEach((b,k)=>b.setAttribute('aria-current',String(k===i)));
+    tabs.forEach((b,k)=>b.setAttribute('aria-current',String(k===i)));
     count.textContent=`${i+1} / ${N}`;bar.style.width=`${(i+1)/N*100}%`;
     prev.disabled=i===0;next.disabled=i===N-1;
   };
@@ -790,7 +910,6 @@ document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
   track.addEventListener('scroll',()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const m=centre(track.getBoundingClientRect());
     let best=0,d=1e9;cards.forEach((c,k)=>{const e=Math.abs(centre(c.getBoundingClientRect())-m);if(e<d){d=e;best=k}});show(best)})},{passive:true});
   tabs.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
-  dotBtns.forEach((b,i)=>b.addEventListener('click',()=>go(i)));
   prev.addEventListener('click',()=>go(active-1));next.addEventListener('click',()=>go(active+1));
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(active+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(active-1)}});
   /* Une carte voisine qui reçoit le focus clavier est ramenée au centre. */
